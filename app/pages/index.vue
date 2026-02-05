@@ -1,24 +1,25 @@
 <template>
   <section>
-    <form @submit.prevent="onSubmit" class="bg-white p-4 mb-6 border">
-      <div class="grid grid-cols-3 gap-4">
-        <div>
+    <form @submit.prevent="onSubmit" class="bg-gray-100 p-4 mb-6 border rounded shadow">
+      <h1 class="text-3xl font-semibold mb-6">Add Ride</h1>
+      <div class="grid grid-cols-6 gap-4">
+        <div class="col-span-1">
           <label class="block text-sm">Date*</label>
-          <input v-model="form.date" type="date" required class="border px-2 py-1 w-full" />
+          <input v-model="form.date" type="date" required class="border px-2 py-1 w-full bg-amber-50" />
         </div>
-        <div>
+        <div class="col-span-2">
           <label class="block text-sm">Description*</label>
           <input v-model="form.description" type="text" required class="border px-2 py-1 w-full" />
         </div>
-        <div>
+        <div class="col-span-1">
           <label class="block text-sm">Distance*</label>
           <input v-model.number="form.distance" type="number" step="0.1" required class="border px-2 py-1 w-full" />
         </div>
-        <div>
+        <div class="col-span-1">
           <label class="block text-sm">Average</label>
           <input v-model.number="form.average" type="number" step="0.1" class="border px-2 py-1 w-full" />
         </div>
-        <div>
+        <div class="col-span-1">
           <label class="block text-sm">Bike*</label>
           <select v-model="form.bike" required class="border px-2 py-1 w-full">
             <option value="Santos">Santos</option>
@@ -27,21 +28,21 @@
             <option value="Wahoo">Wahoo</option>
           </select>
         </div>
-        <div>
+        <div class="col-span-2">
           <label class="block text-sm">Reference</label>
           <input v-model="form.reference" type="text" class="border px-2 py-1 w-full" @input="onReferenceInput" />
         </div>
-        <div>
+        <div class="col-span-1">
           <label class="block text-sm">Link</label>
           <input v-model="form.link" :disabled="!form.reference" type="text" class="border px-2 py-1 w-full" />
         </div>
-          <div class="col-span-2">
+        <div class="col-span-2">
           <label class="block text-sm">Notes</label>
           <input v-model="form.notes" type="text" class="border px-2 py-1 w-full" />
         </div>
-        <div class="flex items-end space-x-2">
-          <button type="submit" class="px-3 py-1 bg-green-600 text-white" :disabled="loading">{{ isEditing ? 'Update' : 'Add' }}</button>
-          <button type="button" @click="clearForm" class="px-3 py-1 border" :disabled="loading">Clear</button>
+        <div class="col-span-1 flex items-end space-x-2">
+          <button type="submit" class="fts px-3 py-1" :disabled="loading">{{ isEditing ? 'Update' : 'Add' }}</button>
+          <button type="button" @click="clearForm" class="fts px-3 py-1 border" :disabled="loading">Clear</button>
         </div>
       </div>
     </form>
@@ -51,8 +52,8 @@
 
     <div class="flex items-center justify-between mt-4 mb-4">
       <div class="flex items-center space-x-2">
-        <button class="px-3 py-1 bg-blue-600 text-white disabled:opacity-50" :disabled="!selectedRow || loading" @click="onEdit">Edit</button>
-        <button class="px-3 py-1 bg-red-600 text-white disabled:opacity-50" :disabled="!selectedRow || loading" @click="onDelete">Delete</button>
+        <button class="px-3 py-1 fts disabled:opacity-50" :disabled="!selectedRow || loading" @click="onEdit">Edit</button>
+        <button class="px-3 py-1 fts-delete disabled:opacity-50" :disabled="!selectedRow || loading" @click="onDelete">Delete</button>
       </div>
       <div class="flex items-center space-x-2">
           <input v-model="tableState.globalFilter" placeholder="Search" class="border px-2 py-1" />

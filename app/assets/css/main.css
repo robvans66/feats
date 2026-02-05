@@ -1,11 +1,43 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-/* Global: remove rounded corners on buttons */
-button,
+:root {
+  --ui-primary: #3b82f6; /* Tailwind's blue-500 */
+  --ui-secondary: #6b7280; /* Tailwind's gray-500 */
+  --ui-success: #10b981; /* Tailwind's green-500 */
+  --ui-error: #ef4444; /* Tailwind's red-500 */
+  --ui-warning: #f59e0b; /* Tailwind's yellow-500 */
+
+  --fts-ui-dark: #003d3b;
+  --fts-ui-primary: #f6853c; /* orange */
+  --fts-ui-button: #007a76;
+  --fts-ui-button-hover: #00615e;
+}
+
+#__nuxt button,
 .u-btn,
-.btn {
-  border-radius: 0 !important;
+.btn,
+input,
+select,
+textarea {
+  border-radius: 4px;
+}
+
+#__nuxt button.fts {
+  background-color: var(--fts-ui-button);
+  color: white;
+}
+#__nuxt button.fts:hover {
+  background-color: var(--fts-ui-button-hover);
+  color: white;
+}
+#__nuxt button.fts-delete {
+  background-color: var(--fts-ui-button);
+  color: white;
+}
+#__nuxt button.fts-delete:hover {
+  background-color: red;
+  color: white;
 }
 
 /* basic layout spacing */

@@ -1,0 +1,2 @@
+- als je kolom hebt gelecteerd blijft ie selected, ook nadat je op Clear hebt geklikt (form wordt dan wel leeg, maar selectie blijt)
+- als je een record selecteert en op Edit klikt en het record dan delete, blijft het in het form staan (is natuurlijke vreemde werkwijze, maar het mag niet)

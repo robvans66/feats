@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
     public: {
-      appVersion: '0.0.0'
+      appVersion: '1.0.0',
     }
   }
 })

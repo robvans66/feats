@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-[#424242] text-white mt-8">
+  <footer class="bg-[var(--fts-ui-dark)] text-white mt-8">
     <div class="max-w-6xl mx-auto px-4 py-4 text-sm text-white/80 flex justify-between">
         <div>Feats - keep track of your bicycle rides and planned routes</div>
         <div>

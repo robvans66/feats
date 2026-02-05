@@ -5,7 +5,7 @@
 
     <h2 class="text-lg font-semibold">Version History</h2>
     <ul class="list-disc ml-6">
-      <li><strong>v0.1.0</strong> — Initial version: Rides, Routes, Statistics, About, SQLite backend.</li>
+      <li><strong>v1.0.260205</strong> — Initial version: Rides, Routes, Statistics, About, SQLite backend.</li>
     </ul>
   </section>
 </template>
