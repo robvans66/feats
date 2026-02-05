@@ -1,6 +1,10 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
   "files": [],
+  "include": [
+    "nuxt.d.ts",
+    "shims-vue.d.ts"
+  ],
   "references": [
     {
       "path": "./.nuxt/tsconfig.app.json"

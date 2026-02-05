@@ -34,8 +34,10 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { $fetch } from 'ofetch'
+
 const stats = ref({ yearTotals:[], perBike:[], longestPerYear:[] })
-onMounted(async ()=>{
+onMounted(async () => {
   const d:any = await $fetch('/api/stats')
   stats.value = d
 })

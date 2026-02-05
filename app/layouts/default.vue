@@ -9,7 +9,4 @@
 </template>
 
 <script setup lang="ts">
-import UHeader from '~/components/UHeader.vue'
-import UMain from '~/components/UMain.vue'
-import UFooter from '~/components/UFooter.vue'
 </script>
