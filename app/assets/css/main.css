@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/* Global: remove rounded corners on buttons */
+button,
+.u-btn,
+.btn {
+  border-radius: 0 !important;
+}
+
+/* basic layout spacing */
+body {
+  @apply bg-gray-50 text-gray-800;
+}
+
+/* Toast transition */
+.toast-enter-active, .toast-leave-active {
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+.toast-enter-from, .toast-leave-to {
+  transform: translateY(8px);
+  opacity: 0;
+}
+.toast-enter-to, .toast-leave-from {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Spinner overlay fade */
+.spinner-fade-enter-active, .spinner-fade-leave-active {
+  transition: opacity 150ms ease;
+}
+.spinner-fade-enter-from, .spinner-fade-leave-to { opacity: 0 }
+.spinner-fade-enter-to, .spinner-fade-leave-from { opacity: 1 }
+
+/* Subtle focus for controls */
+button:focus, input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
