@@ -21,15 +21,15 @@ export default defineEventHandler(async (event) => {
 
   if (method === 'POST') {
     const body = await readBody(event)
-    const stmt = db.prepare('INSERT INTO routes_table (description,distance,start,destination,surface,reference,link,notes) VALUES (?,?,?,?,?,?,?,?)')
-    const info = stmt.run(body.description, body.distance, body.start, body.destination, body.surface, body.reference ?? null, body.link ?? null, body.notes ?? null)
+    const stmt = db.prepare('INSERT INTO routes_table (description,distance,grade,start,destination,surface,reference,link,notes) VALUES (?,?,?,?,?,?,?,?,?)')
+    const info = stmt.run(body.description, body.distance, body.grade ?? null, body.start, body.destination, body.surface, body.reference ?? null, body.link ?? null, body.notes ?? null)
     return { id: info.lastInsertRowid }
   }
 
   if (method === 'PUT') {
     const body = await readBody(event)
-    const stmt = db.prepare('UPDATE routes_table SET description=?,distance=?,start=?,destination=?,surface=?,reference=?,link=?,notes=? WHERE id=?')
-    stmt.run(body.description, body.distance, body.start, body.destination, body.surface, body.reference ?? null, body.link ?? null, body.notes ?? null, body.id)
+    const stmt = db.prepare('UPDATE routes_table SET description=?,distance=?,grade=?,start=?,destination=?,surface=?,reference=?,link=?,notes=? WHERE id=?')
+    stmt.run(body.description, body.distance, body.grade ?? null, body.start, body.destination, body.surface, body.reference ?? null, body.link ?? null, body.notes ?? null, body.id)
     return { ok: true }
   }
 

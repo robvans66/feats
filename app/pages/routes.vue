@@ -1,46 +1,46 @@
 <template>
   <section>
-    <form @submit.prevent="onSubmit" class="bg-white p-4 mb-6 border">
-      <div class="grid grid-cols-6 gap-4">
+    <form @submit.prevent="onSubmit" class="fts p-6 mb-6 border-color rounded">
+      <h1 class="text-3xl font-semibold mb-6">Add a Route</h1>
+      <div class="grid grid-cols-7 gap-4">
         <div class="col-span-2">
-          <label class="block text-sm">Description*</label>
+          <label class="block">Description*</label>
           <input v-model="form.description" type="text" required class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">
-          <label class="block text-sm">Distance*</label>
+          <label class="block">Distance*</label>
           <input v-model.number="form.distance" type="number" step="0.1" required class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">
-          <label class="block text-sm">Start*</label>
+          <label class="block">Grade</label>
+          <input v-model.number="form.grade" type="number" step="0.1" class="border px-2 py-1 w-full" />
+        </div>
+        <div class="col-span-1">
+          <label class="block">Start*</label>
           <input v-model="form.start" type="text" required class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">
-          <label class="block text-sm">Destination*</label>
+          <label class="block">Destination*</label>
           <input v-model="form.destination" type="text" required class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">
-          <label class="block text-sm">Surface*</label>
-          <select v-model="form.surface" required class="border px-2 py-1 w-full">
-            <option>Road</option>
-            <option>Gravel</option>
-            <option>Road/Gravel</option>
-            <option>Gravel/MTB</option>
-          </select>
+          <label class="block">Surface*</label>
+          <USelect v-model="form.surface" :items="surfaceOptions" :ui="selectUi" class="w-full" variant="none" />
         </div>
         <div class="col-span-2">
-          <label class="block text-sm">Reference</label>
+          <label class="block">Reference</label>
           <input v-model="form.reference" type="text" class="border px-2 py-1 w-full" @input="onReferenceInput" />
         </div>
         <div class="col-span-1">
-          <label class="block text-sm">Link</label>
+          <label class="block">Link</label>
           <input v-model="form.link" :disabled="!form.reference" type="text" class="border px-2 py-1 w-full" />
         </div>
-        <div class="col-span-2">
-          <label class="block text-sm">Notes</label>
+        <div class="col-span-3">
+          <label class="block">Notes</label>
           <input v-model="form.notes" type="text" class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1 flex items-end space-x-2">
-          <button type="submit" class="px-3 py-1 fts" :disabled="loading">{{ isEditing ? 'Update' : 'Add' }}</button>
+          <button type="submit" class="px-3 py-1 fts" :disabled="loading">{{ isEditing ? 'Update' : 'Add Route' }}</button>
           <button type="button" @click="clearForm" class="px-3 py-1 border fts" :disabled="loading">Clear</button>
         </div>
       </div>
@@ -49,6 +49,7 @@
     <ConfirmModal :show="showConfirm" title="Delete Route" message="Are you sure you want to delete the selected route?" @confirm="confirmDelete" @cancel="()=>showConfirm=false" />
     <Toast :message="toast" />
 
+    <h1 class="text-3xl font-semibold mb-6 mt-10">Planned Routes</h1>
     <div class="flex items-center justify-between mt-4 mb-4">
       <div class="flex items-center space-x-2">
         <button class="px-3 py-1 fts disabled:opacity-50" :disabled="!selectedRow || loading" @click="onEdit">Edit</button>
@@ -56,21 +57,24 @@
       </div>
       <div class="flex items-center space-x-2">
           <input v-model="tableState.globalFilter" placeholder="Search" class="border px-2 py-1" />
-          <select v-model.number="tableState.pagination.pageSize" @change="(e)=>setPageSize(tableState.pagination.pageSize)" class="border px-2 py-1">
-            <option :value="5">5</option>
-            <option :value="10">10</option>
-            <option :value="20">20</option>
-          </select>
+          <USelect
+            v-model="tableState.pagination.pageSize"
+            :items="pageSizeOptions"
+            :ui="selectUi"
+            class="w-24"
+            variant="none"
+            @update:modelValue="(value) => setPageSize(value as number)"
+          />
         <div class="relative z-20">
           <button @click="showCols = !showCols" class="border px-2 py-1">Columns ▾</button>
-          <div v-if="showCols" class="absolute right-0 mt-2 bg-white border p-2 shadow z-30">
+          <div v-if="showCols" class="absolute right-0 mt-2 bg-white border p-2 shadow z-30 w-max">
             <label v-for="c in allColumns" :key="c.key" class="block"><input type="checkbox" v-model="tableState.columnVisibility[c.key]" /> {{c.label}}</label>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="bg-white border overflow-x-auto relative">
+    <div class="table-routes bg-white border overflow-x-auto relative">
       <Table :data="rows" :columns="tableColumns" :state="tableState" :selectedRowId="selectedRow?.id ?? null" :onStateChange="onStateChange" :onSelect="(e,row)=>handleTableSelect(e,row)" />
       <Spinner v-if="loading" />
     </div>
@@ -86,7 +90,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, nextTick, watch, h } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick, watch, h } from 'vue'
 import { $fetch } from 'ofetch'
 import { useGlobalLoading } from '../composables/useGlobalLoading'
 
@@ -94,6 +98,7 @@ const allColumns = [
   { key: 'id', label: 'ID' },
   { key: 'description', label: 'Description' },
   { key: 'distance', label: 'Distance' },
+  { key: 'grade', label: 'Grade' },
   { key: 'start', label: 'Start' },
   { key: 'destination', label: 'Destination' },
   { key: 'surface', label: 'Surface' },
@@ -101,6 +106,9 @@ const allColumns = [
   { key: 'link', label: 'Link' },
   { key: 'notes', label: 'Notes' }
 ]
+
+const surfaceOptions = ref<string[]>(['Road', 'Gravel', 'Road/Gravel', 'Gravel/MTB'])
+const pageSizeOptions = ref<number[]>([5, 10, 20])
 
 const rows = ref<any[]>([])
 const total = ref(0)
@@ -114,9 +122,13 @@ const showCols = ref(false)
 const defaultVisibleColumns = allColumns.map(c => c.key)
 const visibleColumns = ref(defaultVisibleColumns)
 
-const form = ref({ id: null, description: '', distance: null, start: '', destination: '', surface: 'Road', reference: '', link: '', notes: '' })
+const form = ref({ id: null, description: '', distance: null, grade: null, start: '', destination: '', surface: 'Road', reference: '', link: '', notes: '' })
 const toast = ref('')
 const showConfirm = ref(false)
+
+const selectUi = {
+  base: 'border border-[var(--fts-ui-primary)] bg-[var(--fts-ui-bg-input-form)] text-[var(--fts-ui-primary)] rounded-[4px] min-h-[34px] px-2 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--fts-ui-button)] focus-visible:ring-inset'
+}
 
 // debounce search
 let searchTimeout: any = null
@@ -153,7 +165,7 @@ async function load(state?: any){
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
   const savedVisible = localStorage.getItem('routes_visible_columns')
   if (savedVisible) {
     try {
@@ -168,8 +180,57 @@ onMounted(() => {
       if (parsed) tableState.value.columnVisibility = parsed
     } catch {}
   }
+  try {
+    const config = await $fetch('/api/config')
+    applyConfig(config)
+  } catch {}
+  if (typeof window !== 'undefined') {
+    window.addEventListener('user-config-updated', handleConfigEvent)
+    window.addEventListener('storage', handleStorageEvent)
+  }
   load()
 })
+
+onUnmounted(() => {
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('user-config-updated', handleConfigEvent)
+    window.removeEventListener('storage', handleStorageEvent)
+  }
+})
+
+function applyConfig(config: any) {
+  if (!config) return
+  if (Array.isArray(config.surfaceOptions) && config.surfaceOptions.length) {
+    surfaceOptions.value = config.surfaceOptions
+  }
+  if (Array.isArray(config.pageSizeOptions) && config.pageSizeOptions.length) {
+    pageSizeOptions.value = config.pageSizeOptions
+  }
+  if (!surfaceOptions.value.includes(form.value.surface)) {
+    form.value.surface = surfaceOptions.value[0] || ''
+  }
+  if (!pageSizeOptions.value.includes(tableState.value.pagination.pageSize || 10)) {
+    tableState.value.pagination.pageSize = pageSizeOptions.value[0] || 10
+    tableState.value.pagination.pageIndex = 0
+  }
+  if (config.routesColumnVisibility) {
+    tableState.value.columnVisibility = { ...defaultColumnVisibility, ...config.routesColumnVisibility }
+    localStorage.setItem('routes_column_visibility', JSON.stringify(tableState.value.columnVisibility))
+  }
+}
+
+function handleConfigEvent(event: Event) {
+  const detail = (event as CustomEvent).detail
+  applyConfig(detail)
+}
+
+function handleStorageEvent(event: StorageEvent) {
+  if (event.key !== 'user_config' || !event.newValue) return
+  try {
+    const config = JSON.parse(event.newValue)
+    applyConfig(config)
+  } catch {}
+}
 
 function fetchDebounced(state?: any){
   clearTimeout(loadTimeout)
@@ -230,6 +291,7 @@ const tableColumns = [
       return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
     }
   },
+  { accessorKey: 'grade', headerLabel: 'Grade' },
   { accessorKey: 'start', headerLabel: 'Start' },
   { accessorKey: 'destination', headerLabel: 'Destination' },
   { accessorKey: 'surface', headerLabel: 'Surface' },
@@ -262,7 +324,11 @@ function setPageSize(n:number){ tableState.value.pagination.pageSize = n; tableS
 
 
 
-function selectRow(row:any){ selectedRow.value = row }
+function selectRow(row:any){
+  const rowId = row?.id ?? null
+  const selectedId = selectedRow.value?.id ?? null
+  selectedRow.value = rowId !== null && rowId === selectedId ? null : row
+}
 
 function onEdit(){
   if (!selectedRow.value) return
@@ -296,7 +362,7 @@ function onReferenceInput(){
 }
 
 function clearForm(){
-  form.value = { id: null, description: '', distance: null, start: '', destination: '', surface: 'Road', reference: '', link: '', notes: '' }
+  form.value = { id: null, description: '', distance: null, grade: null, start: '', destination: '', surface: 'Road', reference: '', link: '', notes: '' }
   isEditing.value = false
 }
 

@@ -12,6 +12,7 @@
   "dependencies": {
     "@nuxt/ui": "^4.4.0",
     "better-sqlite3": "^12.6.2",
+    "npm": "^11.9.0",
     "nuxt": "^4.3.0",
     "tailwindcss": "^4.1.18",
     "vue": "^3.5.27",

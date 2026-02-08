@@ -2,16 +2,79 @@
 @import "@nuxt/ui";
 
 :root {
-  --ui-primary: #3b82f6; /* Tailwind's blue-500 */
-  --ui-secondary: #6b7280; /* Tailwind's gray-500 */
-  --ui-success: #10b981; /* Tailwind's green-500 */
-  --ui-error: #ef4444; /* Tailwind's red-500 */
-  --ui-warning: #f59e0b; /* Tailwind's yellow-500 */
+  --fts-ui-primary: #005754; /* dark teal: header, footer main buttons */
+  --fts-ui-primary-background: #f2f2f2; /* light grey background body app */
+  --fts-ui-primary-light: #e2e2e2; /* light grey background form */
+  --fts-ui-bg-input-form: #ffffff; /* white: input fields */
+  --fts-ui-button: #007a76; /* teal: primary buttons */
+  --fts-ui-button-hover: #00615e; /* darker teal: primary button hover */
+  --fts-ui-button-delete-hover: #d32f2f; /* red: delete buttons */
+  --fts-ui-table-header: #005754; /*  */
+}
 
-  --fts-ui-dark: #003d3b;
-  --fts-ui-primary: #f6853c; /* orange */
-  --fts-ui-button: #007a76;
-  --fts-ui-button-hover: #00615e;
+header.fts,
+footer.fts {
+  background-color: var(--fts-ui-primary);
+  color: white;
+}
+
+form.fts {
+  background-color: var(--fts-ui-primary-light);
+  border-radius: 10px;
+}
+
+form.fts input,
+form.fts select,
+form.fts textarea {
+  background-color: var(--fts-ui-bg-input-form);
+  border: 1px solid var(--fts-ui-primary-light) !important;
+}
+
+.table-rides,
+.table-routes,
+.table-statistics {
+  border: 1px solid var(--fts-ui-primary-light);
+}
+
+.table-rides tr,
+.table-routes tr,
+.table-statistics tr {
+  border-bottom: 1px solid var(--fts-ui-primary-light);
+}
+
+.table-rides tr.is-selected,
+.table-routes tr.is-selected,
+.table-statistics tr.is-selected {
+  background-color: var(--fts-ui-button);
+  color: white;
+}
+
+.table-rides td,
+.table-routes td,
+.table-statistics td {
+  border: 1px solid var(--fts-ui-primary-light);
+}
+
+.table-rides td a,
+.table-routes td a,
+.table-statistics td a {
+  color: var(--fts-ui-primary);
+}
+
+.table-rides tr.is-selected td a,
+.table-routes tr.is-selected td a,
+.table-statistics tr.is-selected td a {
+  color: white;
+}
+
+.table-statistics thead th {
+  text-align: left;
+  padding: 8px;
+}
+
+thead th {
+  background-color: var(--fts-ui-table-header);
+  color: white;
 }
 
 #__nuxt button,
@@ -21,6 +84,51 @@ input,
 select,
 textarea {
   border-radius: 4px;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--fts-ui-button);
+}
+
+.fts-select {
+  background-color: var(--fts-ui-bg-input-form);
+  border: 1px solid var(--fts-ui-primary-light);
+  color: var(--fts-ui-primary);
+  min-height: 32px;
+  padding: 4px 8px;
+}
+
+.fts-select [data-slot="base"],
+.fts-select button {
+  background-color: var(--fts-ui-bg-input-form);
+  border: 1px solid var(--fts-ui-primary-light);
+  color: var(--fts-ui-primary);
+  min-height: 32px;
+  padding: 4px 8px;
+}
+
+.fts-select:focus-visible {
+  border-color: var(--fts-ui-button);
+  box-shadow: 0 0 0 3px rgba(0, 122, 118, 0.2);
+  outline: none;
+}
+
+.fts-select [data-slot="base"]:focus-visible,
+.fts-select button:focus-visible {
+  border-color: var(--fts-ui-button);
+  box-shadow: 0 0 0 3px rgba(0, 122, 118, 0.2);
+  outline: none;
+}
+
+select {
+  background-color: var(--fts-ui-bg-input-form);
+  border: 1px solid var(--fts-ui-primary);
+  color: var(--fts-ui-primary);
+}
+
+select:focus {
+  border-color: var(--fts-ui-button);
+  box-shadow: 0 0 0 3px rgba(0, 122, 118, 0.2);
 }
 
 #__nuxt button.fts {
@@ -36,7 +144,7 @@ textarea {
   color: white;
 }
 #__nuxt button.fts-delete:hover {
-  background-color: red;
+  background-color: var(--fts-ui-button-delete-hover);
   color: white;
 }
 
@@ -63,6 +171,10 @@ body {
   opacity: 1;
 }
 
+.fts-toast {
+  background-color: var(--fts-ui-primary);
+}
+
 /* Spinner overlay fade */
 .spinner-fade-enter-active,
 .spinner-fade-leave-active {
@@ -83,5 +195,5 @@ input:focus,
 select:focus,
 textarea:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 0 3px rgba(0, 122, 118, 0.2);
 }

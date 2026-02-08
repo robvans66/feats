@@ -134,9 +134,7 @@ function rowKey(row: any, idx: number) {
 function rowClass(row: any, idx: number) {
   const key = rowKey(row, idx)
   const isSelected = props.selectedRowId !== undefined && key === props.selectedRowId
-  return isSelected
-    ? 'bg-blue-50 hover:bg-blue-100 cursor-pointer'
-    : 'hover:bg-gray-50 cursor-pointer'
+  return isSelected ? 'is-selected cursor-pointer' : 'hover:bg-gray-50 cursor-pointer'
 }
 
 function onRowClick(event: MouseEvent, row: any) {
