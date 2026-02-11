@@ -8,11 +8,11 @@
           <input v-model="form.description" type="text" required class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">
-          <label class="block">Distance*</label>
+          <label class="block">Distance * (km)</label>
           <input v-model.number="form.distance" type="number" step="0.1" required class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">
-          <label class="block">Grade</label>
+          <label class="block">Grade (%)</label>
           <input v-model.number="form.grade" type="number" step="0.1" class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">
@@ -180,6 +180,13 @@ onMounted(async () => {
       if (parsed) tableState.value.columnVisibility = parsed
     } catch {}
   }
+  const savedSorting = localStorage.getItem('routes_sorting')
+  if (savedSorting) {
+    try {
+      const parsed = JSON.parse(savedSorting)
+      if (Array.isArray(parsed)) tableState.value.sorting = parsed
+    } catch {}
+  }
   try {
     const config = await $fetch('/api/config')
     applyConfig(config)
@@ -254,11 +261,16 @@ const defaultColumnVisibility = allColumns.reduce((acc, col) => {
   acc[col.key] = true
   return acc
 }, {} as Record<string, boolean>)
-const tableState = ref({ globalFilter: '', sorting: [], pagination: { pageIndex: 0, pageSize: 10 }, columnVisibility: defaultColumnVisibility })
+const tableState = ref({ globalFilter: '', sorting: [{ id: 'link', desc: true }], pagination: { pageIndex: 0, pageSize: 10 }, columnVisibility: defaultColumnVisibility })
 
 watch(() => tableState.value.columnVisibility, (v)=>{
   if (typeof window === 'undefined') return
   localStorage.setItem('routes_column_visibility', JSON.stringify(v))
+}, { deep: true })
+
+watch(() => tableState.value.sorting, (v) => {
+  if (typeof window === 'undefined') return
+  localStorage.setItem('routes_sorting', JSON.stringify(v || []))
 }, { deep: true })
 
 watch(tableState, (v)=> fetchDebounced(v), { deep: true })
@@ -296,7 +308,13 @@ const tableColumns = [
   { accessorKey: 'destination', headerLabel: 'Destination' },
   { accessorKey: 'surface', headerLabel: 'Surface' },
   { accessorKey: 'reference', headerLabel: 'Reference' },
-  { accessorKey: 'link', headerLabel: 'Link', cell: (ctx: { getValue: () => any; row: { original: any } }) => {
+  { accessorKey: 'link', headerLabel: 'Link', header: (ctx:any) => {
+      const col = ctx.column
+      const sorted = col.getIsSorted?.()
+      const indicator = sorted ? (sorted === 'asc' ? '▲' : '▼') : ''
+      return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
+    },
+    cell: (ctx: { getValue: () => any; row: { original: any } }) => {
       const value = ctx.getValue()
       if (ctx.row.original.reference) return h('a', { href: ctx.row.original.reference, target: '_blank', class: 'text-blue-600 hover:underline' }, value || 'Link')
       return value || ''

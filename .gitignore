@@ -18,6 +18,12 @@ logs
 .fleet
 .idea
 
+# Local database files
+*.db
+server/db/*.db
+*.db-wal
+*.db-shm
+
 # Local env files
 .env
 .env.*

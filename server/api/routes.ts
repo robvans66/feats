@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     const sortBy = (q.sortBy || 'description').toString()
     const sortDir = ((q.sortDir || 'asc') as string).toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
 
-    const where = filter ? "WHERE description LIKE @f OR start LIKE @f OR destination LIKE @f" : ''
+    const where = filter ? "WHERE description LIKE @f OR start LIKE @f OR destination LIKE @f OR notes LIKE @f" : ''
     const countStmt = db.prepare(`SELECT COUNT(*) as c FROM routes_table ${where}`)
     const total = filter ? countStmt.get({ f: `%${filter}%` }).c : countStmt.get().c
 

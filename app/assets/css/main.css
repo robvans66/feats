@@ -4,12 +4,24 @@
 :root {
   --fts-ui-primary: #005754; /* dark teal: header, footer main buttons */
   --fts-ui-primary-background: #f2f2f2; /* light grey background body app */
-  --fts-ui-primary-light: #e2e2e2; /* light grey background form */
+  --fts-ui-primary-light: #f0f0f0; /* #e2e2e2; light grey background form */
   --fts-ui-bg-input-form: #ffffff; /* white: input fields */
   --fts-ui-button: #007a76; /* teal: primary buttons */
   --fts-ui-button-hover: #00615e; /* darker teal: primary button hover */
   --fts-ui-button-delete-hover: #d32f2f; /* red: delete buttons */
-  --fts-ui-table-header: #005754; /*  */
+  --fts-ui-table-header: #005754;
+}
+
+/* Dark mode color overrides */
+.dark {
+  --fts-ui-primary: #00a39e; /* lighter teal for dark mode */
+  --fts-ui-primary-background: #1a1a1a; /* dark background */
+  --fts-ui-primary-light: #2d2d2d; /* dark grey for forms */
+  --fts-ui-bg-input-form: #374151; /* dark input fields */
+  --fts-ui-button: #00c4be; /* brighter teal for buttons */
+  --fts-ui-button-hover: #00e5de; /* even brighter for hover */
+  --fts-ui-button-delete-hover: #ef4444; /* bright red for delete */
+  --fts-ui-table-header: #00a39e;
 }
 
 header.fts,
@@ -25,9 +37,35 @@ form.fts {
 
 form.fts input,
 form.fts select,
-form.fts textarea {
+form.fts textarea,
+section.fts input,
+section.fts select,
+section.fts textarea,
+section.fts button {
   background-color: var(--fts-ui-bg-input-form);
   border: 1px solid var(--fts-ui-primary-light) !important;
+}
+
+.dark form.fts input,
+.dark form.fts select,
+.dark form.fts textarea,
+.dark section.fts input,
+.dark section.fts select,
+.dark section.fts textarea,
+.dark section.fts button {
+  color: #e5e7eb;
+}
+
+.fts-cfg-options .fts-option-item,
+.fts-cfg-options-buttons .fts-cfg-reset-button {
+  background-color: var(--fts-ui-bg-input-form) !important;
+  border: 1px solid darkgrey !important;
+}
+
+.dark .fts-cfg-options .fts-option-item,
+.dark .fts-cfg-options-buttons .fts-cfg-reset-button {
+  color: #e5e7eb;
+  border: 1px solid #4b5563 !important;
 }
 
 .table-rides,
@@ -40,6 +78,18 @@ form.fts textarea {
 .table-routes tr,
 .table-statistics tr {
   border-bottom: 1px solid var(--fts-ui-primary-light);
+}
+
+.dark .table-rides tr,
+.dark .table-routes tr,
+.dark .table-statistics tr {
+  background-color: #1f2937;
+}
+
+.dark .table-rides tr:nth-child(even),
+.dark .table-routes tr:nth-child(even),
+.dark .table-statistics tr:nth-child(even) {
+  background-color: #111827;
 }
 
 .table-rides tr.is-selected,
@@ -55,10 +105,22 @@ form.fts textarea {
   border: 1px solid var(--fts-ui-primary-light);
 }
 
+.dark .table-rides td,
+.dark .table-routes td,
+.dark .table-statistics td {
+  color: #e5e7eb;
+}
+
 .table-rides td a,
 .table-routes td a,
 .table-statistics td a {
   color: var(--fts-ui-primary);
+}
+
+.dark .table-rides td a,
+.dark .table-routes td a,
+.dark .table-statistics td a {
+  color: var(--fts-ui-button);
 }
 
 .table-rides tr.is-selected td a,
@@ -98,6 +160,10 @@ input[type="checkbox"] {
   padding: 4px 8px;
 }
 
+.dark .fts-select {
+  color: #e5e7eb;
+}
+
 .fts-select [data-slot="base"],
 .fts-select button {
   background-color: var(--fts-ui-bg-input-form);
@@ -107,10 +173,19 @@ input[type="checkbox"] {
   padding: 4px 8px;
 }
 
+.dark .fts-select [data-slot="base"],
+.dark .fts-select button {
+  color: #e5e7eb;
+}
+
 .fts-select:focus-visible {
   border-color: var(--fts-ui-button);
   box-shadow: 0 0 0 3px rgba(0, 122, 118, 0.2);
   outline: none;
+}
+
+.dark .fts-select:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 196, 190, 0.3);
 }
 
 .fts-select [data-slot="base"]:focus-visible,
@@ -120,15 +195,28 @@ input[type="checkbox"] {
   outline: none;
 }
 
+.dark .fts-select [data-slot="base"]:focus-visible,
+.dark .fts-select button:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 196, 190, 0.3);
+}
+
 select {
   background-color: var(--fts-ui-bg-input-form);
   border: 1px solid var(--fts-ui-primary);
   color: var(--fts-ui-primary);
 }
 
+.dark select {
+  color: #e5e7eb;
+}
+
 select:focus {
   border-color: var(--fts-ui-button);
   box-shadow: 0 0 0 3px rgba(0, 122, 118, 0.2);
+}
+
+.dark select:focus {
+  box-shadow: 0 0 0 3px rgba(0, 196, 190, 0.3);
 }
 
 #__nuxt button.fts {
@@ -148,9 +236,24 @@ select:focus {
   color: white;
 }
 
+.fts-cfg-options {
+  background-color: var(--fts-ui-primary-light);
+  border: 1px solid var(--fts-ui-primary-light);
+  padding: 16px;
+  border-radius: 8px;
+}
+
 /* basic layout spacing */
 body {
   @apply bg-gray-50 text-gray-800;
+}
+
+.dark body {
+  @apply bg-gray-900 text-gray-100;
+}
+
+.dark section.fts {
+  color: #e5e7eb;
 }
 
 /* Toast transition */
@@ -196,4 +299,11 @@ select:focus,
 textarea:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(0, 122, 118, 0.2);
+}
+
+.dark button:focus,
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  box-shadow: 0 0 0 3px rgba(0, 196, 190, 0.3);
 }

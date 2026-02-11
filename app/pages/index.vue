@@ -12,15 +12,15 @@
           <input v-model="form.description" type="text" required class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">
-          <label class="block">Distance*</label>
+          <label class="block">Distance * (km)</label>
           <input v-model.number="form.distance" type="number" step="0.1" required class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">
-          <label class="block">Average</label>
+          <label class="block">Average (km/h)</label>
           <input v-model.number="form.average" type="number" step="0.1" class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">
-          <label class="block">Grade</label>
+          <label class="block">Grade (%)</label>
           <input v-model.number="form.grade" type="number" step="0.1" class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">
@@ -168,6 +168,13 @@ onMounted(async () => {
       if (parsed) tableState.value.columnVisibility = parsed
     } catch {}
   }
+  const savedSorting = localStorage.getItem('rides_sorting')
+  if (savedSorting) {
+    try {
+      const parsed = JSON.parse(savedSorting)
+      if (Array.isArray(parsed)) tableState.value.sorting = parsed
+    } catch {}
+  }
   try {
     const config = await $fetch('/api/config')
     applyConfig(config)
@@ -228,11 +235,16 @@ function fetchDebounced(state?: any){
 const { loading, setLoading, wrap } = useGlobalLoading()
 
   // Table-managed state (globalFilter, sorting, pagination)
-  const tableState = ref({ globalFilter: '', sorting: [], pagination: { pageIndex: 0, pageSize: 10 }, columnVisibility: defaultColumnVisibility })
+  const tableState = ref({ globalFilter: '', sorting: [{ id: 'date', desc: true }], pagination: { pageIndex: 0, pageSize: 10 }, columnVisibility: defaultColumnVisibility })
 
   watch(() => tableState.value.columnVisibility, (v)=>{
     if (typeof window === 'undefined') return
     localStorage.setItem('rides_column_visibility', JSON.stringify(v))
+  }, { deep: true })
+
+  watch(() => tableState.value.sorting, (v) => {
+    if (typeof window === 'undefined') return
+    localStorage.setItem('rides_sorting', JSON.stringify(v || []))
   }, { deep: true })
 
 watch(tableState, (v)=> fetchDebounced(v), { deep: true })
@@ -270,9 +282,21 @@ const tableColumns = [
       return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
     }
   },
-  { accessorKey: 'average', headerLabel: 'Average' },
+  { accessorKey: 'average', headerLabel: 'Average', header: (ctx:any) => {
+      const col = ctx.column
+      const sorted = col.getIsSorted?.()
+      const indicator = sorted ? (sorted === 'asc' ? '▲' : '▼') : ''
+      return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
+    }
+  },
   { accessorKey: 'grade', headerLabel: 'Grade' },
-  { accessorKey: 'bike', headerLabel: 'Bike' },
+  { accessorKey: 'bike', headerLabel: 'Bike', header: (ctx:any) => {
+      const col = ctx.column
+      const sorted = col.getIsSorted?.()
+      const indicator = sorted ? (sorted === 'asc' ? '▲' : '▼') : ''
+      return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
+    }
+  },
   { accessorKey: 'reference', headerLabel: 'Reference' },
   { accessorKey: 'link', headerLabel: 'Link', cell: (ctx: { getValue: () => any; row: { original: any } }) => {
       const value = ctx.getValue()
