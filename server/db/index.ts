@@ -122,7 +122,7 @@ function seed(db: Database) {
   const bikes = ['Santos', 'Rimonta', 'Gazelle', 'Wahoo']
   const insert = db.prepare(`INSERT INTO rides_table (date,description,distance,average,grade,bike,reference,link,notes) VALUES (?,?,?,?,?,?,?,?,?)`)
   const years = [2026,2025,2024,2023]
-  for (let i=0;i<20;i++){
+  for (let i=0;i<5;i++){
     const year = years[i%years.length]
     const month = (i%12)+1
     const day = ((i*3)%27)+1
@@ -142,7 +142,7 @@ function seed(db: Database) {
 function seedRoutes(db: Database){
   const surfaces = ['Road','Gravel','Road/Gravel','Gravel/MTB']
   const insert = db.prepare(`INSERT INTO routes_table (description,distance,grade,start,destination,surface,reference,link,notes) VALUES (?,?,?,?,?,?,?,?,?)`)
-  for (let i=0;i<20;i++){
+  for (let i=0;i<5;i++){
     const desc = `Route ${i+1}`
     const distance = Math.round((10 + Math.random()*120)*10)/10
     const grade = Math.round((Math.random()*12)*10)/10
