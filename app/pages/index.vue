@@ -40,7 +40,7 @@
           <input v-model="form.notes" type="text" class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1 flex items-end space-x-2">
-          <button type="submit" class="fts px-3 py-1" :disabled="loading">{{ isEditing ? 'Update' : 'Add Ride' }}</button>
+          <button type="submit" class="fts px-3 py-1" :disabled="loading">{{ isEditing ? 'Update' : 'Add' }}</button>
           <button type="button" @click="clearForm" class="fts px-3 py-1" :disabled="loading">Clear</button>
         </div>
       </div>
