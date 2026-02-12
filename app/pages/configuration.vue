@@ -73,7 +73,7 @@
 
     <div class="fts-cfg-options flex gap-3 mt-6">
         <button class="fts px-3 py-1" :disabled="saving || backingUp" @click="backupData">Backup Data</button>
-        <span class="px-3 py-1">Make a backup of your data. This will download a JSON file containing all your rides, routes, and configuration. Happy days.</span>
+        <span class="px-3 py-1">Make a backup of your data. This will download a SQL file containing all your rides, routes, and configuration. Happy days.</span>
     </div>
     
 
@@ -257,27 +257,100 @@ async function backupData() {
   try {
     // Fetch all rides with a large page size
     const ridesRes = await $fetch('/api/rides?pageSize=10000&page=0')
-    const rides = ridesRes.data || ridesRes
+    const rides = ridesRes.rows || []
 
     // Fetch all routes with a large page size
     const routesRes = await $fetch('/api/routes?pageSize=10000&page=0')
-    const routes = routesRes.data || routesRes
+    const routes = routesRes.rows || []
     
     const userConfig = localStorage.getItem('user_config')
+    const configData = userConfig ? JSON.parse(userConfig) : null
     
-    const backup = {
-      timestamp: new Date().toISOString(),
-      rides_table: rides,
-      routes_table: routes,
-      user_config: userConfig ? JSON.parse(userConfig) : null
+    // Generate SQL backup
+    let sqlContent = '-- Feats Backup\n'
+    sqlContent += `-- Generated: ${new Date().toISOString()}\n\n`
+    
+    // Rides table
+    sqlContent += '-- Rides Table\n'
+    sqlContent += 'DROP TABLE IF EXISTS rides;\n'
+    sqlContent += 'CREATE TABLE rides (\n'
+    sqlContent += '  id INTEGER PRIMARY KEY,\n'
+    sqlContent += '  date TEXT,\n'
+    sqlContent += '  description TEXT,\n'
+    sqlContent += '  distance REAL,\n'
+    sqlContent += '  average REAL,\n'
+    sqlContent += '  grade TEXT,\n'
+    sqlContent += '  bike TEXT,\n'
+    sqlContent += '  reference TEXT,\n'
+    sqlContent += '  link TEXT,\n'
+    sqlContent += '  notes TEXT\n'
+    sqlContent += ');\n\n'
+    
+    if (rides && rides.length > 0) {
+      for (const ride of rides) {
+        const values = [
+          ride.id || 'NULL',
+          sqlEscape(ride.date),
+          sqlEscape(ride.description),
+          ride.distance || 'NULL',
+          ride.average || 'NULL',
+          sqlEscape(ride.grade),
+          sqlEscape(ride.bike),
+          sqlEscape(ride.reference),
+          sqlEscape(ride.link),
+          sqlEscape(ride.notes)
+        ].join(', ')
+        sqlContent += `INSERT INTO rides (id, date, description, distance, average, grade, bike, reference, link, notes) VALUES (${values});\n`
+      }
+      sqlContent += '\n'
     }
     
-    const jsonString = JSON.stringify(backup, null, 2)
-    const blob = new Blob([jsonString], { type: 'application/json' })
+    // Routes table
+    sqlContent += '-- Routes Table\n'
+    sqlContent += 'DROP TABLE IF EXISTS routes;\n'
+    sqlContent += 'CREATE TABLE routes (\n'
+    sqlContent += '  id INTEGER PRIMARY KEY,\n'
+    sqlContent += '  description TEXT,\n'
+    sqlContent += '  distance REAL,\n'
+    sqlContent += '  grade TEXT,\n'
+    sqlContent += '  start TEXT,\n'
+    sqlContent += '  destination TEXT,\n'
+    sqlContent += '  surface TEXT,\n'
+    sqlContent += '  reference TEXT,\n'
+    sqlContent += '  link TEXT,\n'
+    sqlContent += '  notes TEXT\n'
+    sqlContent += ');\n\n'
+    
+    if (routes && routes.length > 0) {
+      for (const route of routes) {
+        const values = [
+          route.id || 'NULL',
+          sqlEscape(route.description),
+          route.distance || 'NULL',
+          sqlEscape(route.grade),
+          sqlEscape(route.start),
+          sqlEscape(route.destination),
+          sqlEscape(route.surface),
+          sqlEscape(route.reference),
+          sqlEscape(route.link),
+          sqlEscape(route.notes)
+        ].join(', ')
+        sqlContent += `INSERT INTO routes (id, description, distance, grade, start, destination, surface, reference, link, notes) VALUES (${values});\n`
+      }
+      sqlContent += '\n'
+    }
+    
+    // Configuration as a comment
+    if (configData) {
+      sqlContent += '-- User Configuration\n'
+      sqlContent += `-- ${JSON.stringify(configData)}\n`
+    }
+    
+    const blob = new Blob([sqlContent], { type: 'application/sql' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
     link.href = url
-    link.download = `feats-backup-${new Date().toISOString().split('T')[0]}.json`
+    link.download = `feats-backup-${new Date().toISOString().split('T')[0]}.sql`
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
@@ -289,6 +362,13 @@ async function backupData() {
   } finally {
     backingUp.value = false
   }
+}
+
+function sqlEscape(value: any): string {
+  if (value === null || value === undefined || value === '') {
+    return 'NULL'
+  }
+  return `'${String(value).replace(/'/g, "''")}'`
 }
 function showToast(message: string) {
   toast.value = message
