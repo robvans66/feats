@@ -96,55 +96,61 @@ function parseJson<T>(value: string | null | undefined, fallback: T): T {
 }
 
 export default defineEventHandler(async (event) => {
-  const method = event.node.req.method
+  try {
+    const method = event.node.req.method
 
-  if (method === 'GET') {
-    const row = db
-      .prepare('SELECT bike_options, surface_options, page_size_options, rides_column_visibility, routes_column_visibility FROM user_config WHERE id=1')
-      .get()
-    const defaults = getDefaults()
-    return {
-      bikeOptions: parseJson<string[]>(row?.bike_options, defaults.bikeOptions),
-      surfaceOptions: parseJson<string[]>(row?.surface_options, defaults.surfaceOptions),
-      pageSizeOptions: parseJson<number[]>(row?.page_size_options, defaults.pageSizeOptions),
-      ridesColumnVisibility: parseJson<Record<string, boolean>>(
-        row?.rides_column_visibility,
-        defaults.ridesColumnVisibility
-      ),
-      routesColumnVisibility: parseJson<Record<string, boolean>>(
-        row?.routes_column_visibility,
-        defaults.routesColumnVisibility
-      )
+    if (method === 'GET') {
+      const row = db
+        .prepare('SELECT bike_options, surface_options, page_size_options, rides_column_visibility, routes_column_visibility FROM user_config WHERE id=1')
+        .get()
+      const defaults = getDefaults()
+      return {
+        bikeOptions: parseJson<string[]>(row?.bike_options, defaults.bikeOptions),
+        surfaceOptions: parseJson<string[]>(row?.surface_options, defaults.surfaceOptions),
+        pageSizeOptions: parseJson<number[]>(row?.page_size_options, defaults.pageSizeOptions),
+        ridesColumnVisibility: parseJson<Record<string, boolean>>(
+          row?.rides_column_visibility,
+          defaults.ridesColumnVisibility
+        ),
+        routesColumnVisibility: parseJson<Record<string, boolean>>(
+          row?.routes_column_visibility,
+          defaults.routesColumnVisibility
+        )
+      }
     }
-  }
 
-  if (method === 'PUT') {
-    const body = (await readBody(event)) as RawUserConfig
-    const next = normalizeConfig(body || {})
-    const exists = db.prepare('SELECT COUNT(*) as c FROM user_config WHERE id=1').get().c
-    if (exists > 0) {
-      db.prepare(
-        'UPDATE user_config SET bike_options=?, surface_options=?, page_size_options=?, rides_column_visibility=?, routes_column_visibility=? WHERE id=1'
-      ).run(
-        JSON.stringify(next.bikeOptions),
-        JSON.stringify(next.surfaceOptions),
-        JSON.stringify(next.pageSizeOptions),
-        JSON.stringify(next.ridesColumnVisibility),
-        JSON.stringify(next.routesColumnVisibility)
-      )
-    } else {
-      db.prepare(
-        'INSERT INTO user_config (id, bike_options, surface_options, page_size_options, rides_column_visibility, routes_column_visibility) VALUES (1, ?, ?, ?, ?, ?)'
-      ).run(
-        JSON.stringify(next.bikeOptions),
-        JSON.stringify(next.surfaceOptions),
-        JSON.stringify(next.pageSizeOptions),
-        JSON.stringify(next.ridesColumnVisibility),
-        JSON.stringify(next.routesColumnVisibility)
-      )
+    if (method === 'PUT') {
+      const body = (await readBody(event)) as RawUserConfig
+      const next = normalizeConfig(body || {})
+      const exists = db.prepare('SELECT COUNT(*) as c FROM user_config WHERE id=1').get().c
+      if (exists > 0) {
+        db.prepare(
+          'UPDATE user_config SET bike_options=?, surface_options=?, page_size_options=?, rides_column_visibility=?, routes_column_visibility=? WHERE id=1'
+        ).run(
+          JSON.stringify(next.bikeOptions),
+          JSON.stringify(next.surfaceOptions),
+          JSON.stringify(next.pageSizeOptions),
+          JSON.stringify(next.ridesColumnVisibility),
+          JSON.stringify(next.routesColumnVisibility)
+        )
+      } else {
+        db.prepare(
+          'INSERT INTO user_config (id, bike_options, surface_options, page_size_options, rides_column_visibility, routes_column_visibility) VALUES (1, ?, ?, ?, ?, ?)'
+        ).run(
+          JSON.stringify(next.bikeOptions),
+          JSON.stringify(next.surfaceOptions),
+          JSON.stringify(next.pageSizeOptions),
+          JSON.stringify(next.ridesColumnVisibility),
+          JSON.stringify(next.routesColumnVisibility)
+        )
+      }
+      return next
     }
-    return next
-  }
 
-  return { ok: false }
+    return { ok: false }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error)
+    console.error(`Config API error: ${message}`)
+    throw createError({ statusCode: 500, statusMessage: message })
+  }
 })

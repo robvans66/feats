@@ -165,4 +165,5 @@ function ensureColumn(db: Database, table: string, column: string, type: string)
 }
 
 const db = init()
+
 export default db

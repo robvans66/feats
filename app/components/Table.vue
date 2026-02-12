@@ -4,8 +4,11 @@
       <thead>
         <tr class="bg-gray-100">
           <th v-for="col in visibleColumns" :key="colId(col)" class="p-2 text-left">
-            <component v-if="isVNode(headerContent(col))" :is="headerContent(col)" />
-            <span v-else>{{ headerContent(col) }}</span>
+            <button v-if="col.enableSorting" class="flex items-center space-x-1" @click="toggleSorting(col)">
+              <span>{{ col.headerLabel || colId(col) }}</span>
+              <span v-if="getIsSorted(colId(col))" class="ml-1">{{ getIsSorted(colId(col)) === 'asc' ? '▲' : '▼' }}</span>
+            </button>
+            <span v-else>{{ col.headerLabel || colId(col) }}</span>
           </th>
         </tr>
       </thead>
@@ -41,6 +44,7 @@ type ColumnDef = {
   headerLabel?: string
   header?: (ctx: any) => any
   cell?: (ctx: any) => any
+  enableSorting?: boolean
 }
 
 type SortState = { id: string; desc?: boolean }
@@ -96,22 +100,6 @@ function toggleSorting(col: ColumnDef) {
     }
     return { ...prev, sorting: nextSorting }
   })
-}
-
-function headerContent(col: ColumnDef) {
-  if (typeof col.header === 'function') {
-    const id = colId(col)
-    const ctx = {
-      column: {
-        id,
-        columnDef: col,
-        getIsSorted: () => getIsSorted(id),
-        toggleSorting: () => toggleSorting(col)
-      }
-    }
-    return col.header(ctx)
-  }
-  return col.headerLabel || col.accessorKey || col.key || ''
 }
 
 function getCellValue(row: any, col: ColumnDef) {

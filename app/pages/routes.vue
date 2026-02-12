@@ -281,39 +281,16 @@ const start = computed(()=> (tableState.value.pagination?.pageIndex || 0) * (tab
 const end = computed(()=> Math.min(start.value + (tableState.value.pagination?.pageSize || 10), total.value))
 const pagedRows = computed(()=> rows.value)
 
-const tableColumns = [
-  { accessorKey: 'id', headerLabel: 'ID', header: (ctx:any) => {
-      const col = ctx.column
-      const sorted = col.getIsSorted?.()
-      const indicator = sorted ? (sorted === 'asc' ? '▲' : '▼') : ''
-      return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
-    }
-  },
-  { accessorKey: 'description', headerLabel: 'Description', header: (ctx:any) => {
-      const col = ctx.column
-      const sorted = col.getIsSorted?.()
-      const indicator = sorted ? (sorted === 'asc' ? '▲' : '▼') : ''
-      return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
-    }
-  },
-  { accessorKey: 'distance', headerLabel: 'Distance', header: (ctx:any) => {
-      const col = ctx.column
-      const sorted = col.getIsSorted?.()
-      const indicator = sorted ? (sorted === 'asc' ? '▲' : '▼') : ''
-      return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
-    }
-  },
+const tableColumns = computed(() => [
+  { accessorKey: 'id', headerLabel: 'ID', enableSorting: true },
+  { accessorKey: 'description', headerLabel: 'Description', enableSorting: true },
+  { accessorKey: 'distance', headerLabel: 'Distance', enableSorting: true },
   { accessorKey: 'grade', headerLabel: 'Grade' },
   { accessorKey: 'start', headerLabel: 'Start' },
   { accessorKey: 'destination', headerLabel: 'Destination' },
   { accessorKey: 'surface', headerLabel: 'Surface' },
   { accessorKey: 'reference', headerLabel: 'Reference' },
-  { accessorKey: 'link', headerLabel: 'Link', header: (ctx:any) => {
-      const col = ctx.column
-      const sorted = col.getIsSorted?.()
-      const indicator = sorted ? (sorted === 'asc' ? '▲' : '▼') : ''
-      return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
-    },
+  { accessorKey: 'link', headerLabel: 'Link', enableSorting: true,
     cell: (ctx: { getValue: () => any; row: { original: any } }) => {
       const value = ctx.getValue()
       if (ctx.row.original.reference) return h('a', { href: ctx.row.original.reference, target: '_blank', class: 'text-blue-600 hover:underline' }, value || 'Link')
@@ -321,7 +298,7 @@ const tableColumns = [
     }
   },
   { accessorKey: 'notes', headerLabel: 'Notes' }
-]
+])
 
 function handleTableSelect(e:any, row:any){
   selectRow(row)

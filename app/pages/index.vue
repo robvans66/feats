@@ -253,50 +253,14 @@ watch(tableState, (v)=> fetchDebounced(v), { deep: true })
   const end = computed(()=> Math.min(start.value + (tableState.value.pagination?.pageSize || 10), total.value))
 
 
-const tableColumns = [
-  { accessorKey: 'id', headerLabel: 'ID', header: (ctx:any) => {
-      const col = ctx.column
-      const sorted = col.getIsSorted?.()
-      const indicator = sorted ? (sorted === 'asc' ? '▲' : '▼') : ''
-      return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
-    }
-  },
-  { accessorKey: 'date', headerLabel: 'Date', header: (ctx:any) => {
-      const col = ctx.column
-      const sorted = col.getIsSorted?.()
-      const indicator = sorted ? (sorted === 'asc' ? '▲' : '▼') : ''
-      return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
-    }
-  },
-  { accessorKey: 'description', headerLabel: 'Description', header: (ctx:any) => {
-      const col = ctx.column
-      const sorted = col.getIsSorted?.()
-      const indicator = sorted ? (sorted === 'asc' ? '▲' : '▼') : ''
-      return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
-    }
-  },
-  { accessorKey: 'distance', headerLabel: 'Distance', header: (ctx:any) => {
-      const col = ctx.column
-      const sorted = col.getIsSorted?.()
-      const indicator = sorted ? (sorted === 'asc' ? '▲' : '▼') : ''
-      return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
-    }
-  },
-  { accessorKey: 'average', headerLabel: 'Average', header: (ctx:any) => {
-      const col = ctx.column
-      const sorted = col.getIsSorted?.()
-      const indicator = sorted ? (sorted === 'asc' ? '▲' : '▼') : ''
-      return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
-    }
-  },
+const tableColumns = computed(() => [
+  { accessorKey: 'id', headerLabel: 'ID', enableSorting: true },
+  { accessorKey: 'date', headerLabel: 'Date', enableSorting: true },
+  { accessorKey: 'description', headerLabel: 'Description', enableSorting: true },
+  { accessorKey: 'distance', headerLabel: 'Distance', enableSorting: true },
+  { accessorKey: 'average', headerLabel: 'Average', enableSorting: true },
   { accessorKey: 'grade', headerLabel: 'Grade' },
-  { accessorKey: 'bike', headerLabel: 'Bike', header: (ctx:any) => {
-      const col = ctx.column
-      const sorted = col.getIsSorted?.()
-      const indicator = sorted ? (sorted === 'asc' ? '▲' : '▼') : ''
-      return h('button', { class: 'flex items-center space-x-1', onClick: () => col.toggleSorting?.() }, [ h('span', ctx.column.columnDef.headerLabel || ctx.column.id), indicator ? h('span', { class: 'ml-1' }, indicator) : null, (loading.value && sorted) ? h('span', { class: 'ml-1 animate-spin text-sm' }, '⟳') : null ])
-    }
-  },
+  { accessorKey: 'bike', headerLabel: 'Bike', enableSorting: true },
   { accessorKey: 'reference', headerLabel: 'Reference' },
   { accessorKey: 'link', headerLabel: 'Link', cell: (ctx: { getValue: () => any; row: { original: any } }) => {
       const value = ctx.getValue()
@@ -305,7 +269,7 @@ const tableColumns = [
     }
   },
   { accessorKey: 'notes', headerLabel: 'Notes' }
-]
+])
 
 function handleTableSelect(e:any, row:any){
   selectRow(row)
