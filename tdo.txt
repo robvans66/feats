@@ -1,9 +1,0 @@
-usage:
-- als je velden verbergt wordt daar wel in gezocht met search
-- backup heeft liniet van 10.000 records per table
-
-
-todo:
-- logo ook voor dark mode (zie bannerkleur), maar hoe doe je dat 
-- ubuntu font voor brand name header
-- seeding terugbrengen naar 3 per tabel, anders zo veel weg te gooien
