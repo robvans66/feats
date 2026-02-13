@@ -28,3 +28,6 @@ server/db/*.db
 .env
 .env.*
 !.env.example
+
+# todo file
+todo.txt

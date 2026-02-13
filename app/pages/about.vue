@@ -4,7 +4,7 @@
     <div class="flex items-start gap-4">
       <p class="mb-4 flex-1">Feats is a small Nuxt application to keep track of completed bicycle rides and planned bicycle routes.
         <br><br>
-        It is a personal project to learn more about Nuxt and web development in general, and to have a simple tool to keep track of my rides and routes. It is not intended to be a full-featured application, but rather a simple and easy-to-use tool for myself and anyone else who might find it useful.
+        It is a personal project to learn more about Nuxt, and to have a simple tool to keep track of my rides and routes. It is not intended to be a full-featured application, but rather a simple and easy-to-use tool for myself and anyone else who might find it useful.
       </p>
       <img src="/feats.png" alt="Feats logo" class="w-32 h-32 flex-shrink-0">
     </div>
