@@ -9,7 +9,9 @@ export default defineEventHandler(async () => {
 
     const longestPerYear = db.prepare("SELECT strftime('%Y', date) as year, MAX(distance) as longest FROM rides_table GROUP BY year ORDER BY longest DESC").all()
 
-    return { yearTotals, perBike, longestPerYear }
+    const monthlyTotals = db.prepare("SELECT strftime('%Y', date) as year, strftime('%m', date) as month, ROUND(SUM(distance),2) as distance, COUNT(*) as rides FROM rides_table GROUP BY year, month ORDER BY year DESC, month ASC").all()
+
+    return { yearTotals, perBike, longestPerYear, monthlyTotals }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
     console.error(`Stats API error: ${message}`)

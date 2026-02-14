@@ -15,7 +15,8 @@
 
     <h2 class="text-2xl pt-8 mb-3 font-semibold">Version History</h2>
     <ul class="list-disc ml-6">
-      <li><strong>v1.0.0 <span class="mx-2">|</span> 11-02-2026</strong> — Initial version: Rides, Routes, Statistics, Configuration,About, SQLite backend.</li>
+    <li><strong>v1.0.1 <span class="mx-2">|</span> 14-02-2026</strong> — Added 'Monthly Totals by Year' statistic and many small improvements.</li>
+    <li><strong>v1.0.0 <span class="mx-2">|</span> 11-02-2026</strong> — Initial version: Rides, Routes, Statistics, Configuration,About, SQLite backend.</li>
     </ul>
   </section>
 </template>
