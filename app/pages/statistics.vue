@@ -20,6 +20,23 @@
       </div>
 
       <div>
+        <h2 class="text-xl font-semibold mb-3">Longest Ride per Year</h2>
+        <div class="bg-white border">
+          <table class="table-statistics min-w-full">
+            <thead><tr class="bg-gray-100"><th class="p-2">Year</th><th class="p-2">Longest Ride</th></tr></thead>
+            <tbody>
+              <tr
+                v-for="r in stats.longestPerYear"
+                :key="r.year"
+                :class="['hover:bg-gray-50 cursor-pointer', { 'is-selected': selectedLongestYear === r.year }]"
+                @click="toggleSelectedLongestYear(r.year)"
+              ><td class="p-2">{{r.year}}</td><td class="p-2">{{r.longest}}</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
         <h2 class="text-xl font-semibold mb-3">Distance and Rides per Bike in {{ currentYear }}</h2>
         <div class="bg-white border">
           <table class="table-statistics min-w-full">
@@ -36,22 +53,6 @@
         </div>
       </div>
 
-      <div>
-        <h2 class="text-xl font-semibold mb-3">Longest Ride per Year</h2>
-        <div class="bg-white border">
-          <table class="table-statistics min-w-full">
-            <thead><tr class="bg-gray-100"><th class="p-2">Year</th><th class="p-2">Longest Ride</th></tr></thead>
-            <tbody>
-              <tr
-                v-for="r in stats.longestPerYear"
-                :key="r.year"
-                :class="['hover:bg-gray-50 cursor-pointer', { 'is-selected': selectedLongestYear === r.year }]"
-                @click="toggleSelectedLongestYear(r.year)"
-              ><td class="p-2">{{r.year}}</td><td class="p-2">{{r.longest}}</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
   </section>
 </template>

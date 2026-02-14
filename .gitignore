@@ -30,4 +30,4 @@ server/db/*.db
 !.env.example
 
 # todo file
-todo.txt
+todo.html

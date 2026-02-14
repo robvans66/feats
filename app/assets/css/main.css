@@ -1,6 +1,15 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+@font-face {
+  /* Ubuntu font brand name 'feats' in header app */
+  font-family: "Ubuntu";
+  src: url("/fonts/ubuntu-v21-latin-regular.woff2") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --fts-ui-primary: #005754; /* dark teal: header, footer main buttons */
   --fts-ui-primary-background: #f2f2f2; /* light grey background body app */
@@ -28,6 +37,10 @@ header.fts,
 footer.fts {
   background-color: var(--fts-ui-primary);
   color: white;
+}
+
+.fts-brandname {
+  font-family: "Ubuntu", sans-serif;
 }
 
 form.fts {
