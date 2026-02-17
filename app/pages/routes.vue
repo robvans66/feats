@@ -12,16 +12,16 @@
           <input v-model.number="form.distance" type="number" step="0.1" required class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">
-          <label class="block">Grade (%)</label>
-          <input v-model.number="form.grade" type="number" step="0.1" class="border px-2 py-1 w-full" />
-        </div>
-        <div class="col-span-1">
           <label class="block">Start*</label>
           <input v-model="form.start" type="text" required class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">
           <label class="block">Destination*</label>
           <input v-model="form.destination" type="text" required class="border px-2 py-1 w-full" />
+        </div>
+                <div class="col-span-1">
+          <label class="block">Grade (%)</label>
+          <input v-model.number="form.grade" type="number" step="0.1" class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">
           <label class="block">Surface*</label>

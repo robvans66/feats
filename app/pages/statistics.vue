@@ -5,51 +5,42 @@
       <div>
         <h2 class="text-xl font-semibold mb-3">Year Totals</h2>
         <div class="bg-white border">
-          <table class="table-statistics min-w-full">
-            <thead><tr class="bg-gray-100"><th class="p-2">Year</th><th class="p-2">Distance</th><th class="p-2">Total Rides</th></tr></thead>
-            <tbody>
-              <tr
-                v-for="r in stats.yearTotals"
-                :key="r.year"
-                :class="['hover:bg-gray-50 cursor-pointer', { 'is-selected': selectedYearTotal === r.year }]"
-                @click="toggleSelectedYearTotal(r.year)"
-              ><td class="p-2">{{r.year}}</td><td class="p-2">{{r.distance}}</td><td class="p-2">{{r.rides}}</td></tr>
-            </tbody>
-          </table>
+          <Table
+            :data="sortedYearTotals"
+            :columns="yearTotalsColumns"
+            :state="yearTotalsState"
+            :on-state-change="setYearTotalsState"
+            :on-select="(_e, row) => toggleSelectedYearTotal(row.year)"
+            :selected-row-id="selectedYearTotal"
+          />
         </div>
       </div>
 
       <div>
         <h2 class="text-xl font-semibold mb-3">Longest Ride per Year</h2>
         <div class="bg-white border">
-          <table class="table-statistics min-w-full">
-            <thead><tr class="bg-gray-100"><th class="p-2">Year</th><th class="p-2">Longest Ride</th></tr></thead>
-            <tbody>
-              <tr
-                v-for="r in stats.longestPerYear"
-                :key="r.year"
-                :class="['hover:bg-gray-50 cursor-pointer', { 'is-selected': selectedLongestYear === r.year }]"
-                @click="toggleSelectedLongestYear(r.year)"
-              ><td class="p-2">{{r.year}}</td><td class="p-2">{{r.longest}}</td></tr>
-            </tbody>
-          </table>
+          <Table
+            :data="sortedLongestPerYear"
+            :columns="longestPerYearColumns"
+            :state="longestPerYearState"
+            :on-state-change="setLongestPerYearState"
+            :on-select="(_e, row) => toggleSelectedLongestYear(row.year)"
+            :selected-row-id="selectedLongestYear"
+          />
         </div>
       </div>
 
       <div>
         <h2 class="text-xl font-semibold mb-3">Distance and Rides per Bike in {{ currentYear }}</h2>
         <div class="bg-white border">
-          <table class="table-statistics min-w-full">
-            <thead><tr class="bg-gray-100"><th class="p-2">Bike</th><th class="p-2">Distance</th><th class="p-2">Number</th></tr></thead>
-            <tbody>
-              <tr
-                v-for="r in stats.perBike"
-                :key="r.bike"
-                :class="['hover:bg-gray-50 cursor-pointer', { 'is-selected': selectedBike === r.bike }]"
-                @click="toggleSelectedBike(r.bike)"
-              ><td class="p-2">{{r.bike}}</td><td class="p-2">{{r.distance}}</td><td class="p-2">{{r.rides}}</td></tr>
-            </tbody>
-          </table>
+          <Table
+            :data="sortedPerBike"
+            :columns="perBikeColumns"
+            :state="perBikeState"
+            :on-state-change="setPerBikeState"
+            :on-select="(_e, row) => toggleSelectedBike(row.bike)"
+            :selected-row-id="selectedBike"
+          />
         </div>
       </div>
 
@@ -93,6 +84,72 @@ const stats = ref({ yearTotals:[], perBike:[], longestPerYear:[], monthlyTotals:
 const selectedYearTotal = ref<number | null>(null)
 const selectedBike = ref<string | null>(null)
 const selectedLongestYear = ref<number | null>(null)
+
+// Table states
+const yearTotalsState = ref<any>({ sorting: [] })
+const longestPerYearState = ref<any>({ sorting: [] })
+const perBikeState = ref<any>({ sorting: [] })
+
+// Column definitions
+const yearTotalsColumns = [
+  { accessorKey: 'year', headerLabel: 'Year', enableSorting: true },
+  { accessorKey: 'distance', headerLabel: 'Distance', enableSorting: true },
+  { accessorKey: 'rides', headerLabel: 'Total Rides', enableSorting: true }
+]
+
+const longestPerYearColumns = [
+  { accessorKey: 'year', headerLabel: 'Year', enableSorting: true },
+  { accessorKey: 'longest', headerLabel: 'Longest Ride', enableSorting: true }
+]
+
+const perBikeColumns = [
+  { accessorKey: 'bike', headerLabel: 'Bike', enableSorting: true },
+  { accessorKey: 'distance', headerLabel: 'Distance', enableSorting: true },
+  { accessorKey: 'rides', headerLabel: 'Number', enableSorting: true }
+]
+
+// State setters
+function setYearTotalsState(updater: any) {
+  yearTotalsState.value = typeof updater === 'function' ? updater(yearTotalsState.value) : updater
+}
+
+function setLongestPerYearState(updater: any) {
+  longestPerYearState.value = typeof updater === 'function' ? updater(longestPerYearState.value) : updater
+}
+
+function setPerBikeState(updater: any) {
+  perBikeState.value = typeof updater === 'function' ? updater(perBikeState.value) : updater
+}
+
+// Sorted data computed properties
+const sortedYearTotals = computed(() => {
+  return sortData(stats.value.yearTotals, yearTotalsState.value.sorting)
+})
+
+const sortedLongestPerYear = computed(() => {
+  return sortData(stats.value.longestPerYear, longestPerYearState.value.sorting)
+})
+
+const sortedPerBike = computed(() => {
+  return sortData(stats.value.perBike, perBikeState.value.sorting)
+})
+
+function sortData(data: any[], sorting: any[]) {
+  if (!sorting || sorting.length === 0) return data
+  const sortSpec = sorting[0]
+  const sorted = [...data].sort((a, b) => {
+    const aVal = a[sortSpec.id]
+    const bVal = b[sortSpec.id]
+    if (aVal === bVal) return 0
+    if (aVal == null) return 1
+    if (bVal == null) return -1
+    if (typeof aVal === 'number' && typeof bVal === 'number') {
+      return aVal - bVal
+    }
+    return String(aVal).localeCompare(String(bVal))
+  })
+  return sortSpec.desc ? sorted.reverse() : sorted
+}
 
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
