@@ -1,4 +1,0 @@
-- kan nog niet in alle kolommen zoeken...
-- toch km km/h en % in labels? zelf doen
-- dark mode selector?
-- font Rubik?

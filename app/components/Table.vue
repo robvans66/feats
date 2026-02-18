@@ -2,8 +2,16 @@
   <div class="w-full overflow-x-auto">
     <table class="min-w-full">
       <thead>
-        <tr class="bg-gray-100">
-          <th v-for="col in visibleColumns" :key="colId(col)" class="p-2 text-left">
+        <tr class="bg-gray-100 dark:bg-gray-700">
+          <th v-if="multiSelect" class="p-2 text-left w-10">
+            <input 
+              type="checkbox" 
+              :checked="allSelected" 
+              @change="toggleSelectAll" 
+              class="cursor-pointer"
+            />
+          </th>
+          <th v-for="col in visibleColumns" :key="colId(col)" class="p-2 text-left dark:text-white">
             <button v-if="col.enableSorting" class="flex items-center space-x-1" @click="toggleSorting(col)">
               <span>{{ col.headerLabel || colId(col) }}</span>
               <span v-if="getIsSorted(colId(col))" class="ml-1">{{ getIsSorted(colId(col)) === 'asc' ? '▲' : '▼' }}</span>
@@ -14,7 +22,7 @@
       </thead>
       <tbody>
         <tr v-if="!data || data.length === 0">
-          <td :colspan="visibleColumns.length" class="p-3 text-sm text-gray-500">
+          <td :colspan="visibleColumns.length + (multiSelect ? 1 : 0)" class="p-3 text-sm text-gray-500">
             No rows
           </td>
         </tr>
@@ -25,6 +33,14 @@
           :class="rowClass(row, idx)"
           @click="onRowClick($event, row)"
         >
+          <td v-if="multiSelect" class="p-2" @click.stop>
+            <input 
+              type="checkbox" 
+              :checked="isRowSelected(row)" 
+              @change="toggleRowSelection(row)" 
+              class="cursor-pointer"
+            />
+          </td>
           <td v-for="col in visibleColumns" :key="colId(col)" class="p-2">
             <component v-if="isVNode(cellContent(col, row))" :is="cellContent(col, row)" />
             <span v-else>{{ cellContent(col, row) }}</span>
@@ -63,6 +79,9 @@ const props = defineProps<{
   onStateChange?: (updaterOrValue: any) => void
   onSelect?: (event: MouseEvent, row: any) => void
   selectedRowId?: string | number | null
+  multiSelect?: boolean
+  selectedRowIds?: (string | number)[]
+  onSelectionChange?: (ids: (string | number)[]) => void
 }>()
 
 const visibleColumns = computed(() => {
@@ -121,11 +140,48 @@ function rowKey(row: any, idx: number) {
 
 function rowClass(row: any, idx: number) {
   const key = rowKey(row, idx)
+  if (props.multiSelect) {
+    const isSelected = isRowSelected(row)
+    return isSelected ? 'is-selected cursor-pointer' : 'hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer'
+  }
   const isSelected = props.selectedRowId !== undefined && key === props.selectedRowId
-  return isSelected ? 'is-selected cursor-pointer' : 'hover:bg-gray-50 cursor-pointer'
+  return isSelected ? 'is-selected cursor-pointer' : 'hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer'
 }
 
 function onRowClick(event: MouseEvent, row: any) {
   props.onSelect?.(event, row)
+}
+
+function isRowSelected(row: any): boolean {
+  if (!props.multiSelect || !props.selectedRowIds) return false
+  const key = rowKey(row, 0)
+  return props.selectedRowIds.includes(key)
+}
+
+function toggleRowSelection(row: any) {
+  if (!props.multiSelect || !props.onSelectionChange) return
+  const key = rowKey(row, 0)
+  const currentIds = props.selectedRowIds || []
+  const newIds = currentIds.includes(key)
+    ? currentIds.filter(id => id !== key)
+    : [...currentIds, key]
+  props.onSelectionChange(newIds)
+}
+
+const allSelected = computed(() => {
+  if (!props.multiSelect || !props.data || props.data.length === 0) return false
+  const currentIds = props.selectedRowIds || []
+  return props.data.every(row => currentIds.includes(rowKey(row, 0)))
+})
+
+function toggleSelectAll() {
+  if (!props.multiSelect || !props.onSelectionChange) return
+  const currentIds = props.selectedRowIds || []
+  if (allSelected.value) {
+    props.onSelectionChange([])
+  } else {
+    const allIds = props.data.map((row, idx) => rowKey(row, idx))
+    props.onSelectionChange(allIds)
+  }
 }
 </script>

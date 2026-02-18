@@ -272,8 +272,8 @@ async function backupData() {
     
     // Rides table
     sqlContent += '-- Rides Table\n'
-    sqlContent += 'DROP TABLE IF EXISTS rides;\n'
-    sqlContent += 'CREATE TABLE rides (\n'
+    sqlContent += 'DROP TABLE IF EXISTS rides_table;\n'
+    sqlContent += 'CREATE TABLE rides_table (\n'
     sqlContent += '  id INTEGER PRIMARY KEY,\n'
     sqlContent += '  date TEXT,\n'
     sqlContent += '  description TEXT,\n'
@@ -300,15 +300,15 @@ async function backupData() {
           sqlEscape(ride.link),
           sqlEscape(ride.notes)
         ].join(', ')
-        sqlContent += `INSERT INTO rides (id, date, description, distance, average, grade, bike, reference, link, notes) VALUES (${values});\n`
+        sqlContent += `INSERT INTO rides_table (id, date, description, distance, average, grade, bike, reference, link, notes) VALUES (${values});\n`
       }
       sqlContent += '\n'
     }
     
     // Routes table
     sqlContent += '-- Routes Table\n'
-    sqlContent += 'DROP TABLE IF EXISTS routes;\n'
-    sqlContent += 'CREATE TABLE routes (\n'
+    sqlContent += 'DROP TABLE IF EXISTS routes_table;\n'
+    sqlContent += 'CREATE TABLE routes_table (\n'
     sqlContent += '  id INTEGER PRIMARY KEY,\n'
     sqlContent += '  description TEXT,\n'
     sqlContent += '  distance REAL,\n'
@@ -335,7 +335,7 @@ async function backupData() {
           sqlEscape(route.link),
           sqlEscape(route.notes)
         ].join(', ')
-        sqlContent += `INSERT INTO routes (id, description, distance, grade, start, destination, surface, reference, link, notes) VALUES (${values});\n`
+        sqlContent += `INSERT INTO routes_table (id, description, distance, grade, start, destination, surface, reference, link, notes) VALUES (${values});\n`
       }
       sqlContent += '\n'
     }

@@ -4,7 +4,7 @@
     <div class="grid gap-15 lg:grid-cols-3">
       <div>
         <h2 class="text-xl font-semibold mb-3">Year Totals</h2>
-        <div class="bg-white border">
+        <div class="table-statistics bg-white border">
           <Table
             :data="sortedYearTotals"
             :columns="yearTotalsColumns"
@@ -18,7 +18,7 @@
 
       <div>
         <h2 class="text-xl font-semibold mb-3">Longest Ride per Year</h2>
-        <div class="bg-white border">
+        <div class="table-statistics bg-white border">
           <Table
             :data="sortedLongestPerYear"
             :columns="longestPerYearColumns"
@@ -32,7 +32,7 @@
 
       <div>
         <h2 class="text-xl font-semibold mb-3">Distance and Rides per Bike in {{ currentYear }}</h2>
-        <div class="bg-white border">
+        <div class="table-statistics bg-white border">
           <Table
             :data="sortedPerBike"
             :columns="perBikeColumns"
@@ -44,6 +44,20 @@
         </div>
       </div>
 
+    </div>
+
+    <div class="mt-12">
+      <h2 class="text-xl font-semibold mb-3">Rides Over 100km per Year</h2>
+      <div class="table-statistics bg-white border">
+        <Table
+          :data="sortedRidesOver100"
+          :columns="ridesOver100Columns"
+          :state="ridesOver100State"
+          :on-state-change="setRidesOver100State"
+          :on-select="(_e, row) => toggleSelectedOver100Year(row.year)"
+          :selected-row-id="selectedOver100Year"
+        />
+      </div>
     </div>
 
     <div class="mt-12">
@@ -80,15 +94,17 @@ import { $fetch } from 'ofetch'
 
 const currentYear = computed(() => new Date().getFullYear())
 
-const stats = ref({ yearTotals:[], perBike:[], longestPerYear:[], monthlyTotals:[] })
+const stats = ref({ yearTotals:[], perBike:[], longestPerYear:[], monthlyTotals:[], ridesOver100ByYear:[] })
 const selectedYearTotal = ref<number | null>(null)
 const selectedBike = ref<string | null>(null)
 const selectedLongestYear = ref<number | null>(null)
+const selectedOver100Year = ref<string | null>(null)
 
 // Table states
 const yearTotalsState = ref<any>({ sorting: [] })
 const longestPerYearState = ref<any>({ sorting: [] })
 const perBikeState = ref<any>({ sorting: [] })
+const ridesOver100State = ref<any>({ sorting: [{ id: 'year', desc: true }] })
 
 // Column definitions
 const yearTotalsColumns = [
@@ -108,6 +124,17 @@ const perBikeColumns = [
   { accessorKey: 'rides', headerLabel: 'Number', enableSorting: true }
 ]
 
+const ridesOver100Columns = [
+  { accessorKey: 'year', headerLabel: 'Year', enableSorting: true },
+  { accessorKey: 'count', headerLabel: 'Rides > 100km', enableSorting: true },
+  { 
+    accessorKey: 'distancesFormatted', 
+    headerLabel: 'Distances (km)', 
+    enableSorting: false,
+    cell: (ctx: any) => ctx.getValue()
+  }
+]
+
 // State setters
 function setYearTotalsState(updater: any) {
   yearTotalsState.value = typeof updater === 'function' ? updater(yearTotalsState.value) : updater
@@ -121,6 +148,10 @@ function setPerBikeState(updater: any) {
   perBikeState.value = typeof updater === 'function' ? updater(perBikeState.value) : updater
 }
 
+function setRidesOver100State(updater: any) {
+  ridesOver100State.value = typeof updater === 'function' ? updater(ridesOver100State.value) : updater
+}
+
 // Sorted data computed properties
 const sortedYearTotals = computed(() => {
   return sortData(stats.value.yearTotals, yearTotalsState.value.sorting)
@@ -132,6 +163,27 @@ const sortedLongestPerYear = computed(() => {
 
 const sortedPerBike = computed(() => {
   return sortData(stats.value.perBike, perBikeState.value.sorting)
+})
+
+const sortedRidesOver100 = computed(() => {
+  // Format the distances column with first 10 and "and X more" if needed
+  const formatted = stats.value.ridesOver100ByYear.map((item: any) => {
+    const distances = item.distances || []
+    const displayDistances = distances.slice(0, 15)
+    const remaining = distances.length - 15
+    
+    let distancesText = displayDistances.join(', ')
+    if (remaining > 0) {
+      distancesText += ` and ${remaining} more`
+    }
+    
+    return {
+      ...item,
+      distancesFormatted: distancesText
+    }
+  })
+  
+  return sortData(formatted, ridesOver100State.value.sorting)
 })
 
 function sortData(data: any[], sorting: any[]) {
@@ -173,6 +225,10 @@ function toggleSelectedBike(bike: string) {
 
 function toggleSelectedLongestYear(year: number) {
   selectedLongestYear.value = selectedLongestYear.value === year ? null : year
+}
+
+function toggleSelectedOver100Year(year: string) {
+  selectedOver100Year.value = selectedOver100Year.value === year ? null : year
 }
 
 onMounted(async () => {

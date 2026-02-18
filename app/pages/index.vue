@@ -46,15 +46,15 @@
       </div>
     </form>
 
-    <ConfirmModal :show="showConfirm" title="Delete Ride" message="Are you sure you want to delete the selected ride?" @confirm="confirmDelete" @cancel="()=>showConfirm=false" />
+    <ConfirmModal :show="showConfirm" title="Delete Ride" :message="`Are you sure you want to delete ${selectedRows.length} ride${selectedRows.length > 1 ? 's' : ''}?`" @confirm="confirmDelete" @cancel="()=>showConfirm=false" />
     <Toast :message="toast" />
 
 
  <h1 class="text-3xl font-semibold mb-6 mt-10">Completed Rides</h1>
     <div class="flex items-center justify-between mt-4 mb-4">
       <div class="flex items-center space-x-2">
-        <button class="px-3 py-1 fts disabled:opacity-50" :disabled="!selectedRow || loading" @click="onEdit">Edit</button>
-        <button class="px-3 py-1 fts-delete disabled:opacity-50" :disabled="!selectedRow || loading" @click="onDelete">Delete</button>
+        <button class="px-3 py-1 fts disabled:opacity-50" :disabled="selectedRows.length !== 1 || loading" @click="onEdit">Edit</button>
+        <button class="px-3 py-1 fts-delete disabled:opacity-50" :disabled="selectedRows.length === 0 || loading" @click="onDelete">Delete {{ selectedRows.length > 1 ? `(${selectedRows.length})` : '' }}</button>
       </div>
       <div class="flex items-center space-x-2">
           <input v-model="tableState.globalFilter" placeholder="Search" class="border px-2 py-1" />
@@ -68,15 +68,24 @@
           />
         <div class="relative z-20">
           <button @click="showCols = !showCols" class="border px-2 py-1">Columns ▾</button>
-          <div v-if="showCols" class="absolute right-0 mt-2 bg-white border p-2 shadow z-30 w-max">
-            <label v-for="c in allColumns" :key="c.key" class="block"><input type="checkbox" v-model="tableState.columnVisibility[c.key]" /> {{c.label}}</label>
+          <div v-if="showCols" class="absolute right-0 mt-2 bg-white dark:bg-gray-800 border dark:border-gray-700 p-2 shadow z-30 w-max">
+            <label v-for="c in allColumns" :key="c.key" class="block dark:text-white"><input type="checkbox" v-model="tableState.columnVisibility[c.key]" /> {{c.label}}</label>
           </div>
         </div>
       </div>
     </div>
 
     <div class="table-rides bg-white border overflow-x-auto relative">
-      <Table :data="rows" :columns="tableColumns" :state="tableState" :selectedRowId="selectedRow?.id ?? null" :onStateChange="onStateChange" :onSelect="(e,row)=>handleTableSelect(e,row)" />
+      <Table 
+        :data="rows" 
+        :columns="tableColumns" 
+        :state="tableState" 
+        :multiSelect="true"
+        :selectedRowIds="selectedRows"
+        :onSelectionChange="handleSelectionChange"
+        :onStateChange="onStateChange" 
+        :onSelect="(e,row)=>handleTableSelect(e,row)" 
+      />
       <Spinner v-if="loading" />
     </div>
 
@@ -117,7 +126,7 @@ const page = ref(0)
 const search = ref('')
 const sortBy = ref('date')
 const sortDir = ref<'asc'|'desc'>('desc')
-const selectedRow = ref<any | null>(null)
+const selectedRows = ref<number[]>([])
 const isEditing = ref(false)
 const showCols = ref(false)
 // column visibility is stored in tableState.columnVisibility
@@ -271,10 +280,6 @@ const tableColumns = computed(() => [
   { accessorKey: 'notes', headerLabel: 'Notes' }
 ])
 
-function handleTableSelect(e:any, row:any){
-  selectRow(row)
-}
-
 function onStateChange(updaterOrValue:any){
   tableState.value = typeof updaterOrValue === 'function' ? updaterOrValue(tableState.value) : updaterOrValue
 }
@@ -288,16 +293,29 @@ function nextPage(){
 
 function setPageSize(n:number){ tableState.value.pagination.pageSize = n; tableState.value.pagination.pageIndex = 0 }
 
-function selectRow(row:any){
-  const rowId = row?.id ?? null
-  const selectedId = selectedRow.value?.id ?? null
-  selectedRow.value = rowId !== null && rowId === selectedId ? null : row
+function handleSelectionChange(ids: (string | number)[]) {
+  selectedRows.value = ids.map(id => Number(id))
+}
+
+function handleTableSelect(e: MouseEvent, row: any) {
+  // Keep single-click behavior for backward compatibility
+  if (!e.ctrlKey && !e.metaKey) {
+    const rowId = row?.id
+    if (selectedRows.value.includes(rowId)) {
+      selectedRows.value = []
+    } else {
+      selectedRows.value = [rowId]
+    }
+  }
 }
 
 function onEdit(){
-  if (!selectedRow.value) return
+  if (selectedRows.value.length !== 1) return
+  const selectedId = selectedRows.value[0]
+  const selectedRow = rows.value.find(r => r.id === selectedId)
+  if (!selectedRow) return
   isEditing.value = true
-  const r = selectedRow.value
+  const r = selectedRow
   form.value = { ...r }
   // focus first field
   nextTick(()=>{
@@ -307,18 +325,27 @@ function onEdit(){
 }
 
 function onDelete(){
-  if (!selectedRow.value) return
+  if (selectedRows.value.length === 0) return
   showConfirm.value = true
 }
 
 async function confirmDelete(){
-  if (!selectedRow.value) return
-  await $fetch(`/api/rides?id=${selectedRow.value.id}`, { method: 'DELETE' })
-  showConfirm.value = false
-  toast.value = 'Ride deleted'
-  setTimeout(()=> toast.value = '', 2500)
-  selectedRow.value = null
-  load()
+  if (selectedRows.value.length === 0) return
+  try {
+    await Promise.all(
+      selectedRows.value.map(id => 
+        $fetch(`/api/rides?id=${id}`, { method: 'DELETE' })
+      )
+    )
+    showConfirm.value = false
+    toast.value = `${selectedRows.value.length} ride${selectedRows.value.length > 1 ? 's' : ''} deleted`
+    setTimeout(()=> toast.value = '', 2500)
+    selectedRows.value = []
+    load()
+  } catch (err) {
+    toast.value = 'Failed to delete rides'
+    setTimeout(()=> toast.value = '', 2500)
+  }
 }
 
 function onReferenceInput(){
