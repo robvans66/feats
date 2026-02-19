@@ -2,6 +2,8 @@
 
 Feats is a Nuxt 4 app for tracking completed bicycle rides and planned routes.
 
+It is a personal project to have a simple tool to keep track of my rides and routes. It is not intended to be a full-featured application, but rather a simple and easy-to-use tool for myself and anyone else who might find it useful. I use multiple bicycle platforms and thought it would be handy to have a centralized place to have an overview of all my rides and routes.
+
 Quick start
 
 1. Install dependencies:
