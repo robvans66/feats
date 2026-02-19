@@ -107,9 +107,9 @@ const allColumns = [
   { key: 'id', label: 'ID' },
   { key: 'description', label: 'Description' },
   { key: 'distance', label: 'Distance' },
-  { key: 'grade', label: 'Grade' },
   { key: 'start', label: 'Start' },
   { key: 'destination', label: 'Destination' },
+  { key: 'grade', label: 'Grade' },
   { key: 'surface', label: 'Surface' },
   { key: 'reference', label: 'Reference' },
   { key: 'link', label: 'Link' },
@@ -131,7 +131,7 @@ const showCols = ref(false)
 const defaultVisibleColumns = allColumns.map(c => c.key)
 const visibleColumns = ref(defaultVisibleColumns)
 
-const form = ref({ id: null, description: '', distance: null, grade: null, start: '', destination: '', surface: 'Road', reference: '', link: '', notes: '' })
+const form = ref({ id: null, description: '', distance: null, start: '', destination: '', grade: null, surface: 'Road', reference: '', link: '', notes: '' })
 const toast = ref('')
 const showConfirm = ref(false)
 
@@ -294,9 +294,9 @@ const tableColumns = computed(() => [
   { accessorKey: 'id', headerLabel: 'ID', enableSorting: true },
   { accessorKey: 'description', headerLabel: 'Description', enableSorting: true },
   { accessorKey: 'distance', headerLabel: 'Distance', enableSorting: true },
-  { accessorKey: 'grade', headerLabel: 'Grade' },
   { accessorKey: 'start', headerLabel: 'Start' },
   { accessorKey: 'destination', headerLabel: 'Destination' },
+  { accessorKey: 'grade', headerLabel: 'Grade' },
   { accessorKey: 'surface', headerLabel: 'Surface' },
   { accessorKey: 'reference', headerLabel: 'Reference' },
   { accessorKey: 'link', headerLabel: 'Link', enableSorting: true,
