@@ -4,9 +4,8 @@
     <div class="flex items-start gap-4">
       <p class="mb-4 flex-1">Feats is a small application to keep track of completed bicycle rides and planned bicycle routes.
         <br><br>
-        It is a personal project to have a simple tool to keep track of my rides and routes. It is not intended to be a full-featured application, but rather a simple and easy-to-use tool for myself and anyone else who might find it useful. I use multiple bicycle platforms and thought it would be handy to have a centralized place to have an overview of all my rides and routes.<br><br>
-        And let's be honest, this project is for 90% or more written by ChatGPT, with me, the mortal human being with limited capabilities, providing the prompts and doing some light editing here and there.<br><br>
-        But the name of the app is fully made up by me. "Feats" is a play on words, as it can refer to both "feats" as in achievements (completing rides and routes), and "fiets" which is the Dutch word for bicycle, pronounced similarly. Yes, I am a creative and hilariously funny mortal human being as well.<br><br>
+        It is a personal project to have a simple tool to keep track of my rides and routes. It is not intended to be a full-featured application, but rather a simple and easy-to-use tool for myself and anyone else who might find it useful. I use multiple bicycle platforms and thought it would be handy to have an overview of all my rides and routes in one place. And I think it can also be useful for others who don't use any bicycle platform at all.<br><br>
+        The name "Feats" is a play on words, as it can refer to both "feats" as in achievements (completing rides and routes), and "fiets" which is the Dutch word for bicycle, pronounced similarly.<br><br>
       </p>
       <img 
         :src="isDark ? '/fts-logo-darkmode.png' : '/fts-logo-regular.png'" 
