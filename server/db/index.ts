@@ -119,7 +119,7 @@ function getDefaultUserConfig() {
 }
 
 function seed(db: Database) {
-  const bikes = ['Santos', 'Rimonta', 'Gazelle', 'Wahoo']
+  const bikes = ['Santos', 'Rimonta']
   const insert = db.prepare(`INSERT INTO rides_table (date,description,distance,average,grade,bike,reference,link,notes) VALUES (?,?,?,?,?,?,?,?,?)`)
   const years = [2026,2025,2024,2023]
   for (let i=0;i<5;i++){

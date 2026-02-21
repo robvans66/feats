@@ -6,8 +6,7 @@
         <br><br>
         It is a personal project to have a simple tool to keep track of my rides and routes. It is not intended to be a full-featured application, but rather a simple and easy-to-use tool for myself and anyone else who might find it useful. I use multiple bicycle platforms and thought it would be handy to have a centralized place to have an overview of all my rides and routes.<br><br>
         And let's be honest, this project is for 90% or more written by ChatGPT, with me, the mortal human being with limited capabilities, providing the prompts and doing some light editing here and there.<br><br>
-        The name "Feats" is a play on words, as it can refer to both "feats" as in achievements (completing rides and routes), and "fiets" which is the Dutch word for bicycle, pronounced similarly. Yes, I am a creative and hilariously funny mortal human being as well.<br><br>
-        At least the name was fully made up by me, without any help from ChatGPT, so I can claim that as my own original contribution to the project.
+        But the name of the app is fully made up by me. "Feats" is a play on words, as it can refer to both "feats" as in achievements (completing rides and routes), and "fiets" which is the Dutch word for bicycle, pronounced similarly. Yes, I am a creative and hilariously funny mortal human being as well.<br><br>
       </p>
       <img 
         :src="isDark ? '/fts-logo-darkmode.png' : '/fts-logo-regular.png'" 
@@ -35,14 +34,14 @@
 
     <h2 class="text-xl pt-4 mb-3 font-semibold">Configuration page</h2>
     <p class="mb-4">The Configuration page allows you to customize the application settings, such as the bikes you ride and other preferences. You can add, edit, and delete bikes, and you can also choose which columns to show in the Rides and Routes tables.<br><br>
-    This page also includes a backup feature, which allows you to export your data as a SQL file. This is useful for creating backups of your data, or for transferring your data to another device. Note that the backup file includes all your rides, routes, bikes, and configuration settings, so be careful when sharing it with others.
+    This page also includes a backup feature, which allows you to export your data as a SQL file. This is useful for creating backups of your data, or for transferring your data to another device. Note that the backup is currently limited to 10.000 records per table.
     </p>
 
     <h2 class="text-xl pt-4 mb-3 font-semibold">About page</h2>
     <p class="mb-4">This is the page you are currently on. It provides information about the application, its features, and its version history.</p>
 
     <h2 class="text-2xl pt-8 mb-3 font-semibold">Version History</h2>
-    <h3 class="font-semibold">v1.0.2, 18-02-2026</h3>
+    <h3 class="font-semibold">v0.9.2, 18-02-2026</h3>
     <ul class="mb-4 list-disc list-inside">
       <li>Added table 'Rides over 100km' on the Statistics page</li>
       <li>Enabled multiple selection in Rides and Routes tables for bulk deletion</li>
@@ -50,12 +49,12 @@
       <li>Updated logo for dark mode</li>
       <li>Some other minor improvements</li>
       </ul>
-    <h3 class="font-semibold">v1.0.1, 14-02-2026</h3>
+    <h3 class="font-semibold">v0.9.1, 14-02-2026</h3>
     <ul class="mb-4 list-disc list-inside">
       <li>Added 'Monthly Totals by Year' table on Statistics page</li>
       <li>Many small improvements and bug fixes</li>
     </ul>
-    <h3 class="font-semibold mt-6">v1.0.0, 11-02-2026</h3>
+    <h3 class="font-semibold mt-6">v0.9.0, 11-02-2026</h3>
     <ul class="mb-4 list-disc list-inside">
       <li>Initial version: Rides, Routes, Statistics, Configuration, About pages and SQLite backend for data storage</li>
     </ul>

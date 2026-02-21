@@ -73,7 +73,7 @@
 
     <div class="fts-cfg-options flex gap-3 mt-6">
         <button class="fts px-3 py-1" :disabled="saving || backingUp" @click="backupData">Backup Data</button>
-        <span class="px-3 py-1">Make a backup of your data. This will download a SQL file containing all your rides, routes, and configuration. Happy days.</span>
+        <span class="px-3 py-1">Make a backup of your data. This will download a SQL file containing all your rides, routes, and configuration.</span>
     </div>
     
 
