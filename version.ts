@@ -1,0 +1,1 @@
+export const LatestVersion = '1.0.260223';

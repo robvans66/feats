@@ -28,7 +28,7 @@ What I changed
 
 Notes
 
-- DB file is created at `server/db/feats.db` and seeded when the app starts if empty.
+- DB file is created at `{UserPath}.feats/db/feats.db` and seeded when the app starts if empty.
 - If `git push` fails, ensure your repository has a remote configured and you have permissions.
 
 Commands

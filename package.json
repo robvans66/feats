@@ -20,6 +20,8 @@
   },
   "devDependencies": {
     "@iconify-json/flowbite": "^1.2.7",
-    "@iconify-json/lucide": "^1.2.90"
+    "@iconify-json/lucide": "^1.2.90",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.3.0"
   }
 }

@@ -1,11 +1,19 @@
 import Database from 'better-sqlite3'
 import path from 'path'
+import os from 'os'
+import fs from 'fs'
 
-const DB_PATH = path.resolve(process.cwd(), 'server/db/feats.db')
+const DB_DIR = path.join(os.homedir(), '.feats')
+const DB_PATH = path.join(DB_DIR, 'feats.db')
 
 function init() {
-  const db = new Database(DB_PATH)
+  // Ensure database directory exists
+  if (!fs.existsSync(DB_DIR)) {
+    fs.mkdirSync(DB_DIR, { recursive: true })
+  }
+  console.log(`Using database at: ${DB_PATH}`)
 
+  const db = new Database(DB_PATH)
   db.pragma('journal_mode = WAL')
 
   // rides-table
@@ -53,17 +61,17 @@ function init() {
   ensureUserConfig(db)
 
   // seed if empty
-  const rideCount = db.prepare('SELECT COUNT(*) as c FROM rides_table').get().c
+  const rideCount = (db.prepare('SELECT COUNT(*) as c FROM rides_table').get() as { c: number }).c
   if (rideCount === 0) seed(db)
 
-  const routeCount = db.prepare('SELECT COUNT(*) as c FROM routes_table').get().c
+  const routeCount = (db.prepare('SELECT COUNT(*) as c FROM routes_table').get() as { c: number }).c
   if (routeCount === 0) seedRoutes(db)
 
   return db
 }
 
-function ensureUserConfig(db: Database) {
-  const existing = db.prepare('SELECT COUNT(*) as c FROM user_config').get().c
+function ensureUserConfig(db: typeof Database.prototype) {
+  const existing = (db.prepare('SELECT COUNT(*) as c FROM user_config').get() as { c: number }).c
   const defaults = getDefaultUserConfig()
   if (existing === 0) {
     db.prepare('INSERT INTO user_config (id, bike_options, surface_options, page_size_options, rides_column_visibility, routes_column_visibility) VALUES (1, ?, ?, ?, ?, ?)').run(
@@ -118,7 +126,7 @@ function getDefaultUserConfig() {
   }
 }
 
-function seed(db: Database) {
+function seed(db: typeof Database.prototype) {
   const bikes = ['Santos', 'Rimonta']
   const insert = db.prepare(`INSERT INTO rides_table (date,description,distance,average,grade,bike,reference,link,notes) VALUES (?,?,?,?,?,?,?,?,?)`)
   const years = [2026,2025,2024,2023]
@@ -139,7 +147,7 @@ function seed(db: Database) {
   }
 }
 
-function seedRoutes(db: Database){
+function seedRoutes(db: typeof Database.prototype){
   const surfaces = ['Road','Gravel','Road/Gravel','Gravel/MTB']
   const insert = db.prepare(`INSERT INTO routes_table (description,distance,grade,start,destination,surface,reference,link,notes) VALUES (?,?,?,?,?,?,?,?,?)`)
   for (let i=0;i<3;i++){
@@ -156,7 +164,7 @@ function seedRoutes(db: Database){
   }
 }
 
-function ensureColumn(db: Database, table: string, column: string, type: string) {
+function ensureColumn(db: typeof Database.prototype, table: string, column: string, type: string) {
   const columns = db.prepare(`PRAGMA table_info(${table})`).all() as { name: string }[]
   const hasColumn = columns.some((col) => col.name === column)
   if (!hasColumn) {
