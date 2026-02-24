@@ -79,7 +79,7 @@ function ensureUserConfig(db2) {
 }
 function getDefaultUserConfig() {
   return {
-    bikeOptions: ["Santos", "Rimonta", "Gazelle", "Wahoo"],
+    bikeOptions: ["Santos", "Rimonta"],
     surfaceOptions: ["Road", "Gravel", "Road/Gravel", "Gravel/MTB"],
     pageSizeOptions: [5, 10, 20],
     ridesColumnVisibility: {

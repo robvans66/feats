@@ -30,7 +30,7 @@ npm run dev
 ```bash
 cd feats_v[version number]/server
 npm install
-node ./server/index.mjs
+node ./index.mjs
 ```
 
 2. Open http://localhost:3000 in your browser.
