@@ -29,5 +29,6 @@ server/db/*.db
 .env.*
 !.env.example
 
-# todo file
+# txt files
 todo.txt
+howto.txt

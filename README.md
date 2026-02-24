@@ -4,11 +4,14 @@ Feats is a Nuxt 4 app for tracking completed bicycle rides and planned routes.
 
 It is a personal project to have a simple tool to keep track of my rides and routes. It is not intended to be a full-featured application, but rather a simple and easy-to-use tool for myself and anyone else who might find it useful. I use multiple bicycle platforms and thought it would be handy to have a centralized place to have an overview of all my rides and routes.
 
-Quick start
+## Quick start
+You can clone or download the complete repository with all the source files and play around with it or just run the latest build in folder **feats_v[version number]**. In either way you need to have 'nodejs' installed on your system.
 
-1. Install dependencies:
+### Play with the source files
+1. Clone (or download) the repository and install dependencies:
 
 ```bash
+cd feats
 npm install
 ```
 
@@ -20,23 +23,12 @@ npm run dev
 
 3. Open http://localhost:3000 in your browser.
 
-What I changed
+### Run the latest build
 
-- Server: added `server/db` and API endpoints under `server/api` for `rides`, `routes`, and `stats` (Better-SQLite3 backing store).
-- Client: pages `pages/index.vue` (Rides) and `pages/routes.vue` (Routes) use NuxtUI `Table` and perform server-side pagination/filtering/sorting.
-- UI: added `components/Spinner.vue`, `components/Toast.vue` transitions, and a global loading composable at `composables/useGlobalLoading.ts`.
-
-Notes
-
-- DB file is created at `{UserPath}.feats/db/feats.db` and seeded when the app starts if empty.
-- If `git push` fails, ensure your repository has a remote configured and you have permissions.
-
-Commands
-
-- Run tests / smoke checks (manual):
+1. Clone (or download) the repository and copy the latest build to the destination of your choice and run the app. Once you have copied the build, you can safely delete the original repository if you want.
 
 ```bash
-curl -sS "http://localhost:3000/api/rides?page=0&pageSize=5"
-curl -sS "http://localhost:3000/api/routes?page=0&pageSize=5"
-curl -sS "http://localhost:3000/api/stats"
+
+cd feats_v[version number]
+node ./feats_v[version number]/server/
 ```

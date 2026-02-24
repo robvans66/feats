@@ -4,9 +4,9 @@ import { LatestVersion } from './version'
 export default defineNuxtConfig({
   nitro: {
     output: {
-      dir: `feats_${LatestVersion}`,
-      serverDir: `feats_${LatestVersion}/server`,
-      publicDir: `feats_${LatestVersion}/public`
+      dir: `feats_v${LatestVersion}`,
+      serverDir: `feats_v${LatestVersion}/server`,
+      publicDir: `feats_v${LatestVersion}/public`
     }
   },
   compatibilityDate: '2025-07-15',

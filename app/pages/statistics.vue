@@ -6,6 +6,7 @@
         <h2 class="text-xl font-semibold mb-3">Year Totals</h2>
         <div class="table-statistics bg-white border">
           <Table
+            :id = "'year-totals'"
             :data="sortedYearTotals"
             :columns="yearTotalsColumns"
             :state="yearTotalsState"
@@ -154,7 +155,21 @@ function setRidesOver100State(updater: any) {
 
 // Sorted data computed properties
 const sortedYearTotals = computed(() => {
-  return sortData(stats.value.yearTotals, yearTotalsState.value.sorting)
+  const sorted = sortData(stats.value.yearTotals, yearTotalsState.value.sorting)
+  
+  // Calculate grand totals
+  const totalDistance = stats.value.yearTotals.reduce((sum: number, item: any) => sum + (item.distance || 0), 0)
+  const totalRides = stats.value.yearTotals.reduce((sum: number, item: any) => sum + (item.rides || 0), 0)
+  
+  // Add grand total row at the bottom
+  const grandTotal = {
+    year: 'Grand Total',
+    distance: Math.round(totalDistance * 100) / 100,
+    rides: totalRides,
+    isGrandTotal: true
+  }
+  
+  return [...sorted, grandTotal]
 })
 
 const sortedLongestPerYear = computed(() => {
