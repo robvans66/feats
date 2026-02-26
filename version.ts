@@ -1,1 +1,1 @@
-export const LatestVersion = '1.0.0' // 24 Feb 2026
+export const LatestVersion = '1.0.1' // 26 Feb 2026
