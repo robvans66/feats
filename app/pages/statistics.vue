@@ -1,6 +1,14 @@
 <template>
   <section>
     <h1 class="text-3xl font-semibold mb-6">Statistics</h1>
+        <div class=" fun-fact mb-8 p-4 ">
+      <p class="text-lg font-semibold">
+        Great! You cycled around the earth 
+        <span class="circumferences font-bold">{{ earthCircumferences }}</span> 
+        times. Keep on pedaling!
+      </p>
+    </div>
+
     <div class="grid gap-15 lg:grid-cols-3">
       <div>
         <h2 class="text-xl font-semibold mb-3">Year Totals</h2>
@@ -249,5 +257,10 @@ function toggleSelectedOver100Year(year: string) {
 onMounted(async () => {
   const d:any = await $fetch('/api/stats')
   stats.value = d
+})
+
+const earthCircumferences = computed(() => {
+  const totalDistance = stats.value.yearTotals.reduce((sum: number, item: any) => sum + (item.distance || 0), 0)
+  return Math.round((totalDistance / 40000) * 100) / 100
 })
 </script>

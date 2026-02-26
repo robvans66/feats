@@ -81,6 +81,24 @@ section.fts button {
   border: 1px solid #4b5563 !important;
 }
 
+.fun-fact {
+  background-color: var(--fts-ui-primary-light);
+  border-radius: 10px;
+}
+
+.dark .fun-fact {
+  background-color: var(--fts-ui-primary-light);
+  color: #e5e7eb;
+}
+
+.fun-fact .circumferences {
+  color: var(--fts-ui-primary);
+}
+
+.dark .fun-fact .circumferences {
+  color: var(--fts-ui-button);
+}
+
 .table-rides,
 .table-routes,
 .table-statistics {
