@@ -47,7 +47,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
       { key: "link", label: "Link" },
       { key: "notes", label: "Notes" }
     ];
-    const bikeOptions = ref(["Santos", "Rimonta", "Gazelle", "Wahoo"]);
+    const bikeOptions = ref(["Santos", "Rimonta"]);
     const pageSizeOptions = ref([5, 10, 20]);
     const rows = ref([]);
     const total = ref(0);
@@ -241,4 +241,4 @@ _sfc_main.setup = (props, ctx) => {
 };
 
 export { _sfc_main as default };
-//# sourceMappingURL=index-B_m8aQyu.mjs.map
+//# sourceMappingURL=index-Cmn7GXq3.mjs.map

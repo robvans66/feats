@@ -117,7 +117,7 @@ import { useGlobalLoading } from '../composables/useGlobalLoading'
     { key: 'notes', label: 'Notes' }
   ]
 
-const bikeOptions = ref<string[]>(['Santos', 'Rimonta', 'Gazelle', 'Wahoo'])
+const bikeOptions = ref<string[]>(['Santos', 'Rimonta'])
 const pageSizeOptions = ref<number[]>([5, 10, 20])
 
 const rows = ref<any[]>([])
