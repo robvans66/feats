@@ -39,30 +39,8 @@
     <h2 class="text-xl pt-4 mb-3 font-semibold">About page</h2>
     <p class="mb-4">This is the page you are currently on. It provides information about the application, its features, and its version history.</p>
 
-    <h2 class="text-2xl pt-8 mb-3 font-semibold">Version History</h2>
-    <h3 class="font-semibold">v1.0.0, 23-02-2026</h3>
-    <ul class="mb-4 list-disc list-inside">
-      <li>First nuxt build</li>
-      <li>Moved database location to OS specific user directory</li>
-      <li>Some minor fixes</li>
-    </ul>
-    <h3 class="font-semibold">v0.9.2, 18-02-2026</h3>
-    <ul class="mb-4 list-disc list-inside">
-      <li>Added table 'Rides over 100km' on the Statistics page</li>
-      <li>Enabled multiple selection in Rides and Routes tables for bulk deletion</li>
-      <li>Fixed some dark mode contrast/color issues</li>
-      <li>Updated logo for dark mode</li>
-      <li>Some other minor improvements</li>
-      </ul>
-    <h3 class="font-semibold">v0.9.1, 14-02-2026</h3>
-    <ul class="mb-4 list-disc list-inside">
-      <li>Added 'Monthly Totals by Year' table on Statistics page</li>
-      <li>Many small improvements and bug fixes</li>
-    </ul>
-    <h3 class="font-semibold mt-6">v0.9.0, 11-02-2026</h3>
-    <ul class="mb-4 list-disc list-inside">
-      <li>Initial version: Rides, Routes, Statistics, Configuration, About pages and SQLite backend for data storage</li>
-    </ul>
+    <p class="font-semibold">Latest version: v1.0.2, 26-02-2026</p>
+    <p class="font-semibold">First version: v0.9.0, 11-02-2026</p>
   </section>
 </template>
 
