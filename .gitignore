@@ -32,3 +32,4 @@ server/db/*.db
 # txt files
 todo.txt
 howto.txt
+prompts.txt
