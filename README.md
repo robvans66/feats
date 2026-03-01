@@ -27,16 +27,10 @@ If you don't want to keep the dev files, you can also build the application and 
 
 ```bash
 cd feats
-<<<<<<< HEAD
 npm install
 npm run build
 cd feats_vx.y.z/server
 npm install
-=======
-npm run build
-cd feats_vx.y.z/server
-npm install
->>>>>>> 25da85cf7a0a52228390aca6c127b852b59caf33
 ```
 Now you have an independed build in folder 'feats_vx.y.z'. You can copy the folder to a destination of your choice and delete the repository.
 
