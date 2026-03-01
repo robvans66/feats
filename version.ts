@@ -1,1 +1,2 @@
-export const LatestVersion = '1.0.2' // 26 Feb 2026
+export const LatestVersion = '1.0.3'
+export const LatestVersionDate = '01 Mar 2026'
