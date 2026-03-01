@@ -2,6 +2,8 @@ import Database from 'better-sqlite3'
 import path from 'path'
 import os from 'os'
 import fs from 'fs'
+import { LatestVersion } from '../../version'
+import { LatestVersionDate } from '../../version'
 
 const DB_DIR = path.join(os.homedir(), '.feats')
 const DB_PATH = path.join(DB_DIR, 'feats.db')
@@ -11,6 +13,9 @@ function init() {
   if (!fs.existsSync(DB_DIR)) {
     fs.mkdirSync(DB_DIR, { recursive: true })
   }
+
+  console.log()
+  console.log(`Feats v${LatestVersion} (${LatestVersionDate})`)
   console.log(`Using database at: ${DB_PATH}`)
 
   const db = new Database(DB_PATH)

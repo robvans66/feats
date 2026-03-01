@@ -38,17 +38,16 @@
     <p class="mb-4">The Configuration page allows you to customize the application settings, such as the bikes you ride and other preferences. You can add, edit, and delete bikes, and you can also choose which columns to show in the Rides and Routes tables.<br><br>
     This page also includes a backup feature, which allows you to export your data as a SQL file. This is useful for creating backups of your data, or for transferring your data to another device. Note that the backup is currently limited to 10.000 records per table.
     </p>
+    <br><br>
 
-    <h2 class="text-xl pt-4 mb-3 font-semibold">About page</h2>
-    <p class="mb-4">This is the page you are currently on. It provides information about the application, its features, and its version history.</p>
-
-    <p class="font-semibold">Latest version: v1.0.2, 26-02-2026</p>
-    <p class="font-semibold">First version: v0.9.0, 11-02-2026</p>
+    <p class="font-semibold">Latest version: v{{ LatestVersion }} ({{ LatestVersionDate }})</p>
+    <p class="font-semibold">First version: v0.9.0 (11 Feb 2026)</p>
   </section>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { LatestVersion, LatestVersionDate } from '~~/version'
 
 const isDark = ref(false)
 
