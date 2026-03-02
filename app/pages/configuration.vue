@@ -73,7 +73,7 @@
 
     <div class="fts-cfg-options flex gap-3 mt-6">
         <button class="fts px-3 py-1" :disabled="saving || backingUp" @click="backupData">Backup Data</button>
-        <span class="px-3 py-1">Make a backup of your data. This will download a SQL file containing all your rides, routes, and configuration.</span>
+        <span class="px-3 py-1">Make a backup of your data. This will download a SQL file containing all your rides and routes</span>
     </div>
     
 
@@ -265,7 +265,7 @@ async function backupData() {
     
     const userConfig = localStorage.getItem('user_config')
     const configData = userConfig ? JSON.parse(userConfig) : null
-    
+
     // Generate SQL backup
     let sqlContent = '-- Feats Backup\n'
     sqlContent += `-- Generated: ${new Date().toISOString()}\n\n`
@@ -346,6 +346,19 @@ async function backupData() {
       sqlContent += `-- ${JSON.stringify(configData)}\n`
     }
     
+    // User config table (real SQL, restorable)
+    sqlContent += '-- User Config Table\n'
+    sqlContent += 'DROP TABLE IF EXISTS user_config;\n'
+    sqlContent += 'CREATE TABLE user_config (\n'
+    sqlContent += '  id INTEGER PRIMARY KEY,\n'
+    sqlContent += '  config_json TEXT\n'
+    sqlContent += ');\n\n'
+
+    if (configData) {
+      const configJson = sqlEscape(JSON.stringify(configData))
+      sqlContent += `INSERT INTO user_config (id, config_json) VALUES (1, ${configJson});\n\n`
+    }
+
     const blob = new Blob([sqlContent], { type: 'application/sql' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
