@@ -102,6 +102,7 @@
 import { ref, computed, onMounted, onUnmounted, nextTick, watch, h } from 'vue'
 import { $fetch } from 'ofetch'
 import { useGlobalLoading } from '../composables/useGlobalLoading'
+import Spinner from '~/components/Spinner.vue'
 
 const allColumns = [
   { key: 'id', label: 'ID' },

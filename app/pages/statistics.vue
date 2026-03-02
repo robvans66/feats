@@ -264,7 +264,7 @@ const sortedPerBike = computed(() => {
 })
 
 const sortedRidesOver100 = computed(() => {
-  // Format the distances column with first 10 and "and X more" if needed
+  // Format the distances column with first 15 and "and X more" if needed
   const formatted = stats.value.ridesOver100ByYear.map((item: any) => {
     const distances = item.distances || []
     const displayDistances = distances.slice(0, 15)
@@ -342,19 +342,27 @@ const earthCircumferences = computed(() => {
 // Chart data computed properties
 const yearTotalsChartData = computed(() => {
   const data = stats.value.yearTotals.filter((item: any) => item.year !== 'Grand Total')
+  
+  // Sort by year ascending
+  const sorted = [...data].sort((a: any, b: any) => {
+    const yearA = typeof a.year === 'string' ? parseInt(a.year) : a.year
+    const yearB = typeof b.year === 'string' ? parseInt(b.year) : b.year
+    return yearA - yearB
+  })
+  
   return {
-    labels: data.map((item: any) => item.year),
+    labels: sorted.map((item: any) => item.year),
     datasets: [
       {
         label: 'Distance (km)',
-        data: data.map((item: any) => item.distance),
+        data: sorted.map((item: any) => item.distance),
         backgroundColor: '#007a76',
         borderColor: '#005754',
         borderWidth: 1
       },
       {
         label: 'Number of Rides',
-        data: data.map((item: any) => item.rides),
+        data: sorted.map((item: any) => item.rides),
         backgroundColor: '#00a39e',
         borderColor: '#007a76',
         borderWidth: 1
