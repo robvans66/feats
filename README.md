@@ -1,46 +1,11 @@
 # Feats
 
-Feats is a Nuxt 4 app for tracking completed bicycle rides and planned routes.
+Feats is a small application to keep track of completed bicycle rides and planned bicycle routes.
 
-It is a personal project to have a simple tool to keep track of my rides and routes. It is not intended to be a full-featured application, but rather a simple and easy-to-use tool for myself and anyone else who might find it useful. I used multiple bicycle platforms over the years and thought it would be handy to have a centralized place to have an overview of all my rides and routes.
+It is not intended to be a full-featured app, but rather a simple and easy-to-use tool. Feats is particulary practical if you use multiple bicycle platforms and want to have an overview of all your rides and routes in one place. And also of course if you don't use any platform at all, but just want to keep track of your rides and routes in a simple way.
 
-## Quick start
-1. Clone (or download) the repository and install dependencies:
+The exstensive use of charts and statistics provide insights into your riding habits and achievments.
 
-```bash
-cd feats
-npm install
-```
-
-2. Start the dev server:
-
-```bash
-npm run dev
-```
-
-3. Open http://localhost:3000 in your browser.
-
-### Run the latest build
-If you don't want to keep the dev files, you can also build the application and afterwards delete the whole repository.
-
-1. Clone (or download) the repository and build the app:
-
-```bash
-cd feats
-npm install
-npm run build
-cd feats_vx.y.z/server
-npm install
-```
-Now you have an independed build in folder 'feats_vx.y.z'. You can copy the folder to a destination of your choice and delete the repository.
-
-2. Start the server: (from within folder 'feats_vx.y.z'):
-
-```bash
-node ./server/index.mjs
-```
-
-1. Open http://localhost:3000 in your browser.
-
-<br><br>
->And don’t forget to get out and ride. The more you ride, the more data you collect.
+The name "Feats" is a play on words, as it can refer to both "feats" as in achievements (completing rides and routes), and "fiets" which is the Dutch word for bicycle, pronounced similarly.
+  
+And don’t forget to get out and ride. The more you ride, the more data you collect.
