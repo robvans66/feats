@@ -9,3 +9,14 @@ The exstensive use of charts and statistics provide insights into your riding ha
 The name "Feats" is a play on words, as it can refer to both "feats" as in achievements (completing rides and routes), and "fiets" which is the Dutch word for bicycle, pronounced similarly.
   
 And don’t forget to get out and ride. The more you ride, the more data you collect.
+
+### Quick start
+
+You can wait for the binaries (coming soon, I hope) or build the electron app yourself
+
+```bash
+cd feats
+npm install
+npm run build
+npm run electron
+```

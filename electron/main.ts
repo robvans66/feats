@@ -214,7 +214,7 @@ function createMenu() {
         ...(isMac ? [] : [
           {
             label: 'About',
-            click: () => mainWindow?.webContents.send('menu-about')
+            click: () => { app.showAboutPanel(); }
           }
         ])
       ]
