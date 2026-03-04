@@ -1,10 +1,13 @@
 {
   "name": "feats",
+  "productName": "Feats",
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxt build && npm run build:electron",
+    "build:electron": "tsc electron/preload.ts --outDir electron --declaration false",
     "dev": "nuxt dev",
+    "electron": "npm run build:electron && electron electron/main.ts",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -24,6 +27,11 @@
     "@iconify-json/flowbite": "^1.2.7",
     "@iconify-json/lucide": "^1.2.90",
     "@types/better-sqlite3": "^7.6.13",
-    "@types/node": "^25.3.0"
+    "@types/node": "^25.3.0",
+    "electron": "^40.6.1",
+    "electron-builder": "^26.8.1",
+    "nuxt-electron": "^0.7.0",
+    "vite-plugin-electron": "^0.29.0",
+    "vite-plugin-electron-renderer": "^0.14.6"
   }
 }

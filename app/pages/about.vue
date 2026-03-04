@@ -38,10 +38,6 @@
     <p class="mb-4">The Configuration page allows you to customize the application settings, such as the bikes you ride and other preferences. You can add, edit, and delete bikes, and you can also choose which columns to show in the Rides and Routes tables.<br><br>
     This page also includes a backup feature, which allows you to export your data as a SQL file. This is useful for creating backups of your data, or for transferring your data to another device. Note that the backup is currently limited to 10.000 records per table.
     </p>
-    <br><br>
-
-    <p class="font-semibold">Latest version: v{{ LatestVersion }} ({{ LatestVersionDate }})</p>
-    <p class="font-semibold">First version: v0.9.0 (11 Feb 2026)</p>
   </section>
 </template>
 

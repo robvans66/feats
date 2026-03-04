@@ -1,5 +1,4 @@
 <template>
-
   <section class="fts">
     <h1 class="text-2xl pt-8 font-semibold ml-7 mb-4">Configuration</h1>
 
@@ -65,6 +64,18 @@
           </div>
         </div>
       </div>
+
+      <div class="grid gap-4 mt-8 lg:grid-cols-2">
+        <div class="fts-cfg-options">
+          <label class="block font-semibold mb-2">Theme</label>
+          <select v-model="themeMode" class="border px-2 py-1 w-full">
+            <option value="system">Follow system (default)</option>
+            <option value="light">Light Mode</option>
+            <option value="dark">Dark Mode</option>
+          </select>
+        </div>
+      </div>
+
       <div class="fts-cfg-options-buttons flex justify-end gap-3 mt-6">
         <button class="fts px-3 py-1" :disabled="saving" @click="saveConfig">Save Configuration</button>
         <button class="fts-cfg-reset-button border px-3 py-1" type="button" :disabled="saving" @click="showResetConfirm = true">Reset to Defaults</button>
@@ -75,8 +86,6 @@
         <button class="fts px-3 py-1" :disabled="saving || backingUp" @click="backupData">Backup Data</button>
         <span class="px-3 py-1">Make a backup of your data. This will download a SQL file containing all your rides and routes</span>
     </div>
-    
-
 
     <ConfirmModal
       :show="showResetConfirm"
@@ -92,13 +101,16 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { $fetch } from 'ofetch'
-const backingUp = ref(false)
 
+type ThemeMode = 'system' | 'light' | 'dark'
+
+const backingUp = ref(false)
 const bikeOptions = ref<string[]>([])
 const surfaceOptions = ref<string[]>([])
 const pageSizeOptions = ref<number[]>([])
 const ridesColumnVisibility = ref<Record<string, boolean>>({})
 const routesColumnVisibility = ref<Record<string, boolean>>({})
+const themeMode = ref<ThemeMode>('system')
 const newBikeOption = ref('')
 const newSurfaceOption = ref('')
 const newPageSizeOption = ref('')
@@ -149,7 +161,8 @@ function getDefaults() {
     surfaceOptions: ['Road', 'Gravel', 'Road/Gravel', 'Gravel/MTB'],
     pageSizeOptions: [5, 10, 20],
     ridesColumnVisibility: initVisibility(ridesColumns, undefined),
-    routesColumnVisibility: initVisibility(routesColumns, undefined)
+    routesColumnVisibility: initVisibility(routesColumns, undefined),
+    themeMode: 'system' as ThemeMode
   }
 }
 
@@ -159,6 +172,7 @@ function broadcastConfig(config: {
   pageSizeOptions: number[]
   ridesColumnVisibility: Record<string, boolean>
   routesColumnVisibility: Record<string, boolean>
+  themeMode: ThemeMode
 }) {
   if (typeof window === 'undefined') return
   localStorage.setItem('user_config', JSON.stringify(config))
@@ -213,6 +227,7 @@ async function loadConfig() {
     pageSizeOptions.value = Array.isArray(config?.pageSizeOptions) ? config.pageSizeOptions : defaults.pageSizeOptions
     ridesColumnVisibility.value = initVisibility(ridesColumns, config?.ridesColumnVisibility)
     routesColumnVisibility.value = initVisibility(routesColumns, config?.routesColumnVisibility)
+    themeMode.value = config?.themeMode ?? defaults.themeMode
   } catch {
     showToast('Failed to load configuration.')
   }
@@ -225,7 +240,8 @@ async function saveConfig() {
     surfaceOptions: surfaceOptions.value,
     pageSizeOptions: pageSizeOptions.value,
     ridesColumnVisibility: ridesColumnVisibility.value,
-    routesColumnVisibility: routesColumnVisibility.value
+    routesColumnVisibility: routesColumnVisibility.value,
+    themeMode: themeMode.value
   }
   try {
     await $fetch('/api/config', {
@@ -249,28 +265,25 @@ function confirmReset() {
   pageSizeOptions.value = [...defaults.pageSizeOptions]
   ridesColumnVisibility.value = { ...defaults.ridesColumnVisibility }
   routesColumnVisibility.value = { ...defaults.routesColumnVisibility }
+  themeMode.value = defaults.themeMode
   saveConfig()
 }
 
 async function backupData() {
   backingUp.value = true
   try {
-    // Fetch all rides with a large page size
     const ridesRes = await $fetch('/api/rides?pageSize=10000&page=0')
     const rides = ridesRes.rows || []
 
-    // Fetch all routes with a large page size
     const routesRes = await $fetch('/api/routes?pageSize=10000&page=0')
     const routes = routesRes.rows || []
     
     const userConfig = localStorage.getItem('user_config')
     const configData = userConfig ? JSON.parse(userConfig) : null
 
-    // Generate SQL backup
     let sqlContent = '-- Feats Backup\n'
     sqlContent += `-- Generated: ${new Date().toISOString()}\n\n`
     
-    // Rides table
     sqlContent += '-- Rides Table\n'
     sqlContent += 'DROP TABLE IF EXISTS rides_table;\n'
     sqlContent += 'CREATE TABLE rides_table (\n'
@@ -305,7 +318,6 @@ async function backupData() {
       sqlContent += '\n'
     }
     
-    // Routes table
     sqlContent += '-- Routes Table\n'
     sqlContent += 'DROP TABLE IF EXISTS routes_table;\n'
     sqlContent += 'CREATE TABLE routes_table (\n'
@@ -340,13 +352,6 @@ async function backupData() {
       sqlContent += '\n'
     }
     
-    // Configuration as a comment
-    if (configData) {
-      sqlContent += '-- User Configuration\n'
-      sqlContent += `-- ${JSON.stringify(configData)}\n`
-    }
-    
-    // User config table (real SQL, restorable)
     sqlContent += '-- User Config Table\n'
     sqlContent += 'DROP TABLE IF EXISTS user_config;\n'
     sqlContent += 'CREATE TABLE user_config (\n'
@@ -383,6 +388,7 @@ function sqlEscape(value: any): string {
   }
   return `'${String(value).replace(/'/g, "''")}'`
 }
+
 function showToast(message: string) {
   toast.value = message
   setTimeout(() => {

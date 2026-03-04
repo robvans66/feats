@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { build } from 'nuxt'
 import { LatestVersion } from './version'
 
 export default defineNuxtConfig({
@@ -11,6 +12,9 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/ui'],
+  modules: ['@nuxt/ui', 'nuxt-electron'],
+  electron: {
+    build: [ { entry: 'electron/main.ts' } ]
+  },
   css: ['~/assets/css/main.css']
 })
