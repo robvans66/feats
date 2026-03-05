@@ -51,8 +51,12 @@ function init() {
   )`).run();
   ensureColumn(db2, "rides_table", "grade", "REAL");
   ensureColumn(db2, "routes_table", "grade", "REAL");
+  ensureColumn(db2, "user_config", "bike_options", "TEXT");
+  ensureColumn(db2, "user_config", "surface_options", "TEXT");
+  ensureColumn(db2, "user_config", "page_size_options", "TEXT");
   ensureColumn(db2, "user_config", "rides_column_visibility", "TEXT");
   ensureColumn(db2, "user_config", "routes_column_visibility", "TEXT");
+  migrateLegacyUserConfig(db2);
   ensureUserConfig(db2);
   const rideCount = db2.prepare("SELECT COUNT(*) as c FROM rides_table").get().c;
   if (rideCount === 0) seed(db2);
@@ -80,6 +84,77 @@ function ensureUserConfig(db2) {
     JSON.stringify(defaults.pageSizeOptions),
     JSON.stringify(defaults.ridesColumnVisibility),
     JSON.stringify(defaults.routesColumnVisibility)
+  );
+}
+function normalizeStringArray(value, fallback) {
+  if (!Array.isArray(value)) return fallback;
+  const normalized = value.map((item) => String(item).trim()).filter(Boolean);
+  return normalized.length ? normalized : fallback;
+}
+function normalizeNumberArray(value, fallback) {
+  if (!Array.isArray(value)) return fallback;
+  const normalized = value.map((item) => Number(item)).filter((item) => Number.isFinite(item) && item > 0);
+  return normalized.length ? normalized : fallback;
+}
+function normalizeVisibility(keys, value, fallback) {
+  var _a;
+  const result = {};
+  const source = typeof value === "object" && value !== null ? value : fallback;
+  for (const key of keys) {
+    const current = source[key];
+    result[key] = typeof current === "boolean" ? current : (_a = fallback[key]) != null ? _a : true;
+  }
+  return result;
+}
+function migrateLegacyUserConfig(db2) {
+  const columns = db2.prepare("PRAGMA table_info(user_config)").all();
+  const hasLegacyConfigJson = columns.some((column) => column.name === "config_json");
+  if (!hasLegacyConfigJson) return;
+  const legacyRow = db2.prepare("SELECT id, config_json FROM user_config WHERE config_json IS NOT NULL ORDER BY id LIMIT 1").get();
+  if (!(legacyRow == null ? void 0 : legacyRow.config_json)) return;
+  let parsed = {};
+  try {
+    parsed = JSON.parse(legacyRow.config_json);
+  } catch {
+    return;
+  }
+  const defaults = getDefaultUserConfig();
+  const ridesKeys = Object.keys(defaults.ridesColumnVisibility);
+  const routesKeys = Object.keys(defaults.routesColumnVisibility);
+  const bikeOptions = normalizeStringArray(parsed.bikeOptions, defaults.bikeOptions);
+  const surfaceOptions = normalizeStringArray(parsed.surfaceOptions, defaults.surfaceOptions);
+  const pageSizeOptions = normalizeNumberArray(parsed.pageSizeOptions, defaults.pageSizeOptions);
+  const ridesColumnVisibility = normalizeVisibility(
+    ridesKeys,
+    parsed.ridesColumnVisibility,
+    defaults.ridesColumnVisibility
+  );
+  const routesColumnVisibility = normalizeVisibility(
+    routesKeys,
+    parsed.routesColumnVisibility,
+    defaults.routesColumnVisibility
+  );
+  const existsId1 = db2.prepare("SELECT COUNT(*) as c FROM user_config WHERE id=1").get().c > 0;
+  if (existsId1) {
+    db2.prepare(
+      "UPDATE user_config SET bike_options=COALESCE(bike_options, ?), surface_options=COALESCE(surface_options, ?), page_size_options=COALESCE(page_size_options, ?), rides_column_visibility=COALESCE(rides_column_visibility, ?), routes_column_visibility=COALESCE(routes_column_visibility, ?) WHERE id=1"
+    ).run(
+      JSON.stringify(bikeOptions),
+      JSON.stringify(surfaceOptions),
+      JSON.stringify(pageSizeOptions),
+      JSON.stringify(ridesColumnVisibility),
+      JSON.stringify(routesColumnVisibility)
+    );
+    return;
+  }
+  db2.prepare(
+    "INSERT INTO user_config (id, bike_options, surface_options, page_size_options, rides_column_visibility, routes_column_visibility) VALUES (1, ?, ?, ?, ?, ?)"
+  ).run(
+    JSON.stringify(bikeOptions),
+    JSON.stringify(surfaceOptions),
+    JSON.stringify(pageSizeOptions),
+    JSON.stringify(ridesColumnVisibility),
+    JSON.stringify(routesColumnVisibility)
   );
 }
 function getDefaultUserConfig() {

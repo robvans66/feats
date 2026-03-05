@@ -162,9 +162,11 @@ async function load(state?: any){
     const res:any = await $fetch(`/api/rides?${params.toString()}`)
     rows.value = res.rows || []
     total.value = res.total || 0
+    return true
   } catch (err:any) {
     toast.value = err?.message || 'Failed to load rides'
     setTimeout(()=> toast.value = '', 3000)
+    return false
   } finally {
     setLoading(false)
   }
@@ -360,20 +362,24 @@ function clearForm(){
 }
 
 async function onSubmit(){
+  let successMessage = ''
   if (isEditing.value){
     await $fetch('/api/rides', { method: 'PUT', body: form.value })
     isEditing.value = false
     selectedRow.value = null
-    toast.value = 'Ride updated'
+    successMessage = 'Ride updated'
   } else {
     const body = { ...form.value }
     if (body.reference && !body.link) body.link = 'Link'
     await $fetch('/api/rides', { method: 'POST', body })
-    toast.value = 'Ride added'
+    successMessage = 'Ride added'
   }
-  setTimeout(()=> toast.value = '', 2500)
   clearForm()
-  load()
+  const refreshed = await load()
+  if (refreshed) {
+    toast.value = successMessage
+    setTimeout(()=> toast.value = '', 2500)
+  }
 }
 
 function sort(key:string){

@@ -277,9 +277,8 @@ async function backupData() {
 
     const routesRes = await $fetch('/api/routes?pageSize=10000&page=0')
     const routes = routesRes.rows || []
-    
-    const userConfig = localStorage.getItem('user_config')
-    const configData = userConfig ? JSON.parse(userConfig) : null
+
+    const configData = await $fetch('/api/config').catch(() => null)
 
     let sqlContent = '-- Feats Backup\n'
     sqlContent += `-- Generated: ${new Date().toISOString()}\n\n`
@@ -356,30 +355,81 @@ async function backupData() {
     sqlContent += 'DROP TABLE IF EXISTS user_config;\n'
     sqlContent += 'CREATE TABLE user_config (\n'
     sqlContent += '  id INTEGER PRIMARY KEY,\n'
-    sqlContent += '  config_json TEXT\n'
+    sqlContent += '  bike_options TEXT NOT NULL,\n'
+    sqlContent += '  surface_options TEXT NOT NULL,\n'
+    sqlContent += '  page_size_options TEXT NOT NULL,\n'
+    sqlContent += '  rides_column_visibility TEXT NOT NULL,\n'
+    sqlContent += '  routes_column_visibility TEXT NOT NULL\n'
     sqlContent += ');\n\n'
 
     if (configData) {
-      const configJson = sqlEscape(JSON.stringify(configData))
-      sqlContent += `INSERT INTO user_config (id, config_json) VALUES (1, ${configJson});\n\n`
+      const bikeOptions = sqlEscape(JSON.stringify(configData.bikeOptions || []))
+      const surfaceOptions = sqlEscape(JSON.stringify(configData.surfaceOptions || []))
+      const pageSizeOptions = sqlEscape(JSON.stringify(configData.pageSizeOptions || []))
+      const ridesColumnVisibility = sqlEscape(JSON.stringify(configData.ridesColumnVisibility || {}))
+      const routesColumnVisibility = sqlEscape(JSON.stringify(configData.routesColumnVisibility || {}))
+      sqlContent += `INSERT INTO user_config (id, bike_options, surface_options, page_size_options, rides_column_visibility, routes_column_visibility) VALUES (1, ${bikeOptions}, ${surfaceOptions}, ${pageSizeOptions}, ${ridesColumnVisibility}, ${routesColumnVisibility});\n\n`
     }
 
-    const blob = new Blob([sqlContent], { type: 'application/sql' })
-    const url = URL.createObjectURL(blob)
-    const link = document.createElement('a')
-    link.href = url
-    link.download = `feats-backup-${new Date().toISOString().split('T')[0]}.sql`
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-    URL.revokeObjectURL(url)
-    
-    showToast('Backup downloaded successfully.')
+    const fileName = `feats-backup-${new Date().toISOString().split('T')[0]}.sql`
+    const savedWithPicker = await saveBackupFile(sqlContent, fileName)
+    showToast(savedWithPicker ? 'Backup saved successfully.' : 'Backup download started.')
   } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      showToast('Backup cancelled.')
+      return
+    }
     showToast('Failed to create backup.')
   } finally {
     backingUp.value = false
   }
+}
+
+async function saveBackupFile(content: string, fileName: string): Promise<boolean> {
+  const windowWithPicker = window as Window & {
+    showSaveFilePicker?: (options?: {
+      suggestedName?: string
+      types?: Array<{
+        description?: string
+        accept: Record<string, string[]>
+      }>
+    }) => Promise<{
+      createWritable: () => Promise<{
+        write: (data: string) => Promise<void>
+        close: () => Promise<void>
+      }>
+    }>
+  }
+
+  if (typeof windowWithPicker.showSaveFilePicker === 'function') {
+    const handle = await windowWithPicker.showSaveFilePicker({
+      suggestedName: fileName,
+      types: [
+        {
+          description: 'SQL file',
+          accept: {
+            'application/sql': ['.sql'],
+            'text/plain': ['.sql']
+          }
+        }
+      ]
+    })
+    const writable = await handle.createWritable()
+    await writable.write(content)
+    await writable.close()
+    return true
+  }
+
+  const blob = new Blob([content], { type: 'application/sql' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = fileName
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(url)
+  return false
 }
 
 function sqlEscape(value: any): string {

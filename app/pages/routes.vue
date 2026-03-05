@@ -167,9 +167,11 @@ async function load(state?: any){
     const res:any = await $fetch(`/api/routes?${params.toString()}`)
     rows.value = res.rows || []
     total.value = res.total || 0
+    return true
   } catch (err:any) {
     toast.value = err?.message || 'Failed to load routes'
     setTimeout(()=> toast.value = '', 3000)
+    return false
   } finally {
     setLoading(false)
   }
@@ -388,20 +390,24 @@ function clearForm(){
 }
 
 async function onSubmit(){
+  let successMessage = ''
   if (isEditing.value){
     await $fetch('/api/routes', { method: 'PUT', body: form.value })
     isEditing.value = false
     selectedRows.value = []
-    toast.value = 'Route updated'
+    successMessage = 'Route updated'
   } else {
     const body = { ...form.value }
     if (body.reference && !body.link) body.link = 'Link'
     await $fetch('/api/routes', { method: 'POST', body })
-    toast.value = 'Route added'
+    successMessage = 'Route added'
   }
-  setTimeout(()=> toast.value = '', 2500)
   clearForm()
-  load()
+  const refreshed = await load()
+  if (refreshed) {
+    toast.value = successMessage
+    setTimeout(()=> toast.value = '', 2500)
+  }
 }
 
 function sort(key:string){
