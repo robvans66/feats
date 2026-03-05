@@ -1,11 +1,11 @@
-import { app as s, BrowserWindow as w, Menu as m } from "electron";
+import { app as n, BrowserWindow as w, Menu as m } from "electron";
 import { spawn as y } from "node:child_process";
-import { existsSync as u, readdirSync as h } from "node:fs";
+import { existsSync as p, readdirSync as h } from "node:fs";
 import { dirname as R, join as a } from "node:path";
 import { fileURLToPath as N } from "node:url";
-const E = "1.0.5", _ = "04 Mar 2026", C = N(import.meta.url), c = R(C);
-s.setName("Feats");
-s.setAboutPanelOptions({
+const E = "1.0.5", _ = "04 Mar 2026", T = N(import.meta.url), c = R(T);
+n.setName("Feats");
+n.setAboutPanelOptions({
   applicationName: "Feats",
   applicationVersion: `${E} (${_})`,
   version: "",
@@ -14,51 +14,51 @@ s.setAboutPanelOptions({
 });
 const b = Number(process.env.NUXT_PORT || 3e3), v = `http://127.0.0.1:${b}`;
 let l = null, t = null;
-function T() {
+function C() {
   const e = a(c, "..");
-  if (process.env.NUXT_SERVER_ENTRY && u(process.env.NUXT_SERVER_ENTRY))
+  if (process.env.NUXT_SERVER_ENTRY && p(process.env.NUXT_SERVER_ENTRY))
     return process.env.NUXT_SERVER_ENTRY;
-  const n = h(e, { withFileTypes: !0 }).filter((r) => r.isDirectory() && r.name.startsWith("feats_v")).map((r) => r.name).sort();
-  for (let r = n.length - 1; r >= 0; r--) {
-    const i = a(e, n[r], "server", "index.mjs");
-    if (u(i)) return i;
+  const s = h(e, { withFileTypes: !0 }).filter((r) => r.isDirectory() && r.name.startsWith("feats_v")).map((r) => r.name).sort();
+  for (let r = s.length - 1; r >= 0; r--) {
+    const i = a(e, s[r], "server", "index.mjs");
+    if (p(i)) return i;
   }
   const o = a(e, ".output", "server", "index.mjs");
-  return u(o) ? o : null;
+  return p(o) ? o : null;
 }
-function g(e, n = 2e4) {
+function g(e, s = 2e4) {
   const o = Date.now();
   return new Promise((r, i) => {
-    const d = setInterval(async () => {
+    const u = setInterval(async () => {
       try {
-        const p = await fetch(e);
-        if (p.ok || p.status < 500) {
-          clearInterval(d), r();
+        const d = await fetch(e);
+        if (d.ok || d.status < 500) {
+          clearInterval(u), r();
           return;
         }
       } catch {
       }
-      Date.now() - o > n && (clearInterval(d), i(new Error(`Nuxt server did not start in time: ${e}`)));
+      Date.now() - o > s && (clearInterval(u), i(new Error(`Nuxt server did not start in time: ${e}`)));
     }, 300);
   });
 }
 async function O() {
   if (process.env.NODE_ENV === "development") return;
-  const e = T();
+  const e = C();
   if (!e)
     throw new Error("Cannot find Nuxt server entry (feats_v*/server/index.mjs)");
-  const n = process.env.NODE_BINARY || "node";
-  l = y(n, [e], {
+  const s = process.env.NODE_BINARY || "node";
+  l = y(s, [e], {
     cwd: a(c, ".."),
     env: { ...process.env, PORT: String(b), HOST: "127.0.0.1" },
     stdio: "pipe"
   }), l.stdout.on("data", (o) => console.log(`[nuxt] ${o}`)), l.stderr.on("data", (o) => console.error(`[nuxt] ${o}`)), await g(v);
 }
 function S() {
-  const e = process.platform === "darwin", n = [
+  const e = process.platform === "darwin", s = [
     // App Menu (macOS only)
     ...e ? [{
-      label: s.name,
+      label: n.name,
       submenu: [
         { role: "about" },
         { type: "separator" },
@@ -168,12 +168,14 @@ function S() {
         ...e ? [] : [
           {
             label: "About",
-            click: () => t?.webContents.send("menu-about")
+            click: () => {
+              n.showAboutPanel();
+            }
           }
         ]
       ]
     }
-  ], o = m.buildFromTemplate(n);
+  ], o = m.buildFromTemplate(s);
   m.setApplicationMenu(o);
 }
 async function f() {
@@ -189,14 +191,14 @@ async function f() {
     t = null;
   });
 }
-s.whenReady().then(async () => {
-  await O(), S(), await f(), s.on("activate", async () => {
+n.whenReady().then(async () => {
+  await O(), S(), await f(), n.on("activate", async () => {
     w.getAllWindows().length === 0 && await f();
   });
 });
-s.on("before-quit", () => {
+n.on("before-quit", () => {
   l && !l.killed && l.kill();
 });
-s.on("window-all-closed", () => {
-  process.platform !== "darwin" && s.quit();
+n.on("window-all-closed", () => {
+  process.platform !== "darwin" && n.quit();
 });

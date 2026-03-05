@@ -1,6 +1,11 @@
 {
   "name": "feats",
   "productName": "Feats",
+  "build": {
+    "mac": {
+      "icon": "build/icon.icns"
+    }
+  },
   "type": "module",
   "private": true,
   "scripts": {

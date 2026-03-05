@@ -12,6 +12,17 @@ And don’t forget to get out and ride. The more you ride, the more data you col
 
 ### Quick start
 
+```bash
+cd feats
+npm install
+npm run dev
+```
+
+Open http://localhost:3000 in your browser
+
+
+### Or build the app
+
 You can wait for the binaries (coming soon, I hope) or build the electron app yourself
 
 ```bash

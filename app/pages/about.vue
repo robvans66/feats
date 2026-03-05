@@ -9,7 +9,7 @@
         The name "Feats" is a play on words, as it can refer to both "feats" as in achievements (completing rides and routes), and "fiets" which is the Dutch word for bicycle, pronounced similarly.<br><br>
       </p>
       <img 
-        :src="isDark ? '/fts-logo-darkmode.png' : '/fts-logo-regular.png'" 
+        :src="isDark ? '/logo-dark.png' : '/logo-regular.png'" 
         alt="Feats logo" 
         class="w-32 h-32 shrink-0"
       >
@@ -20,7 +20,7 @@
     <p class="mb-4">Feats is designed to be simple and easy to use. You can add, edit, and delete rides and routes, view statistics, and configure the application to your liking. The application consists of five 'pages': Rides (which is also the home page), Routes, Statistics, Configuration, and About/Documentation.</p>
     <p class="mb-4">The Rides page allows you to keep track of your completed rides, including details such as date, distance, average speed, and notes. The Routes page is for planning future rides, where you can save the route name, distance, and notes. The Statistics page provides insights into your riding habits and achievements. The Configuration page allows you to customize the application settings, such as the bikes you ride and other preferences.</p>
     <p class="mb-4">
-      The application uses a local SQLite database to store your data, so all your rides and routes are stored locally on your device. This means that you can use the application offline, and your data will be available even if you don't have an internet connection. When you start the application for the first time, it will create a new database and populate it with some sample data. You can then start playing around with Feats by adding, editing, and deleting rides and routes, and exploring the different statistic tables and charts of the application. 
+      The application uses a local SQLite database to store your data, so all your rides and routes are stored locally on your device. When you start the application for the first time, it will create a new database and populate it with some sample data. You can then start playing around with Feats by adding, editing, and deleting rides and routes, and exploring the different statistic tables and charts of the application. 
     </p>
 
     <h2 class="text-xl pt-4 mb-3 font-semibold">Rides page</h2>
