@@ -4,8 +4,8 @@
       <h3 class="font-semibold mb-2 dark:text-white">{{ title }}</h3>
       <p class="mb-4 dark:text-gray-300">{{ message }}</p>
       <div class="flex justify-end space-x-2">
-        <button @click="$emit('cancel')" class="px-3 py-1 border dark:border-gray-600 dark:text-white">Cancel</button>
-        <button @click="$emit('confirm')" class="px-3 py-1 bg-red-600 text-white">Confirm</button>
+        <button @click="$emit('cancel')" class="confirm-modal-btn px-3 py-1 border dark:border-gray-600 dark:text-white">Cancel</button>
+        <button @click="$emit('confirm')" class="confirm-modal-btn px-3 py-1 bg-red-600 text-white">Confirm</button>
       </div>
     </div>
   </div>

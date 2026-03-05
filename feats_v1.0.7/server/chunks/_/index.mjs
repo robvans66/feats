@@ -3,7 +3,7 @@ import path from 'path';
 import os from 'os';
 import fs from 'fs';
 
-const LatestVersion = "1.0.6";
+const LatestVersion = "1.0.7";
 const LatestVersionDate = "05 Mar 2026";
 
 const DB_DIR = path.join(os.homedir(), ".feats");

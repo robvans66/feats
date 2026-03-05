@@ -369,3 +369,20 @@ textarea:focus {
   color: white;
   border-color: var(--fts-ui-primary);
 }
+
+/* Confirm modal buttons - prevent global button styles from overriding */
+.confirm-modal-btn {
+  background-color: transparent !important;
+  border: 1px solid #d1d5db !important;
+  color: inherit !important;
+}
+
+.confirm-modal-btn.bg-red-600 {
+  background-color: #dc2626 !important;
+  color: white !important;
+  border-color: #dc2626 !important;
+}
+
+.confirm-modal-btn.bg-red-600:hover {
+  background-color: #b91c1c !important;
+}
