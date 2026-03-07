@@ -20,7 +20,7 @@
           <input v-model="form.destination" type="text" required class="border px-2 py-1 w-full" />
         </div>
                 <div class="col-span-1">
-          <label class="block">Grade (%)</label>
+          <label class="block">Avg. Grade (%)</label>
           <input v-model.number="form.grade" type="number" step="0.1" class="border px-2 py-1 w-full" />
         </div>
         <div class="col-span-1">

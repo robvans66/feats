@@ -35,8 +35,8 @@ onMounted(() => {
       navigateTo('/about')
     })
   }
-  if (electron?.onMenuConfiguration) {
-    electron.onMenuConfiguration(() => {
+  if (electron?.onMenuSettings) {
+    electron.onMenuSettings(() => {
       navigateTo('/configuration')
     })
   }

@@ -1,9 +1,9 @@
-import { app as n, BrowserWindow as w, Menu as m } from "electron";
+import { app as n, BrowserWindow as f, Menu as m } from "electron";
 import { spawn as y } from "node:child_process";
 import { existsSync as p, readdirSync as h } from "node:fs";
 import { dirname as R, join as a } from "node:path";
 import { fileURLToPath as N } from "node:url";
-const E = "1.0.8", _ = "05 Mar 2026", T = N(import.meta.url), c = R(T);
+const E = "1.0.9", _ = "07 Mar 2026", T = N(import.meta.url), c = R(T);
 n.setName("Feats");
 n.setAboutPanelOptions({
   applicationName: "Feats",
@@ -26,23 +26,23 @@ function C() {
   const o = a(e, ".output", "server", "index.mjs");
   return p(o) ? o : null;
 }
-function g(e, s = 2e4) {
+function S(e, s = 2e4) {
   const o = Date.now();
   return new Promise((r, i) => {
-    const u = setInterval(async () => {
+    const d = setInterval(async () => {
       try {
-        const d = await fetch(e);
-        if (d.ok || d.status < 500) {
-          clearInterval(u), r();
+        const u = await fetch(e);
+        if (u.ok || u.status < 500) {
+          clearInterval(d), r();
           return;
         }
       } catch {
       }
-      Date.now() - o > s && (clearInterval(u), i(new Error(`Nuxt server did not start in time: ${e}`)));
+      Date.now() - o > s && (clearInterval(d), i(new Error(`Nuxt server did not start in time: ${e}`)));
     }, 300);
   });
 }
-async function O() {
+async function g() {
   if (process.env.NODE_ENV === "development") return;
   const e = C();
   if (!e)
@@ -52,9 +52,9 @@ async function O() {
     cwd: a(c, ".."),
     env: { ...process.env, PORT: String(b), HOST: "127.0.0.1" },
     stdio: "pipe"
-  }), l.stdout.on("data", (o) => console.log(`[nuxt] ${o}`)), l.stderr.on("data", (o) => console.error(`[nuxt] ${o}`)), await g(v);
+  }), l.stdout.on("data", (o) => console.log(`[nuxt] ${o}`)), l.stderr.on("data", (o) => console.error(`[nuxt] ${o}`)), await S(v);
 }
-function S() {
+function O() {
   const e = process.platform === "darwin", s = [
     // App Menu (macOS only)
     ...e ? [{
@@ -92,9 +92,9 @@ function S() {
         },
         { type: "separator" },
         {
-          label: "Configuration",
+          label: "Settings",
           accelerator: "CmdOrCtrl+,",
-          click: () => t?.webContents.send("menu-configuration")
+          click: () => t?.webContents.send("menu-settings")
         },
         { type: "separator" },
         ...e ? [
@@ -178,8 +178,8 @@ function S() {
   ], o = m.buildFromTemplate(s);
   m.setApplicationMenu(o);
 }
-async function f() {
-  t = new w({
+async function w() {
+  t = new f({
     width: 1200,
     height: 800,
     webPreferences: {
@@ -192,8 +192,8 @@ async function f() {
   });
 }
 n.whenReady().then(async () => {
-  await O(), S(), await f(), n.on("activate", async () => {
-    w.getAllWindows().length === 0 && await f();
+  await g(), O(), await w(), n.on("activate", async () => {
+    f.getAllWindows().length === 0 && await w();
   });
 });
 n.on("before-quit", () => {

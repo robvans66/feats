@@ -1,6 +1,6 @@
 <template>
   <section class="fts">
-    <h1 class="text-2xl pt-8 font-semibold ml-7 mb-4">Configuration</h1>
+    <h1 class="text-2xl pt-8 font-semibold ml-7 mb-4">Settings</h1>
 
     <div class="fts p-4 mt-3 mb-6 border-color rounded">
       <div class="grid gap-4 lg:grid-cols-3">
@@ -77,20 +77,20 @@
       </div>
 
       <div class="fts-cfg-options-buttons flex justify-end gap-3 mt-6">
-        <button class="fts px-3 py-1" :disabled="saving" @click="saveConfig">Save Configuration</button>
+        <button class="fts px-3 py-1" :disabled="saving" @click="saveConfig">Save Settings</button>
         <button class="fts-cfg-reset-button border px-3 py-1" type="button" :disabled="saving" @click="showResetConfirm = true">Reset to Defaults</button>
       </div>
     </div>
 
     <div class="fts-cfg-options flex gap-3 mt-6">
         <button class="fts px-3 py-1" :disabled="saving || backingUp" @click="backupData">Backup Data</button>
-        <span class="px-3 py-1">Make a backup of your data. This will download a SQL file containing all your rides and routes</span>
+        <span class="px-3 py-1">Make a backup of your data. This will download a SQL file containing all your rides, routes and settings.</span>
     </div>
 
     <ConfirmModal
       :show="showResetConfirm"
-      title="Reset Configuration"
-      message="Are you sure you want to reset configuration to defaults?"
+      title="Reset Settings"
+      message="Are you sure you want to reset settings to defaults?"
       @confirm="confirmReset"
       @cancel="showResetConfirm = false"
     />
@@ -229,7 +229,7 @@ async function loadConfig() {
     routesColumnVisibility.value = initVisibility(routesColumns, config?.routesColumnVisibility)
     themeMode.value = config?.themeMode ?? defaults.themeMode
   } catch {
-    showToast('Failed to load configuration.')
+    showToast('Failed to load settings.')
   }
 }
 
@@ -249,9 +249,9 @@ async function saveConfig() {
       body: payload
     })
     broadcastConfig(payload)
-    showToast('Configuration saved.')
+    showToast('Settings saved.')
   } catch {
-    showToast('Failed to save configuration.')
+    showToast('Failed to save settings.')
   } finally {
     saving.value = false
   }
@@ -386,23 +386,8 @@ async function backupData() {
 }
 
 async function saveBackupFile(content: string, fileName: string): Promise<boolean> {
-  const windowWithPicker = window as Window & {
-    showSaveFilePicker?: (options?: {
-      suggestedName?: string
-      types?: Array<{
-        description?: string
-        accept: Record<string, string[]>
-      }>
-    }) => Promise<{
-      createWritable: () => Promise<{
-        write: (data: string) => Promise<void>
-        close: () => Promise<void>
-      }>
-    }>
-  }
-
-  if (typeof windowWithPicker.showSaveFilePicker === 'function') {
-    const handle = await windowWithPicker.showSaveFilePicker({
+  if (typeof window !== 'undefined' && typeof window.showSaveFilePicker === 'function') {
+    const handle = await window.showSaveFilePicker({
       suggestedName: fileName,
       types: [
         {

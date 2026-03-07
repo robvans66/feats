@@ -134,9 +134,9 @@ function createMenu() {
         },
         { type: 'separator' },
         {
-          label: 'Configuration',
+          label: 'Settings',
           accelerator: 'CmdOrCtrl+,',
-          click: () => mainWindow?.webContents.send('menu-configuration')
+          click: () => mainWindow?.webContents.send('menu-settings')
         },
         { type: 'separator' },
         ...(isMac ? [
