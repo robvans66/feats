@@ -1,1 +1,0 @@
-import{r as o}from"./B7fXMS1g.js";const r=o(!1);function i(){function a(n){r.value=n}async function t(n){a(!0);try{return await n()}finally{a(!1)}}return{loading:r,setLoading:a,wrap:t}}export{i as u};
