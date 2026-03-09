@@ -1,13 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { build } from 'nuxt'
-import { LatestVersion } from './version'
 
 export default defineNuxtConfig({
   nitro: {
     output: {
-      dir: `feats_v${LatestVersion}`,
-      serverDir: `feats_v${LatestVersion}/server`,
-      publicDir: `feats_v${LatestVersion}/public`
+      dir: '.output',
+      serverDir: '.output/server',
+      publicDir: 'dist'
     }
   },
   compatibilityDate: '2025-07-15',

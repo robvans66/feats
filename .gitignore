@@ -33,3 +33,7 @@ server/db/*.db
 todo.txt
 howto.txt
 prompts.txt
+
+
+# buuild release files
+release

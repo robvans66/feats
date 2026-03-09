@@ -1,18 +1,85 @@
 {
   "name": "feats",
+  "version": "1.0.11",
+  "description": "A small app to keep track of completed bicycle rides and planned bicycle routes.",
+  "author": "robvans <robvans@gmail.com>",
   "productName": "Feats",
+  "main": "dist-electron/main.js",
   "build": {
+    "appId": "com.feats.app",
+    "productName": "Feats",
+    "directories": {
+      "buildResources": "build",
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      ".output/**",
+      "dist-electron/**",
+      "package.json"
+    ],
     "mac": {
-      "icon": "build/icon.icns"
+      "target": ["dmg", "zip"],
+      "icon": "build/icon.icns",
+      "category": "public.app-category.health-and-fitness"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150,
+          "type": "file"
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": ["nsis", "portable"],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "icon": "build/icon.png",
+      "category": "Sports"
     }
   },
   "type": "module",
   "private": true,
   "scripts": {
+    "version:sync": "node scripts/sync-version.mjs",
+    "prebuild": "npm run version:sync",
+    "rebuild:electron-native": "npx @electron/rebuild -f -w better-sqlite3",
     "build": "nuxt build && npm run build:electron",
-    "build:electron": "tsc electron/preload.ts --outDir electron --declaration false",
+    "build:electron": "tsc electron/preload.ts --outDir dist-electron --declaration false",
     "dev": "nuxt dev",
-    "electron": "npm run build:electron && electron electron/main.ts",
+    "electron": "npm run build:electron && npm run rebuild:electron-native && electron electron/main.ts",
+    "electron:dev": "npm run dev & npm run electron",
+    "dist": "npm run build && npm run rebuild:electron-native && electron-builder",
+    "dist:mac": "npm run build && npm run rebuild:electron-native && electron-builder --mac",
+    "dist:mac:local": "npm run build && npm run rebuild:electron-native && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac",
+    "dist:mac:local:run": "npm run dist:mac:local && open release/mac-arm64/Feats.app",
+    "dist:mac:x64": "npm run build && npm run rebuild:electron-native && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac --arch x64",
+    "dist:mac:universal": "npm run build && npm run rebuild:electron-native && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac --arch universal",
+    "dist:mac:signed": "npm run build && npm run rebuild:electron-native && electron-builder --mac",
+    "dist:win": "npm run build && npm run rebuild:electron-native && electron-builder --win",
+    "dist:linux": "npm run build && npm run rebuild:electron-native && electron-builder --linux",
+    "dist:linux:appimage": "npm run build && npm run rebuild:electron-native && electron-builder --linux AppImage",
+    "dist:linux:appimage:x64": "npm run build && npm run rebuild:electron-native && ELECTRON_BUILDER_ARCH=x64 electron-builder --linux AppImage",
+    "dist:linux:deb": "npm run build && npm run rebuild:electron-native && electron-builder --linux deb",
+    "dist:linux:deb:x64": "npm run build && npm run rebuild:electron-native && ELECTRON_BUILDER_ARCH=x64 electron-builder --linux deb",
+    "dist:linux:rpm": "npm run build && npm run rebuild:electron-native && electron-builder --linux rpm",
+    "dist:linux:rpm:x64": "npm run build && npm run rebuild:electron-native && ELECTRON_BUILDER_ARCH=x64 electron-builder --linux rpm",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"

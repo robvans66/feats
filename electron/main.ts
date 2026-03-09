@@ -1,5 +1,5 @@
 // electron/main.ts
-import { app, BrowserWindow, Menu, shell } from 'electron'
+import { app, BrowserWindow, Menu, dialog } from 'electron'
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process'
 import { existsSync, readdirSync } from 'node:fs'
 import { join, dirname } from 'node:path'
@@ -23,8 +23,16 @@ const APP_URL = `http://127.0.0.1:${APP_PORT}`
 let nuxtServer: ChildProcessWithoutNullStreams | null = null
 let mainWindow: BrowserWindow | null = null
 
+function getAppRoot(): string {
+  return app.isPackaged ? app.getAppPath() : join(__dirname, '..')
+}
+
+function getServerWorkingDirectory(): string {
+  return app.isPackaged ? process.resourcesPath : getAppRoot()
+}
+
 function findServerEntry(): string | null {
-  const root = join(__dirname, '..')
+  const root = getAppRoot()
 
   // 1) Explicit override
   if (process.env.NUXT_SERVER_ENTRY && existsSync(process.env.NUXT_SERVER_ENTRY)) {
@@ -43,8 +51,15 @@ function findServerEntry(): string | null {
   }
 
   // 3) Fallback default Nuxt output
-  const fallback = join(root, '.output', 'server', 'index.mjs')
-  if (existsSync(fallback)) return fallback
+  const fallbackCandidates = [
+    join(root, '.output', 'server', 'index.mjs'),
+    join(process.resourcesPath, '.output', 'server', 'index.mjs'),
+    join(process.resourcesPath, 'app.asar.unpacked', '.output', 'server', 'index.mjs')
+  ]
+
+  for (const candidate of fallbackCandidates) {
+    if (existsSync(candidate)) return candidate
+  }
 
   return null
 }
@@ -80,10 +95,12 @@ async function startNuxtServerIfNeeded() {
     throw new Error('Cannot find Nuxt server entry (feats_v*/server/index.mjs)')
   }
 
-  const nodeBin = process.env.NODE_BINARY || 'node'
+  const nodeBin = process.execPath
+  const runnerEnv = { ...process.env, ELECTRON_RUN_AS_NODE: '1' }
+
   nuxtServer = spawn(nodeBin, [entry], {
-    cwd: join(__dirname, '..'),
-    env: { ...process.env, PORT: String(APP_PORT), HOST: '127.0.0.1' },
+    cwd: getServerWorkingDirectory(),
+    env: { ...runnerEnv, PORT: String(APP_PORT), HOST: '127.0.0.1' },
     stdio: 'pipe'
   })
 
@@ -256,6 +273,11 @@ app.whenReady().then(async () => {
   app.on('activate', async () => {
     if (BrowserWindow.getAllWindows().length === 0) await createWindow()
   })
+}).catch((error: unknown) => {
+  const message = error instanceof Error ? error.message : String(error)
+  console.error('[main] startup failed:', error)
+  dialog.showErrorBox('Feats failed to start', message)
+  app.quit()
 })
 
 app.on('before-quit', () => {
