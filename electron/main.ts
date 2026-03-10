@@ -246,6 +246,8 @@ async function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
+    titleBarStyle: 'hiddenInset',
+    title: '',
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,

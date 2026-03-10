@@ -3,7 +3,7 @@ import { spawn as g } from "node:child_process";
 import { existsSync as c, readdirSync as R } from "node:fs";
 import { dirname as E, join as a } from "node:path";
 import { fileURLToPath as N } from "node:url";
-const P = "1.0.11", _ = "09 Mar 2026", S = N(import.meta.url), p = E(S);
+const P = "1.0.12", _ = "10 Mar 2026", S = N(import.meta.url), p = E(S);
 o.setName("Feats");
 o.setAboutPanelOptions({
   applicationName: "Feats",
@@ -194,6 +194,8 @@ async function f() {
   r = new w({
     width: 1200,
     height: 800,
+    titleBarStyle: "hiddenInset",
+    title: "",
     webPreferences: {
       nodeIntegration: !1,
       contextIsolation: !0,

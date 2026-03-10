@@ -1,6 +1,6 @@
 {
   "name": "feats",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "A small app to keep track of completed bicycle rides and planned bicycle routes.",
   "author": "robvans <robvans@gmail.com>",
   "productName": "Feats",

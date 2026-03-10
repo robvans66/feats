@@ -10,7 +10,7 @@
         Feats is by no means a replacement for the existing bicycle platform. It not a navigation app and not a social app, but rather a personal diary and statistics app for your rides and routes. Everything is stored locally on your device. 
         <br><br>
       </p>
-      <img src='/icon.png' alt="Feats logo" class="w-32 h-32 shrink-0 rounded-2xl">
+      <img src='/icon.png' alt="Feats application logo: a bicycle icon representing a simple desktop app for tracking rides and routes" class="w-32 h-32 shrink-0">
     </div>
 
     <h1 class="text-2xl pt-8 font-semibold mb-3">Using Feats</h1>
