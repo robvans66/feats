@@ -194,7 +194,6 @@ async function f() {
   r = new w({
     width: 1200,
     height: 800,
-    titleBarStyle: "hiddenInset",
     title: "",
     webPreferences: {
       nodeIntegration: !1,
