@@ -1,6 +1,6 @@
 # Feats
 
-Feats is a small application to keep track of completed bicycle rides and planned bicycle routes.
+Feats is a small desktop application to keep track of completed bicycle rides and planned bicycle routes.
 
 It is not intended to be a full-featured app, but rather a simple and easy-to-use tool. Feats is particulary practical if you use multiple bicycle platforms and want to have an overview of all your rides and routes in one place. And also of course if you don't use any platform at all, but just want to keep track of your rides and routes in a simple way.
 
