@@ -1,6 +1,6 @@
 # Feats
 
-<img width="1280" height="640" alt="feats-github-social" src="https://github.com/user-attachments/assets/f70359cc-b01f-4fb5-bb79-5ef26f0ae1dc" />
+<img width="800" height="400" alt="feats-github-social" src="https://github.com/user-attachments/assets/f70359cc-b01f-4fb5-bb79-5ef26f0ae1dc" />
 
 Feats is a small desktop application to keep track of completed bicycle rides and planned bicycle routes.
 
