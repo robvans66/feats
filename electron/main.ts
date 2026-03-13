@@ -1,5 +1,5 @@
 // electron/main.ts
-import { app, BrowserWindow, Menu, dialog } from 'electron'
+import { app, BrowserWindow, Menu, dialog, shell } from 'electron'
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process'
 import { existsSync, readdirSync } from 'node:fs'
 import { join, dirname } from 'node:path'
@@ -251,6 +251,35 @@ async function createWindow() {
       nodeIntegration: false,
       contextIsolation: true,
       preload: join(__dirname, 'preload.js')
+    }
+  })
+
+  const internalOrigins = process.env.NODE_ENV === 'development'
+    ? ['http://localhost:3000', APP_URL]
+    : [APP_URL]
+
+  const isInternalUrl = (url: string) => internalOrigins.some((origin) => url.startsWith(origin))
+  const isExternalUrl = (url: string) => {
+    if (isInternalUrl(url)) return false
+    try {
+      const parsed = new URL(url)
+      return parsed.protocol === 'http:' || parsed.protocol === 'https:'
+    } catch {
+      return false
+    }
+  }
+
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (isExternalUrl(url)) {
+      void shell.openExternal(url)
+    }
+    return { action: 'deny' }
+  })
+
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    if (isExternalUrl(url)) {
+      event.preventDefault()
+      void shell.openExternal(url)
     }
   })
 

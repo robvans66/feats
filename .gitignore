@@ -32,11 +32,10 @@ server/db/*.db
 # txt files
 todo.txt
 howto.txt
-prompts.txt
+release_notes.txt
 
 # art work
 artwork
 
-
-# buuild release files
+# build release files
 release

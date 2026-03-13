@@ -366,7 +366,7 @@ async function onSubmit(){
   if (isEditing.value){
     await $fetch('/api/rides', { method: 'PUT', body: form.value })
     isEditing.value = false
-    selectedRow.value = null
+    selectedRows.value = []
     successMessage = 'Ride updated'
   } else {
     const body = { ...form.value }

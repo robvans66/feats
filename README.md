@@ -3,7 +3,7 @@
 <img width="640" height="256" alt="feats: keep track of your bicycle rides and planned routesl" src="https://github.com/user-attachments/assets/7d2f10e0-6311-4591-b030-9fcc952b9100" />
 
 # Feats
-Feats is a lightweight desktop app to keep track of your completed bicycle rides and your planned bicycle routes.
+Feats is a lightweight, free-to-use desktop app for keeping track of your completed bicycle rides and planned routes.
 
 It is not intended to be a full-featured app, but rather a simple and easy-to-use tool. Feats is particularly practical if you use multiple cycling platforms and perhaps have a lot of previously unusable legacy data, and want to see all your rides and routes in one place. It’s also useful if you don’t use any platform at all, but just want to keep track of your rides and routes in a simple way.
 
@@ -13,6 +13,9 @@ The exstensive use of charts and statistics provide insights into your riding ha
 Download the source code or go to the Releases to get the latest version of the app for MacOs (*.dmg) or Windows (WILL BE ADDED SOON)
   
 And don’t forget to get out and ride. The more you ride, the more data you collect.
+
+# Wiki
+See the [wiki](https://github.com/robvans66/feats/wiki) for detailed how-tos and in-depth information about using Feats. The wiki includes step-by-step guides, troubleshooting tips, and additional resources to help you get the most out of the app.
 
 # Screenhots
 These screenshots are from a first installation of the app with the randomly generated sample data.
@@ -28,3 +31,10 @@ These screenshots are from a first installation of the app with the randomly gen
 <p align="center">
   <img width="95%" alt="feats: settings" src="https://github.com/user-attachments/assets/41749848-5318-4aa0-884c-ba4e49015772" />
 </p>
+
+# License
+
+Feats is open source software and free to use.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT).
+
