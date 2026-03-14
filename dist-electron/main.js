@@ -3,7 +3,7 @@ import { spawn as g } from "node:child_process";
 import { existsSync as p, readdirSync as R } from "node:fs";
 import { dirname as N, join as l } from "node:path";
 import { fileURLToPath as _ } from "node:url";
-const P = "1.0.13", C = "13 Mar 2026", x = _(import.meta.url), d = N(x);
+const P = "1.0.14", C = "14 Mar 2026", x = _(import.meta.url), d = N(x);
 r.setName("Feats");
 r.setAboutPanelOptions({
   applicationName: "Feats",

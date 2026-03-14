@@ -1,6 +1,6 @@
 {
   "name": "feats",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "license": "MIT",
   "description": "A small app to keep track of completed bicycle rides and planned bicycle routes.",
   "author": "robvans <robvans@gmail.com>",
@@ -9,6 +9,7 @@
   "build": {
     "appId": "com.feats.app",
     "productName": "Feats",
+    "npmRebuild": false,
     "directories": {
       "buildResources": "build",
       "output": "release"
@@ -41,6 +42,7 @@
     },
     "win": {
       "target": ["nsis", "portable"],
+      "signAndEditExecutable": false,
       "icon": "build/icon.ico"
     },
     "nsis": {
@@ -60,7 +62,7 @@
   "scripts": {
     "version:sync": "node scripts/sync-version.mjs",
     "prebuild": "npm run version:sync",
-    "rebuild:electron-native": "npx @electron/rebuild -f -w better-sqlite3",
+    "rebuild:electron-native": "npx @electron/rebuild -f -o better-sqlite3",
     "build": "nuxt build && npm run build:electron",
     "build:electron": "tsc electron/preload.ts --outDir dist-electron --declaration false",
     "dev": "nuxt dev",
@@ -74,6 +76,7 @@
     "dist:mac:universal": "npm run build && npm run rebuild:electron-native && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac --arch universal",
     "dist:mac:signed": "npm run build && npm run rebuild:electron-native && electron-builder --mac",
     "dist:win": "npm run build && npm run rebuild:electron-native && electron-builder --win",
+    "dist:win:unsigned": "npm run build && npm run rebuild:electron-native && set CSC_IDENTITY_AUTO_DISCOVERY=false && electron-builder --win -c.win.signAndEditExecutable=false",
     "dist:linux": "npm run build && npm run rebuild:electron-native && electron-builder --linux",
     "dist:linux:appimage": "npm run build && npm run rebuild:electron-native && electron-builder --linux AppImage",
     "dist:linux:appimage:x64": "npm run build && npm run rebuild:electron-native && ELECTRON_BUILDER_ARCH=x64 electron-builder --linux AppImage",
