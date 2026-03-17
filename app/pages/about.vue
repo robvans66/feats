@@ -3,13 +3,11 @@
     <h1 class="text-2xl pt-8 font-semibold mb-1">Feats</h1>
     <h2 class="text-l mb-4 font-semibold">Keep track of your bicycle rides and planned routes</h2>
     <div class="flex items-start gap-4">
-      <p class="mb-4 flex-1">Feats is a desktop application to keep track of completed bicycle rides and planned bicycle routes.
-        <br><br>
-        It is not intended to be a full-featured app, but rather a simple and easy-to-use tool. Feats is particulary practical if you use multiple bicycle platforms and want to have an overview of all your rides and routes in one place. And also of course if you don't use any platform at all, but just want to keep track of your rides and routes in a simple way.<br><br>
-        The exstensive use of charts and statistics provide insights into your riding habits and achievments.<br><br>
-        Feats is by no means a replacement for the existing bicycle platform. It not a navigation app and not a social app, but rather a personal diary and statistics app for your rides and routes. Everything is stored locally on your device. 
-        <br><br>
-      </p>
+      <p class="mb-4 flex-1">Feats is a desktop application for keeping track of completed bicycle rides and planned bicycle routes.<br><br>
+      It is not intended to be a full-featured app, but rather a simple and easy-to-use tool. Feats is particularly practical if you use multiple bicycle platforms and want an overview of all your rides and routes in one place. It's also useful if you don't use any platform at all and simply want to keep track of your rides and routes.<br><br>
+      The extensive use of charts and statistics provides insights into your riding habits and achievements.<br><br>
+      Feats is by no means a replacement for existing bicycle platforms. It is not a navigation app and not a social app, but rather a personal diary and statistics tool for your rides and routes. Everything is stored locally on your device.</p>
+
       <img src='/icon.png' alt="Feats application logo: a bicycle icon representing a simple desktop app for tracking rides and routes" class="w-32 h-32 shrink-0">
     </div>
 
@@ -22,20 +20,21 @@
     </p>
 
     <h2 class="text-xl pt-4 mb-3 font-semibold">Rides page</h2>
-    <p class="mb-4">On the Rides page, you can add a new ride by filling out the form and clicking the "Add" button. You can also edit a single existing ride or delete multiple existing rides.<br><br>
-    In de 'Reference' field you can add a URL to the route on an external bicycle platform like RWGPS, Komoot or Strava, and in the 'Link' field you can add a short text that will appear as a clickable link.<br><br>
-    In the Columns section, you can choose which columns to show in the table, and you can also sort the table by clicking on the column headers. Note that hidden columns, although not visible, are also included in a search.
+    <p class="mb-4">On the Rides page, you can add a new ride by filling out the form and clicking the 'Add' button. You can also edit a single existing ride or delete multiple existing rides.<br><br>
+    On the Rides page, you can add a new ride by filling out the form and clicking the 'Add' button. You can also edit an existing ride or delete multiple rides at once.<br><br>
+    In the 'Reference' field, you can add a URL to the route on an external bicycle platform such as RWGPS, Komoot, or Strava. In the 'Link' field, you can add a short text label that will appear as a clickable link.<br><br>
+    In the 'Columns' section, you can choose which columns to display in the table, and you can sort the table by clicking on the column headers. Note that hidden columns, although not visible, are still included in searches.
     </p>
 
     <h2 class="text-xl pt-4 mb-3 font-semibold">Routes page</h2>
-    <p class="mb-4">The Routes page is similar to the Rides page, but it is for planning future rides.</p>
+    <p class="mb-4">The Routes page is similar to the Rides page, but it is used for planning future rides.</p>
 
     <h2 class="text-xl pt-4 mb-3 font-semibold">Statistics page</h2>
-    <p class="mb-4">The Statistics page provides insights into your riding habits and achievements. The page consists of two tabs, one with tables and one with charts. </p>
+    <p class="mb-4">The Statistics page provides insights into your riding habits and achievements. The page consists of two tabs: one with tables and one with charts. </p>
 
     <h2 class="text-xl pt-4 mb-3 font-semibold">Settings page</h2>
-    <p class="mb-4">The Settings page allows you to customize the application settings, such as the bikes you ride and other preferences. You can add, edit, and delete bikes, and you can also choose which columns to show in the Rides and Routes tables.<br><br>
-    This page also includes a backup feature, which allows you to export your data as a SQL file. This is useful for creating backups of your data, or for transferring your data to another device. 
+    <p class="mb-4">The 'Settings' page allows you to customize the application settings, such as the bikes you ride and other preferences. You can add, edit, and delete bikes, and you can also choose which columns to display in the Rides and Routes tables.<br><br>
+    This page also includes a backup feature that allows you to export your data as a SQL file. This is useful for creating backups of your data or transferring it to another device.
     </p>
   </section>
 </template>

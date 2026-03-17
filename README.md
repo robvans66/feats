@@ -5,9 +5,9 @@
 # Feats
 Feats is a lightweight, free-to-use desktop app for keeping track of your completed bicycle rides and planned routes.
 
-It is not intended to be a full-featured app, but rather a simple and easy-to-use tool. Feats is particularly practical if you use multiple cycling platforms and perhaps have a lot of previously unusable legacy data, and want to see all your rides and routes in one place. It’s also useful if you don’t use any platform at all, but just want to keep track of your rides and routes in a simple way.
+It’s not intended to be a full‑featured app, but rather a simple and easy‑to‑use tool. Feats is particularly practical if you use multiple cycling platforms and have a lot of previously unusable legacy data, and want to see all your rides and routes in one place. It’s also useful if you don’t use any platform at all and just want a simple way to keep track of your rides and routes.
 
-The exstensive use of charts and statistics provide insights into your riding habits and achievments.
+The extensive use of charts and statistics provides insights into your riding habits and achievements.
 
 # Quick start
 Download the source code or go to the Releases to get the latest version of the app for MacOs (*.dmg) or Windows (WILL BE ADDED SOON)
