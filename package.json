@@ -1,8 +1,8 @@
 {
   "name": "feats",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "license": "MIT",
-  "description": "A small app to keep track of completed bicycle rides and planned bicycle routes.",
+  "description": "Keep track of completed bicycle rides and planned routes.",
   "author": "robvans <robvans@gmail.com>",
   "productName": "Feats",
   "main": "dist-electron/main.js",
@@ -19,6 +19,16 @@
       ".output/**",
       "dist-electron/**",
       "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "build/icon.png",
+        "to": "icon.png"
+      },
+      {
+        "from": "build/icon.ico",
+        "to": "icon.ico"
+      }
     ],
     "mac": {
       "target": ["dmg", "zip"],
@@ -42,14 +52,17 @@
     },
     "win": {
       "target": ["nsis", "portable"],
-      "signAndEditExecutable": false,
+      "signAndEditExecutable": true,
       "icon": "build/icon.ico"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
+      "createStartMenuShortcut": true,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico"
     },
     "linux": {
       "target": ["AppImage", "deb"],

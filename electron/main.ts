@@ -10,11 +10,13 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 app.setName('Feats') // Set your app name here for macOS menu
-app.setAboutPanelOptions({ 
-  applicationName: 'Feats', 
+if (process.platform === 'win32') {
+  app.setAppUserModelId('com.feats.app')
+}
+app.setAboutPanelOptions({
+  applicationName: 'Feats',
   applicationVersion: `${LatestVersion} (${LatestVersionDate})`,
-  version: '', // Suppress default Electron version info
-  iconPath: join(__dirname, '../build/icon.png')
+  version: '' // Suppress default Electron version info
 })
 
 const APP_PORT = Number(process.env.NUXT_PORT || 3000)
@@ -25,6 +27,35 @@ let mainWindow: BrowserWindow | null = null
 
 function getAppRoot(): string {
   return app.isPackaged ? app.getAppPath() : join(__dirname, '..')
+}
+
+function getAppIconPath(): string {
+  const iconFile = process.platform === 'win32' ? 'icon.ico' : 'icon.png'
+
+  if (app.isPackaged) {
+    return join(process.resourcesPath, iconFile)
+  }
+
+  return join(getAppRoot(), 'build', iconFile)
+}
+
+function showAboutDialog() {
+  const iconPath = getAppIconPath()
+  const detail = `Version ${LatestVersion} (${LatestVersionDate})`
+
+  if (process.platform === 'win32') {
+    void dialog.showMessageBox({
+      type: 'info',
+      title: 'About Feats',
+      message: 'Feats',
+      detail,
+      icon: iconPath,
+      buttons: ['OK']
+    })
+    return
+  }
+
+  app.showAboutPanel()
 }
 
 function getServerWorkingDirectory(): string {
@@ -231,7 +262,7 @@ function createMenu() {
         ...(isMac ? [] : [
           {
             label: 'About',
-            click: () => { app.showAboutPanel(); }
+            click: () => { showAboutDialog() }
           }
         ])
       ]
@@ -247,6 +278,7 @@ async function createWindow() {
     width: 1200,
     height: 800,
     title: '',
+    icon: getAppIconPath(),
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
