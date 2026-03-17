@@ -80,12 +80,13 @@ function showWindowsAboutWindow() {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 18px 18px 42px;
+        padding: 40px 20px;
         height: 100%;
         box-sizing: border-box;
       }
       .name {
-        margin: 10px 0 0;
+        margin: 20px 0 0;
+        padding-top: 16px;
         font-size: 20px;
         font-weight: 600;
       }
@@ -95,7 +96,8 @@ function showWindowsAboutWindow() {
         font-size: 13px;
       }
       .version {
-        margin: 6px 0 0;
+        margin: 6px 0 20px;
+        padding-bottom: 16px;
         color: #4b5563;
         font-size: 13px;
       }
@@ -104,7 +106,7 @@ function showWindowsAboutWindow() {
   <body>
     <div class="wrap">
       <h1 class="name">Feats</h1>
-      <p class="tagline">Keep track of completed bicycle rides and planned routes.</p>
+      <p class="tagline">Keep track of your bicycle rides and planned routes.</p>
       <p class="version">${escapeHtml(versionText)}</p>
     </div>
   </body>

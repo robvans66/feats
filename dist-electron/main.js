@@ -3,12 +3,12 @@ import { spawn as A } from "node:child_process";
 import { existsSync as d, readdirSync as N } from "node:fs";
 import { dirname as C, join as l } from "node:path";
 import { fileURLToPath as _ } from "node:url";
-const g = "1.0.15", y = "17 Mar 2026", S = _(import.meta.url), x = C(S);
+const v = "1.0.15", y = "17 Mar 2026", S = _(import.meta.url), x = C(S);
 n.setName("Feats");
 process.platform === "win32" && n.setAppUserModelId("com.feats.app");
 n.setAboutPanelOptions({
   applicationName: "Feats",
-  applicationVersion: `${g} (${y})`,
+  applicationVersion: `${v} (${y})`,
   version: ""
   // Suppress default Electron version info
 });
@@ -29,7 +29,7 @@ function O() {
     i.focus();
     return;
   }
-  const e = `Version ${g} (${y})`, r = `<!doctype html>
+  const e = `Version ${v} (${y})`, r = `<!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -54,12 +54,13 @@ function O() {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 18px 18px 42px;
+        padding: 40px 20px;
         height: 100%;
         box-sizing: border-box;
       }
       .name {
-        margin: 10px 0 0;
+        margin: 20px 0 0;
+        padding-top: 16px;
         font-size: 20px;
         font-weight: 600;
       }
@@ -69,7 +70,8 @@ function O() {
         font-size: 13px;
       }
       .version {
-        margin: 6px 0 0;
+        margin: 6px 0 20px;
+        padding-bottom: 16px;
         color: #4b5563;
         font-size: 13px;
       }
@@ -78,7 +80,7 @@ function O() {
   <body>
     <div class="wrap">
       <h1 class="name">Feats</h1>
-      <p class="tagline">Keep track of completed bicycle rides and planned routes.</p>
+      <p class="tagline">Keep track of your bicycle rides and planned routes.</p>
       <p class="version">${T(e)}</p>
     </div>
   </body>
@@ -283,7 +285,7 @@ function $() {
   ], a = w.buildFromTemplate(r);
   w.setApplicationMenu(a);
 }
-async function v() {
+async function g() {
   o = new u({
     width: 1200,
     height: 800,
@@ -311,8 +313,8 @@ async function v() {
   });
 }
 n.whenReady().then(async () => {
-  await W(), $(), await v(), n.on("activate", async () => {
-    u.getAllWindows().length === 0 && await v();
+  await W(), $(), await g(), n.on("activate", async () => {
+    u.getAllWindows().length === 0 && await g();
   });
 }).catch((e) => {
   const r = e instanceof Error ? e.message : String(e);

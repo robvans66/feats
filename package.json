@@ -2,7 +2,7 @@
   "name": "feats",
   "version": "1.0.15",
   "license": "MIT",
-  "description": "Keep track of completed bicycle rides and planned routes.",
+  "description": "Keep track of your bicycle rides and planned routes.",
   "author": "robvans <robvans@gmail.com>",
   "productName": "Feats",
   "main": "dist-electron/main.js",
