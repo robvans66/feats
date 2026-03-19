@@ -19,8 +19,18 @@ See the [wiki](https://github.com/robvans66/feats/wiki) for detailed how-tos and
 
 # Screenhots
 These screenshots are from a demo installation of the app with 1000 randomly generated bike rides.
-
-
+<p align="center">
+  <img width="95%" alt="feats: rides form" src="https://github.com/user-attachments/assets/723016fb-0112-46f2-8e0b-bbf173e2cd62" />
+</p>
+<p align="center">
+  <img width="95%" alt="feats: statistics: tables" src="https://github.com/user-attachments/assets/3eaca239-f10f-4ac1-b04e-2002c724592c" />
+</p>
+<p align="center">
+  <img width="95%" alt="feats: statistics: charts" src="https://github.com/user-attachments/assets/bbc9a9c6-2ff6-4888-9da3-df48a269fdef" />
+</p>
+<p align="center">
+  <img width="95%" alt="feats: settings" src="https://github.com/user-attachments/assets/9f63ef49-86d1-4631-948e-5e0ff104c6fa" />
+</p>
 
 # License
 
