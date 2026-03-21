@@ -59,6 +59,12 @@ function init() {
     routes_column_visibility TEXT NOT NULL
   )`).run()
 
+  // app metadata
+  db.prepare(`CREATE TABLE IF NOT EXISTS app_meta (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL
+  )`).run()
+
   ensureColumn(db, 'rides_table', 'grade', 'REAL')
   ensureColumn(db, 'routes_table', 'grade', 'REAL')
   ensureColumn(db, 'user_config', 'bike_options', 'TEXT')

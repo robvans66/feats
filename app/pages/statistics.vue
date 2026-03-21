@@ -78,6 +78,20 @@
       </div>
 
       <div class="mt-12">
+        <h2 class="text-xl font-semibold mb-3">Top 10 Average Speeds per Year</h2>
+        <div class="table-statistics bg-white border">
+          <Table
+            :data="sortedTopAverageSpeedsPerYear"
+            :columns="topAverageSpeedsPerYearColumns"
+            :state="topAverageSpeedsPerYearState"
+            :on-state-change="setTopAverageSpeedsPerYearState"
+            :on-select="(_e, row) => toggleSelectedTopAverageYear(row.year)"
+            :selected-row-id="selectedTopAverageYear"
+          />
+        </div>
+      </div>
+
+      <div class="mt-12">
         <h2 class="text-xl font-semibold mb-3">Rides Over 100km per Year</h2>
         <div class="table-statistics bg-white border">
           <Table
@@ -136,6 +150,13 @@
           </div>
         </div>
 
+        <div class="bg-white dark:bg-gray-800 p-4 rounded border w-full">
+          <h2 class="text-xl font-semibold mb-4">Highest Average Speed per Year</h2>
+          <div style="height: 400px; width: 100%;">
+            <Line :data="highestAveragePerYearChartData" :options="highestAveragePerYearChartOptions" />
+          </div>
+        </div>
+
         <!-- Per Bike Chart -->
         <div class="bg-white dark:bg-gray-800 p-4 rounded border w-full">
           <h2 class="text-xl font-semibold mb-4">Distances and Rides per Bike in {{ currentYear }}</h2>
@@ -178,16 +199,26 @@ ChartJS.register(
 const currentYear = computed(() => new Date().getFullYear())
 const activeTab = ref<'tables' | 'charts'>('tables')
 
-const stats = ref({ yearTotals:[], perBike:[], longestPerYear:[], monthlyTotals:[], ridesOver100ByYear:[] })
+const stats = ref({
+  yearTotals: [],
+  perBike: [],
+  longestPerYear: [],
+  highestAveragePerYear: [],
+  topAverageSpeedsPerYear: [],
+  monthlyTotals: [],
+  ridesOver100ByYear: []
+})
 const selectedYearTotal = ref<number | null>(null)
 const selectedBike = ref<string | null>(null)
 const selectedLongestYear = ref<number | null>(null)
+const selectedTopAverageYear = ref<string | null>(null)
 const selectedOver100Year = ref<string | null>(null)
 
 // Table states
 const yearTotalsState = ref<any>({ sorting: [] })
 const longestPerYearState = ref<any>({ sorting: [] })
 const perBikeState = ref<any>({ sorting: [] })
+const topAverageSpeedsPerYearState = ref<any>({ sorting: [{ id: 'year', desc: true }] })
 const ridesOver100State = ref<any>({ sorting: [{ id: 'year', desc: true }] })
 
 // Column definitions
@@ -206,6 +237,16 @@ const perBikeColumns = [
   { accessorKey: 'bike', headerLabel: 'Bike', enableSorting: true },
   { accessorKey: 'distance', headerLabel: 'Distance', enableSorting: true },
   { accessorKey: 'rides', headerLabel: 'Number', enableSorting: true }
+]
+
+const topAverageSpeedsPerYearColumns = [
+  { accessorKey: 'year', headerLabel: 'Year', enableSorting: true },
+  {
+    accessorKey: 'averageSpeedsFormatted',
+    headerLabel: 'Average Speed',
+    enableSorting: false,
+    cell: (ctx: any) => ctx.getValue()
+  }
 ]
 
 const ridesOver100Columns = [
@@ -230,6 +271,12 @@ function setLongestPerYearState(updater: any) {
 
 function setPerBikeState(updater: any) {
   perBikeState.value = typeof updater === 'function' ? updater(perBikeState.value) : updater
+}
+
+function setTopAverageSpeedsPerYearState(updater: any) {
+  topAverageSpeedsPerYearState.value = typeof updater === 'function'
+    ? updater(topAverageSpeedsPerYearState.value)
+    : updater
 }
 
 function setRidesOver100State(updater: any) {
@@ -261,6 +308,31 @@ const sortedLongestPerYear = computed(() => {
 
 const sortedPerBike = computed(() => {
   return sortData(stats.value.perBike, perBikeState.value.sorting)
+})
+
+const sortedTopAverageSpeedsPerYear = computed(() => {
+  const grouped = stats.value.topAverageSpeedsPerYear.reduce((acc: any[], item: any) => {
+    let yearEntry = acc.find((entry) => entry.year === item.year)
+    if (!yearEntry) {
+      yearEntry = { year: item.year, averageSpeeds: [] }
+      acc.push(yearEntry)
+    }
+    if (item.average != null) {
+      yearEntry.averageSpeeds.push(Number(item.average))
+    }
+    return acc
+  }, [])
+
+  const formatted = grouped.map((item: any) => {
+    const sortedAverages = [...item.averageSpeeds].sort((a: number, b: number) => b - a).slice(0, 10)
+
+    return {
+      ...item,
+      averageSpeedsFormatted: sortedAverages.join(', ')
+    }
+  })
+
+  return sortData(formatted, topAverageSpeedsPerYearState.value.sorting)
 })
 
 const sortedRidesOver100 = computed(() => {
@@ -323,6 +395,10 @@ function toggleSelectedBike(bike: string) {
 
 function toggleSelectedLongestYear(year: number) {
   selectedLongestYear.value = selectedLongestYear.value === year ? null : year
+}
+
+function toggleSelectedTopAverageYear(year: string) {
+  selectedTopAverageYear.value = selectedTopAverageYear.value === year ? null : year
 }
 
 function toggleSelectedOver100Year(year: string) {
@@ -409,6 +485,42 @@ const longestPerYearChartData = computed(() => {
 })
 
 const longestPerYearChartOptions = {
+  responsive: true,
+  maintainAspectRatio: true,
+  plugins: {
+    legend: {
+      display: true,
+      position: 'top' as const
+    }
+  },
+  scales: {
+    y: {
+      beginAtZero: true
+    }
+  }
+}
+
+const highestAveragePerYearChartData = computed(() => {
+  const data = stats.value.highestAveragePerYear
+
+  const sorted = [...data].sort((a: any, b: any) => parseInt(a.year) - parseInt(b.year))
+
+  return {
+    labels: sorted.map((item: any) => item.year),
+    datasets: [
+      {
+        label: 'Highest Average Speed (km/h)',
+        data: sorted.map((item: any) => item.highestAverage),
+        borderColor: '#0d8b5f',
+        backgroundColor: 'rgba(13, 139, 95, 0.2)',
+        tension: 0.4,
+        fill: true
+      }
+    ]
+  }
+})
+
+const highestAveragePerYearChartOptions = {
   responsive: true,
   maintainAspectRatio: true,
   plugins: {

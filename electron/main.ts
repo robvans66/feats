@@ -80,6 +80,8 @@ function showWindowsAboutWindow() {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
+        text-align: center;
         padding: 40px 20px;
         height: 100%;
         box-sizing: border-box;

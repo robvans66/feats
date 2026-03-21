@@ -29,11 +29,6 @@ server/db/*.db
 .env.*
 !.env.example
 
-# txt files
-todo.txt
-howto.txt
-release_notes.txt
-
 # art work
 artwork
 

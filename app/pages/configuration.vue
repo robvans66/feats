@@ -373,6 +373,8 @@ async function backupData() {
 
     const fileName = `feats-backup-${new Date().toISOString().split('T')[0]}.sql`
     const savedWithPicker = await saveBackupFile(sqlContent, fileName)
+    localStorage.setItem('feats_last_backup_at', new Date().toISOString())
+    window.dispatchEvent(new Event('backup-updated'))
     showToast(savedWithPicker ? 'Backup saved successfully.' : 'Backup download started.')
   } catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError') {

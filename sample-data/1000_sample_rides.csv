@@ -1,0 +1,1001 @@
+id;date;description;distance;average;grade;bike;reference;link;notes
+;2026-01-01;Ride 1;118.9;29.3;1.3;Santos;;;
+;2025-02-04;Ride 2;73.6;27.0;1.4;Rimonta;https://example.com/ride/2;Link;
+;2024-03-07;Ride 3;58.7;29.6;9.4;Santos;;;
+;2023-04-10;Ride 4;64.9;27.2;2.7;Rimonta;https://example.com/ride/4;Link;
+;2022-05-13;Ride 5;35.4;26.3;0.7;Santos;;;
+;2021-06-16;Ride 6;25.2;22.5;8.5;Rimonta;;;
+;2026-07-19;Ride 7;89.6;22.4;1.1;Santos;;;
+;2025-08-22;Ride 8;71.1;24.1;7.9;Rimonta;;;
+;2024-09-25;Ride 9;92.3;29.0;0.2;Santos;;;Nice ride
+;2023-10-01;Ride 10;87.1;28.1;2.9;Rimonta;https://example.com/ride/10;Link;Nice ride
+;2022-11-04;Ride 11;143.4;27.1;4.7;Santos;https://example.com/ride/11;Link;
+;2021-12-07;Ride 12;37.9;23.6;8.1;Rimonta;;;
+;2026-01-10;Ride 13;79.9;29.7;2.2;Santos;https://example.com/ride/13;Link;Nice ride
+;2025-02-13;Ride 14;93.5;24.5;2.3;Rimonta;https://example.com/ride/14;Link;
+;2024-03-16;Ride 15;76.6;27.1;7.2;Santos;;;
+;2023-04-19;Ride 16;29.2;25.0;2.1;Rimonta;https://example.com/ride/16;Link;
+;2022-05-22;Ride 17;77.0;25.8;0.1;Santos;https://example.com/ride/17;Link;
+;2021-06-25;Ride 18;81.0;25.3;0.4;Rimonta;;;
+;2026-07-01;Ride 19;90.3;26.6;10.9;Santos;;;
+;2025-08-04;Ride 20;99.2;26.7;3.7;Rimonta;https://example.com/ride/20;Link;
+;2024-09-07;Ride 21;165.6;29.8;10.2;Santos;;;Nice ride
+;2023-10-10;Ride 22;22.2;25.7;11.9;Rimonta;https://example.com/ride/22;Link;
+;2022-11-13;Ride 23;79.6;24.4;2.3;Santos;;;Nice ride
+;2021-12-16;Ride 24;77.1;24.6;3.3;Rimonta;https://example.com/ride/24;Link;Nice ride
+;2026-01-19;Ride 25;86.8;24.5;1.5;Santos;;;Nice ride
+;2025-02-22;Ride 26;39.3;21.3;2.3;Rimonta;https://example.com/ride/26;Link;
+;2024-03-25;Ride 27;32.0;21.7;9.4;Santos;;;Nice ride
+;2023-04-01;Ride 28;57.2;22.2;3.1;Rimonta;https://example.com/ride/28;Link;
+;2022-05-04;Ride 29;46.3;27.5;5.7;Santos;;;Nice ride
+;2021-06-07;Ride 30;96.3;22.7;2.5;Rimonta;https://example.com/ride/30;Link;
+;2026-07-10;Ride 31;134.6;24.8;7.1;Santos;https://example.com/ride/31;Link;
+;2025-08-13;Ride 32;64.4;26.9;9.5;Rimonta;https://example.com/ride/32;Link;
+;2024-09-16;Ride 33;36.4;25.0;8.3;Santos;https://example.com/ride/33;Link;
+;2023-10-19;Ride 34;87.8;27.3;7.1;Rimonta;;;
+;2022-11-22;Ride 35;93.8;28.6;0.5;Santos;;;Nice ride
+;2021-12-25;Ride 36;35.5;27.7;3.3;Rimonta;https://example.com/ride/36;Link;
+;2026-01-01;Ride 37;88.1;26.2;3.8;Santos;;;Nice ride
+;2025-02-04;Ride 38;39.1;26.0;7.1;Rimonta;https://example.com/ride/38;Link;Nice ride
+;2024-03-07;Ride 39;98.5;23.7;6.9;Santos;https://example.com/ride/39;Link;
+;2023-04-10;Ride 40;71.3;27.7;10.1;Rimonta;https://example.com/ride/40;Link;
+;2022-05-13;Ride 41;102.5;25.0;0.8;Santos;https://example.com/ride/41;Link;
+;2021-06-16;Ride 42;26.9;29.9;3.2;Rimonta;https://example.com/ride/42;Link;Nice ride
+;2026-07-19;Ride 43;96.0;23.7;6.3;Santos;;;
+;2025-08-22;Ride 44;63.2;21.7;6.9;Rimonta;https://example.com/ride/44;Link;Nice ride
+;2024-09-25;Ride 45;84.4;20.0;7.7;Santos;https://example.com/ride/45;Link;
+;2023-10-01;Ride 46;75.4;20.8;4.7;Rimonta;;;
+;2022-11-04;Ride 47;98.3;29.1;6.7;Santos;;;
+;2021-12-07;Ride 48;52.4;22.3;5.7;Rimonta;https://example.com/ride/48;Link;
+;2026-01-10;Ride 49;94.6;25.4;6.0;Santos;;;
+;2025-02-13;Ride 50;92.3;20.6;9.8;Rimonta;https://example.com/ride/50;Link;
+;2024-03-16;Ride 51;141.9;29.2;5.2;Santos;;;Nice ride
+;2023-04-19;Ride 52;35.9;28.9;3.0;Rimonta;;;Nice ride
+;2022-05-22;Ride 53;75.8;28.2;1.4;Santos;;;
+;2021-06-25;Ride 54;98.9;29.2;4.6;Rimonta;https://example.com/ride/54;Link;Nice ride
+;2026-07-01;Ride 55;81.3;21.6;9.9;Santos;;;
+;2025-08-04;Ride 56;92.4;26.8;8.1;Rimonta;https://example.com/ride/56;Link;
+;2024-09-07;Ride 57;62.6;27.2;7.7;Santos;https://example.com/ride/57;Link;
+;2023-10-10;Ride 58;32.3;29.0;3.1;Rimonta;https://example.com/ride/58;Link;
+;2022-11-13;Ride 59;70.8;22.7;9.4;Santos;;;Nice ride
+;2021-12-16;Ride 60;28.6;29.3;0.2;Rimonta;https://example.com/ride/60;Link;
+;2026-01-19;Ride 61;139.7;23.3;9.3;Santos;;;
+;2025-02-22;Ride 62;50.2;23.2;0.7;Rimonta;;;
+;2024-03-25;Ride 63;52.5;20.3;2.6;Santos;https://example.com/ride/63;Link;Nice ride
+;2023-04-01;Ride 64;99.5;25.1;6.5;Rimonta;;;
+;2022-05-04;Ride 65;61.1;29.7;10.8;Santos;https://example.com/ride/65;Link;
+;2021-06-07;Ride 66;51.7;22.1;3.0;Rimonta;https://example.com/ride/66;Link;
+;2026-07-10;Ride 67;53.1;22.2;9.5;Santos;https://example.com/ride/67;Link;
+;2025-08-13;Ride 68;99.0;23.0;8.6;Rimonta;;;
+;2024-09-16;Ride 69;33.1;29.3;3.7;Santos;;;
+;2023-10-19;Ride 70;27.1;22.6;11.0;Rimonta;https://example.com/ride/70;Link;
+;2022-11-22;Ride 71;136.0;27.8;1.7;Santos;https://example.com/ride/71;Link;
+;2021-12-25;Ride 72;71.5;22.6;4.1;Rimonta;https://example.com/ride/72;Link;Nice ride
+;2026-01-01;Ride 73;57.6;26.0;7.7;Santos;;;
+;2025-02-04;Ride 74;97.2;26.3;2.5;Rimonta;https://example.com/ride/74;Link;Nice ride
+;2024-03-07;Ride 75;52.4;22.5;9.5;Santos;;;Nice ride
+;2023-04-10;Ride 76;66.1;25.2;1.3;Rimonta;https://example.com/ride/76;Link;
+;2022-05-13;Ride 77;50.8;20.6;9.1;Santos;;;
+;2021-06-16;Ride 78;65.6;26.1;0.1;Rimonta;https://example.com/ride/78;Link;
+;2026-07-19;Ride 79;90.4;28.4;5.1;Santos;;;
+;2025-08-22;Ride 80;67.3;22.6;2.5;Rimonta;;;
+;2024-09-25;Ride 81;175.8;21.9;1.4;Santos;;;
+;2023-10-01;Ride 82;39.3;24.0;5.8;Rimonta;;;
+;2022-11-04;Ride 83;38.7;22.6;0.5;Santos;;;Nice ride
+;2021-12-07;Ride 84;21.2;28.8;2.0;Rimonta;;;
+;2026-01-10;Ride 85;86.5;25.4;11.8;Santos;;;Nice ride
+;2025-02-13;Ride 86;71.5;29.2;6.9;Rimonta;;;
+;2024-03-16;Ride 87;46.4;27.6;11.9;Santos;;;
+;2023-04-19;Ride 88;24.6;21.3;5.6;Rimonta;;;
+;2022-05-22;Ride 89;49.1;28.2;5.1;Santos;;;
+;2021-06-25;Ride 90;58.4;22.8;0.3;Rimonta;;;
+;2026-07-01;Ride 91;117.2;27.8;5.2;Santos;https://example.com/ride/91;Link;
+;2025-08-04;Ride 92;71.6;23.7;11.7;Rimonta;https://example.com/ride/92;Link;
+;2024-09-07;Ride 93;27.6;26.2;11.9;Santos;;;
+;2023-10-10;Ride 94;86.6;29.3;11.3;Rimonta;https://example.com/ride/94;Link;
+;2022-11-13;Ride 95;95.1;21.3;6.0;Santos;;;Nice ride
+;2021-12-16;Ride 96;53.6;22.0;3.1;Rimonta;;;Nice ride
+;2026-01-19;Ride 97;81.8;27.1;0.2;Santos;;;
+;2025-02-22;Ride 98;42.2;28.4;4.3;Rimonta;https://example.com/ride/98;Link;
+;2024-03-25;Ride 99;43.6;28.8;9.8;Santos;https://example.com/ride/99;Link;
+;2023-04-01;Ride 100;83.5;21.9;7.8;Rimonta;https://example.com/ride/100;Link;
+;2022-05-04;Ride 101;136.7;22.7;5.3;Santos;;;
+;2021-06-07;Ride 102;77.2;24.3;5.4;Rimonta;;;
+;2026-07-10;Ride 103;59.7;21.0;11.7;Santos;;;
+;2025-08-13;Ride 104;55.0;22.3;4.7;Rimonta;;;Nice ride
+;2024-09-16;Ride 105;80.6;22.6;4.6;Santos;;;Nice ride
+;2023-10-19;Ride 106;53.4;27.7;2.2;Rimonta;;;
+;2022-11-22;Ride 107;41.9;28.2;6.3;Santos;https://example.com/ride/107;Link;Nice ride
+;2021-12-25;Ride 108;93.8;28.4;2.9;Rimonta;https://example.com/ride/108;Link;
+;2026-01-01;Ride 109;98.6;20.3;6.7;Santos;https://example.com/ride/109;Link;
+;2025-02-04;Ride 110;31.8;20.6;1.6;Rimonta;;;Nice ride
+;2024-03-07;Ride 111;152.7;28.8;0.5;Santos;;;Nice ride
+;2023-04-10;Ride 112;41.2;28.8;9.8;Rimonta;;;
+;2022-05-13;Ride 113;70.7;20.9;1.9;Santos;;;Nice ride
+;2021-06-16;Ride 114;85.6;20.4;10.5;Rimonta;https://example.com/ride/114;Link;
+;2026-07-19;Ride 115;87.4;25.1;8.4;Santos;;;
+;2025-08-22;Ride 116;76.3;22.2;2.2;Rimonta;https://example.com/ride/116;Link;
+;2024-09-25;Ride 117;20.1;24.4;11.9;Santos;;;Nice ride
+;2023-10-01;Ride 118;99.8;21.7;3.3;Rimonta;;;
+;2022-11-04;Ride 119;99.0;29.5;2.7;Santos;;;Nice ride
+;2021-12-07;Ride 120;39.8;25.8;10.8;Rimonta;;;
+;2026-01-10;Ride 121;148.0;24.8;8.6;Santos;;;Nice ride
+;2025-02-13;Ride 122;50.9;25.8;2.4;Rimonta;;;
+;2024-03-16;Ride 123;66.8;25.6;9.2;Santos;;;Nice ride
+;2023-04-19;Ride 124;41.6;28.7;4.3;Rimonta;;;Nice ride
+;2022-05-22;Ride 125;95.6;21.5;9.0;Santos;;;
+;2021-06-25;Ride 126;21.8;21.9;2.2;Rimonta;;;
+;2026-07-01;Ride 127;92.2;27.0;10.1;Santos;https://example.com/ride/127;Link;
+;2025-08-04;Ride 128;56.0;22.0;5.7;Rimonta;https://example.com/ride/128;Link;
+;2024-09-07;Ride 129;73.4;24.9;3.8;Santos;;;
+;2023-10-10;Ride 130;61.0;24.6;4.1;Rimonta;https://example.com/ride/130;Link;
+;2022-11-13;Ride 131;123.0;25.6;10.9;Santos;;;Nice ride
+;2021-12-16;Ride 132;79.9;28.2;11.3;Rimonta;https://example.com/ride/132;Link;
+;2026-01-19;Ride 133;43.2;22.0;9.0;Santos;;;
+;2025-02-22;Ride 134;77.7;29.0;7.0;Rimonta;https://example.com/ride/134;Link;
+;2024-03-25;Ride 135;33.9;26.1;0.2;Santos;https://example.com/ride/135;Link;Nice ride
+;2023-04-01;Ride 136;86.7;23.1;5.1;Rimonta;https://example.com/ride/136;Link;
+;2022-05-04;Ride 137;23.4;29.1;1.9;Santos;https://example.com/ride/137;Link;Nice ride
+;2021-06-07;Ride 138;57.2;27.9;7.6;Rimonta;;;
+;2026-07-10;Ride 139;42.3;23.8;0.0;Santos;https://example.com/ride/139;Link;
+;2025-08-13;Ride 140;21.0;25.8;8.2;Rimonta;;;
+;2024-09-16;Ride 141;138.3;23.8;9.8;Santos;;;
+;2023-10-19;Ride 142;60.6;23.7;4.7;Rimonta;;;
+;2022-11-22;Ride 143;47.8;27.6;9.3;Santos;;;Nice ride
+;2021-12-25;Ride 144;34.6;20.5;1.5;Rimonta;;;Nice ride
+;2026-01-01;Ride 145;21.3;22.6;9.5;Santos;;;
+;2025-02-04;Ride 146;63.2;29.7;11.4;Rimonta;;;
+;2024-03-07;Ride 147;90.1;24.2;9.3;Santos;;;
+;2023-04-10;Ride 148;54.2;20.5;5.9;Rimonta;https://example.com/ride/148;Link;Nice ride
+;2022-05-13;Ride 149;59.4;26.1;0.0;Santos;https://example.com/ride/149;Link;
+;2021-06-16;Ride 150;41.6;28.3;1.8;Rimonta;https://example.com/ride/150;Link;Nice ride
+;2026-07-19;Ride 151;159.2;20.4;10.8;Santos;;;Nice ride
+;2025-08-22;Ride 152;57.5;26.8;11.6;Rimonta;;;
+;2024-09-25;Ride 153;83.2;29.6;1.3;Santos;;;
+;2023-10-01;Ride 154;39.1;21.7;4.3;Rimonta;https://example.com/ride/154;Link;
+;2022-11-04;Ride 155;65.0;29.8;10.3;Santos;https://example.com/ride/155;Link;
+;2021-12-07;Ride 156;87.6;21.8;2.6;Rimonta;;;
+;2026-01-10;Ride 157;87.2;25.6;1.3;Santos;;;Nice ride
+;2025-02-13;Ride 158;78.7;27.6;0.9;Rimonta;;;
+;2024-03-16;Ride 159;20.5;24.9;5.7;Santos;;;Nice ride
+;2023-04-19;Ride 160;61.4;22.4;9.7;Rimonta;;;
+;2022-05-22;Ride 161;150.6;20.5;1.8;Santos;;;
+;2021-06-25;Ride 162;70.5;20.3;7.2;Rimonta;https://example.com/ride/162;Link;Nice ride
+;2026-07-01;Ride 163;36.1;22.2;5.2;Santos;https://example.com/ride/163;Link;
+;2025-08-04;Ride 164;31.5;21.8;11.9;Rimonta;;;
+;2024-09-07;Ride 165;42.9;25.7;1.6;Santos;;;Nice ride
+;2023-10-10;Ride 166;54.5;20.9;3.1;Rimonta;;;Nice ride
+;2022-11-13;Ride 167;51.2;29.2;11.3;Santos;;;
+;2021-12-16;Ride 168;85.3;27.9;11.8;Rimonta;https://example.com/ride/168;Link;
+;2026-01-19;Ride 169;46.8;22.9;0.5;Santos;https://example.com/ride/169;Link;Nice ride
+;2025-02-22;Ride 170;28.8;22.5;8.0;Rimonta;https://example.com/ride/170;Link;
+;2024-03-25;Ride 171;114.8;22.5;5.7;Santos;;;
+;2023-04-01;Ride 172;55.2;28.6;9.4;Rimonta;https://example.com/ride/172;Link;
+;2022-05-04;Ride 173;26.2;26.5;7.6;Santos;https://example.com/ride/173;Link;Nice ride
+;2021-06-07;Ride 174;43.5;24.4;2.7;Rimonta;;;
+;2026-07-10;Ride 175;60.0;25.8;5.3;Santos;;;Nice ride
+;2025-08-13;Ride 176;24.4;28.8;2.3;Rimonta;https://example.com/ride/176;Link;Nice ride
+;2024-09-16;Ride 177;20.8;27.1;6.6;Santos;;;Nice ride
+;2023-10-19;Ride 178;83.8;20.3;8.5;Rimonta;https://example.com/ride/178;Link;Nice ride
+;2022-11-22;Ride 179;93.8;29.8;6.6;Santos;https://example.com/ride/179;Link;Nice ride
+;2021-12-25;Ride 180;77.9;27.7;11.8;Rimonta;;;
+;2026-01-01;Ride 181;114.3;26.9;6.3;Santos;;;Nice ride
+;2025-02-04;Ride 182;33.9;27.8;5.5;Rimonta;https://example.com/ride/182;Link;Nice ride
+;2024-03-07;Ride 183;41.3;20.1;11.5;Santos;;;
+;2023-04-10;Ride 184;31.6;26.4;8.8;Rimonta;;;Nice ride
+;2022-05-13;Ride 185;41.8;24.0;4.0;Santos;;;
+;2021-06-16;Ride 186;75.3;22.0;0.5;Rimonta;https://example.com/ride/186;Link;
+;2026-07-19;Ride 187;50.3;21.5;4.2;Santos;;;Nice ride
+;2025-08-22;Ride 188;52.9;28.2;1.9;Rimonta;;;
+;2024-09-25;Ride 189;42.6;26.3;2.4;Santos;;;
+;2023-10-01;Ride 190;49.0;28.0;2.1;Rimonta;;;
+;2022-11-04;Ride 191;175.8;28.8;10.9;Santos;;;
+;2021-12-07;Ride 192;68.4;27.7;0.5;Rimonta;;;
+;2026-01-10;Ride 193;32.6;25.8;0.7;Santos;;;
+;2025-02-13;Ride 194;21.1;24.1;2.9;Rimonta;;;
+;2024-03-16;Ride 195;22.7;27.1;1.7;Santos;;;Nice ride
+;2023-04-19;Ride 196;25.5;26.1;10.8;Rimonta;;;
+;2022-05-22;Ride 197;90.1;25.1;3.1;Santos;https://example.com/ride/197;Link;Nice ride
+;2021-06-25;Ride 198;27.6;20.6;3.3;Rimonta;;;
+;2026-07-01;Ride 199;81.3;21.9;1.8;Santos;https://example.com/ride/199;Link;
+;2025-08-04;Ride 200;72.5;29.7;9.4;Rimonta;;;Nice ride
+;2024-09-07;Ride 201;143.6;27.2;5.5;Santos;;;Nice ride
+;2023-10-10;Ride 202;90.4;22.7;1.3;Rimonta;;;
+;2022-11-13;Ride 203;52.3;25.4;9.8;Santos;;;Nice ride
+;2021-12-16;Ride 204;45.6;21.0;7.9;Rimonta;;;
+;2026-01-19;Ride 205;86.3;20.3;5.5;Santos;https://example.com/ride/205;Link;Nice ride
+;2025-02-22;Ride 206;48.0;26.0;7.0;Rimonta;;;Nice ride
+;2024-03-25;Ride 207;42.4;20.3;10.4;Santos;https://example.com/ride/207;Link;Nice ride
+;2023-04-01;Ride 208;86.6;20.5;4.6;Rimonta;;;
+;2022-05-04;Ride 209;47.3;29.2;3.6;Santos;https://example.com/ride/209;Link;
+;2021-06-07;Ride 210;53.8;26.0;6.2;Rimonta;;;
+;2026-07-10;Ride 211;112.7;24.8;5.5;Santos;;;Nice ride
+;2025-08-13;Ride 212;87.1;21.1;10.4;Rimonta;;;
+;2024-09-16;Ride 213;79.3;24.4;6.9;Santos;;;Nice ride
+;2023-10-19;Ride 214;93.2;26.0;8.2;Rimonta;https://example.com/ride/214;Link;
+;2022-11-22;Ride 215;97.2;24.3;1.8;Santos;;;
+;2021-12-25;Ride 216;73.1;25.4;10.5;Rimonta;;;
+;2026-01-01;Ride 217;79.8;20.6;3.0;Santos;;;Nice ride
+;2025-02-04;Ride 218;49.9;24.0;3.2;Rimonta;https://example.com/ride/218;Link;Nice ride
+;2024-03-07;Ride 219;81.8;22.4;6.7;Santos;https://example.com/ride/219;Link;
+;2023-04-10;Ride 220;64.6;28.3;8.6;Rimonta;;;
+;2022-05-13;Ride 221;144.1;24.9;9.7;Santos;;;
+;2021-06-16;Ride 222;73.1;25.9;6.2;Rimonta;;;
+;2026-07-19;Ride 223;27.5;28.1;2.8;Santos;https://example.com/ride/223;Link;
+;2025-08-22;Ride 224;66.6;27.2;9.8;Rimonta;;;Nice ride
+;2024-09-25;Ride 225;48.2;25.4;3.2;Santos;;;Nice ride
+;2023-10-01;Ride 226;57.1;22.3;5.0;Rimonta;;;
+;2022-11-04;Ride 227;61.8;23.1;2.9;Santos;https://example.com/ride/227;Link;
+;2021-12-07;Ride 228;46.7;23.4;10.4;Rimonta;;;
+;2026-01-10;Ride 229;69.5;25.5;2.9;Santos;https://example.com/ride/229;Link;Nice ride
+;2025-02-13;Ride 230;69.8;24.7;8.2;Rimonta;;;Nice ride
+;2024-03-16;Ride 231;109.1;22.8;2.3;Santos;;;Nice ride
+;2023-04-19;Ride 232;32.7;20.2;7.6;Rimonta;;;
+;2022-05-22;Ride 233;40.9;22.3;7.3;Santos;https://example.com/ride/233;Link;
+;2021-06-25;Ride 234;46.2;27.0;7.9;Rimonta;;;
+;2026-07-01;Ride 235;72.0;23.8;10.7;Santos;;;
+;2025-08-04;Ride 236;64.9;21.8;10.6;Rimonta;;;
+;2024-09-07;Ride 237;30.0;29.9;11.9;Santos;https://example.com/ride/237;Link;
+;2023-10-10;Ride 238;59.6;22.0;10.9;Rimonta;;;Nice ride
+;2022-11-13;Ride 239;54.2;21.3;10.1;Santos;;;Nice ride
+;2021-12-16;Ride 240;63.5;22.8;10.5;Rimonta;;;Nice ride
+;2026-01-19;Ride 241;106.5;29.4;1.4;Santos;https://example.com/ride/241;Link;
+;2025-02-22;Ride 242;23.3;25.4;9.5;Rimonta;;;
+;2024-03-25;Ride 243;21.1;23.7;8.3;Santos;https://example.com/ride/243;Link;
+;2023-04-01;Ride 244;51.7;28.8;4.7;Rimonta;;;Nice ride
+;2022-05-04;Ride 245;47.2;21.9;9.8;Santos;https://example.com/ride/245;Link;
+;2021-06-07;Ride 246;45.5;27.6;5.0;Rimonta;;;
+;2026-07-10;Ride 247;57.2;22.7;10.4;Santos;https://example.com/ride/247;Link;Nice ride
+;2025-08-13;Ride 248;60.1;28.7;3.6;Rimonta;;;
+;2024-09-16;Ride 249;34.0;26.1;9.0;Santos;https://example.com/ride/249;Link;Nice ride
+;2023-10-19;Ride 250;53.2;23.9;2.2;Rimonta;;;
+;2022-11-22;Ride 251;168.9;24.9;6.0;Santos;;;
+;2021-12-25;Ride 252;88.7;28.7;0.3;Rimonta;;;
+;2026-01-01;Ride 253;52.5;25.6;2.9;Santos;;;Nice ride
+;2025-02-04;Ride 254;48.5;29.4;11.5;Rimonta;https://example.com/ride/254;Link;
+;2024-03-07;Ride 255;22.3;21.3;1.0;Santos;;;Nice ride
+;2023-04-10;Ride 256;65.0;28.7;5.1;Rimonta;https://example.com/ride/256;Link;
+;2022-05-13;Ride 257;38.0;23.2;9.3;Santos;https://example.com/ride/257;Link;
+;2021-06-16;Ride 258;44.8;24.8;3.6;Rimonta;;;
+;2026-07-19;Ride 259;39.5;28.7;9.5;Santos;;;Nice ride
+;2025-08-22;Ride 260;94.4;21.6;1.1;Rimonta;https://example.com/ride/260;Link;
+;2024-09-25;Ride 261;133.8;24.1;0.8;Santos;;;
+;2023-10-01;Ride 262;87.9;28.7;0.0;Rimonta;;;
+;2022-11-04;Ride 263;33.9;29.6;6.8;Santos;;;
+;2021-12-07;Ride 264;27.4;21.5;5.0;Rimonta;;;
+;2026-01-10;Ride 265;29.3;24.4;8.1;Santos;;;
+;2025-02-13;Ride 266;40.3;23.1;10.5;Rimonta;;;Nice ride
+;2024-03-16;Ride 267;57.6;20.4;1.0;Santos;https://example.com/ride/267;Link;Nice ride
+;2023-04-19;Ride 268;54.9;24.5;4.8;Rimonta;;;
+;2022-05-22;Ride 269;67.8;25.3;4.6;Santos;https://example.com/ride/269;Link;
+;2021-06-25;Ride 270;86.3;25.3;6.8;Rimonta;https://example.com/ride/270;Link;
+;2026-07-01;Ride 271;136.7;26.9;1.4;Santos;;;
+;2025-08-04;Ride 272;69.7;29.0;9.0;Rimonta;https://example.com/ride/272;Link;Nice ride
+;2024-09-07;Ride 273;43.0;22.7;7.7;Santos;;;
+;2023-10-10;Ride 274;72.9;21.2;8.0;Rimonta;;;
+;2022-11-13;Ride 275;28.5;23.7;6.6;Santos;;;
+;2021-12-16;Ride 276;84.8;27.3;8.2;Rimonta;https://example.com/ride/276;Link;
+;2026-01-19;Ride 277;37.9;29.3;8.3;Santos;;;
+;2025-02-22;Ride 278;44.7;20.7;6.5;Rimonta;;;Nice ride
+;2024-03-25;Ride 279;63.3;27.8;8.4;Santos;https://example.com/ride/279;Link;
+;2023-04-01;Ride 280;96.9;20.5;6.1;Rimonta;;;
+;2022-05-04;Ride 281;107.0;24.9;11.1;Santos;;;
+;2021-06-07;Ride 282;20.8;22.3;1.7;Rimonta;;;Nice ride
+;2026-07-10;Ride 283;47.2;27.0;4.6;Santos;;;
+;2025-08-13;Ride 284;35.9;22.3;0.7;Rimonta;https://example.com/ride/284;Link;
+;2024-09-16;Ride 285;90.2;24.4;6.9;Santos;;;
+;2023-10-19;Ride 286;67.2;23.0;10.3;Rimonta;https://example.com/ride/286;Link;
+;2022-11-22;Ride 287;56.3;21.6;3.3;Santos;;;
+;2021-12-25;Ride 288;77.1;28.9;8.4;Rimonta;;;
+;2026-01-01;Ride 289;77.5;28.7;5.5;Santos;;;
+;2025-02-04;Ride 290;39.6;26.5;1.3;Rimonta;https://example.com/ride/290;Link;
+;2024-03-07;Ride 291;123.1;27.0;0.8;Santos;;;
+;2023-04-10;Ride 292;92.5;24.7;7.5;Rimonta;;;
+;2022-05-13;Ride 293;89.7;27.5;9.9;Santos;https://example.com/ride/293;Link;
+;2021-06-16;Ride 294;41.2;26.3;5.8;Rimonta;https://example.com/ride/294;Link;
+;2026-07-19;Ride 295;54.0;28.7;0.9;Santos;;;
+;2025-08-22;Ride 296;42.2;24.9;11.5;Rimonta;https://example.com/ride/296;Link;Nice ride
+;2024-09-25;Ride 297;88.6;20.5;0.3;Santos;https://example.com/ride/297;Link;
+;2023-10-01;Ride 298;65.0;23.9;6.5;Rimonta;;;
+;2022-11-04;Ride 299;46.3;23.5;4.5;Santos;;;
+;2021-12-07;Ride 300;76.9;20.2;5.6;Rimonta;;;
+;2026-01-10;Ride 301;129.8;22.7;9.4;Santos;;;Nice ride
+;2025-02-13;Ride 302;20.5;22.5;11.3;Rimonta;;;
+;2024-03-16;Ride 303;56.6;29.2;6.5;Santos;;;Nice ride
+;2023-04-19;Ride 304;80.1;29.4;5.9;Rimonta;;;
+;2022-05-22;Ride 305;54.3;22.7;1.0;Santos;;;Nice ride
+;2021-06-25;Ride 306;30.0;22.6;9.0;Rimonta;;;
+;2026-07-01;Ride 307;80.8;23.6;1.9;Santos;;;Nice ride
+;2025-08-04;Ride 308;93.9;23.8;1.3;Rimonta;https://example.com/ride/308;Link;
+;2024-09-07;Ride 309;52.6;23.5;2.8;Santos;;;
+;2023-10-10;Ride 310;45.6;21.6;10.7;Rimonta;;;
+;2022-11-13;Ride 311;156.7;25.6;0.3;Santos;https://example.com/ride/311;Link;
+;2021-12-16;Ride 312;89.3;27.5;10.9;Rimonta;https://example.com/ride/312;Link;
+;2026-01-19;Ride 313;76.7;24.3;2.9;Santos;https://example.com/ride/313;Link;
+;2025-02-22;Ride 314;24.9;24.4;9.6;Rimonta;;;Nice ride
+;2024-03-25;Ride 315;25.9;27.1;2.9;Santos;;;
+;2023-04-01;Ride 316;98.3;28.1;0.6;Rimonta;;;Nice ride
+;2022-05-04;Ride 317;91.2;24.0;1.1;Santos;;;
+;2021-06-07;Ride 318;45.2;26.8;0.3;Rimonta;;;Nice ride
+;2026-07-10;Ride 319;77.0;25.2;4.5;Santos;;;
+;2025-08-13;Ride 320;90.0;25.9;6.8;Rimonta;https://example.com/ride/320;Link;
+;2024-09-16;Ride 321;158.2;22.5;1.6;Santos;https://example.com/ride/321;Link;
+;2023-10-19;Ride 322;44.4;25.9;1.9;Rimonta;;;
+;2022-11-22;Ride 323;97.7;27.2;3.4;Santos;https://example.com/ride/323;Link;
+;2021-12-25;Ride 324;36.1;27.3;4.4;Rimonta;;;Nice ride
+;2026-01-01;Ride 325;33.1;23.6;7.6;Santos;;;Nice ride
+;2025-02-04;Ride 326;58.5;21.0;1.8;Rimonta;;;
+;2024-03-07;Ride 327;67.1;21.4;8.6;Santos;https://example.com/ride/327;Link;Nice ride
+;2023-04-10;Ride 328;57.9;26.3;3.1;Rimonta;https://example.com/ride/328;Link;
+;2022-05-13;Ride 329;87.1;20.3;6.1;Santos;https://example.com/ride/329;Link;
+;2021-06-16;Ride 330;25.7;24.4;1.6;Rimonta;;;Nice ride
+;2026-07-19;Ride 331;129.1;26.5;5.5;Santos;https://example.com/ride/331;Link;
+;2025-08-22;Ride 332;62.1;21.9;9.6;Rimonta;;;Nice ride
+;2024-09-25;Ride 333;87.6;22.7;5.1;Santos;https://example.com/ride/333;Link;
+;2023-10-01;Ride 334;97.6;23.3;3.0;Rimonta;;;
+;2022-11-04;Ride 335;42.1;25.1;0.5;Santos;https://example.com/ride/335;Link;
+;2021-12-07;Ride 336;20.1;27.6;4.3;Rimonta;https://example.com/ride/336;Link;Nice ride
+;2026-01-10;Ride 337;73.4;28.1;11.4;Santos;https://example.com/ride/337;Link;Nice ride
+;2025-02-13;Ride 338;36.7;27.0;0.2;Rimonta;;;Nice ride
+;2024-03-16;Ride 339;45.5;24.6;1.9;Santos;https://example.com/ride/339;Link;
+;2023-04-19;Ride 340;73.8;22.7;11.6;Rimonta;;;Nice ride
+;2022-05-22;Ride 341;141.0;24.3;5.5;Santos;;;
+;2021-06-25;Ride 342;37.4;29.7;4.9;Rimonta;https://example.com/ride/342;Link;
+;2026-07-01;Ride 343;82.2;29.8;7.3;Santos;https://example.com/ride/343;Link;Nice ride
+;2025-08-04;Ride 344;30.0;23.9;3.6;Rimonta;;;
+;2024-09-07;Ride 345;29.9;22.1;2.9;Santos;;;
+;2023-10-10;Ride 346;89.3;24.5;10.7;Rimonta;;;
+;2022-11-13;Ride 347;61.8;22.8;9.1;Santos;https://example.com/ride/347;Link;
+;2021-12-16;Ride 348;27.2;24.1;8.3;Rimonta;https://example.com/ride/348;Link;Nice ride
+;2026-01-19;Ride 349;72.2;27.3;10.5;Santos;https://example.com/ride/349;Link;Nice ride
+;2025-02-22;Ride 350;30.7;20.6;9.1;Rimonta;;;
+;2024-03-25;Ride 351;156.9;20.9;5.7;Santos;https://example.com/ride/351;Link;
+;2023-04-01;Ride 352;39.8;21.4;5.1;Rimonta;https://example.com/ride/352;Link;
+;2022-05-04;Ride 353;49.1;29.9;1.4;Santos;https://example.com/ride/353;Link;
+;2021-06-07;Ride 354;86.9;21.3;11.7;Rimonta;;;
+;2026-07-10;Ride 355;20.9;29.5;8.7;Santos;;;Nice ride
+;2025-08-13;Ride 356;67.9;25.9;0.1;Rimonta;https://example.com/ride/356;Link;
+;2024-09-16;Ride 357;49.8;26.5;8.5;Santos;https://example.com/ride/357;Link;Nice ride
+;2023-10-19;Ride 358;79.2;26.2;4.2;Rimonta;;;
+;2022-11-22;Ride 359;27.3;22.8;5.7;Santos;;;
+;2021-12-25;Ride 360;99.5;20.7;10.6;Rimonta;;;
+;2026-01-01;Ride 361;106.6;28.7;5.7;Santos;https://example.com/ride/361;Link;
+;2025-02-04;Ride 362;83.6;29.1;11.8;Rimonta;;;
+;2024-03-07;Ride 363;23.4;24.3;0.0;Santos;https://example.com/ride/363;Link;
+;2023-04-10;Ride 364;47.3;21.4;2.5;Rimonta;;;
+;2022-05-13;Ride 365;78.7;22.8;6.2;Santos;;;
+;2021-06-16;Ride 366;49.7;25.6;0.9;Rimonta;https://example.com/ride/366;Link;Nice ride
+;2026-07-19;Ride 367;92.1;27.8;4.4;Santos;;;
+;2025-08-22;Ride 368;94.5;26.1;7.2;Rimonta;;;Nice ride
+;2024-09-25;Ride 369;73.5;24.3;1.3;Santos;;;
+;2023-10-01;Ride 370;26.2;23.9;5.4;Rimonta;https://example.com/ride/370;Link;Nice ride
+;2022-11-04;Ride 371;174.1;20.7;1.3;Santos;;;
+;2021-12-07;Ride 372;34.7;27.4;0.2;Rimonta;;;
+;2026-01-10;Ride 373;92.1;27.0;3.9;Santos;https://example.com/ride/373;Link;
+;2025-02-13;Ride 374;50.2;23.7;2.0;Rimonta;;;
+;2024-03-16;Ride 375;37.1;28.4;0.3;Santos;;;
+;2023-04-19;Ride 376;20.4;23.5;8.7;Rimonta;;;
+;2022-05-22;Ride 377;87.1;24.2;11.9;Santos;;;
+;2021-06-25;Ride 378;51.1;22.8;4.2;Rimonta;;;
+;2026-07-01;Ride 379;59.2;29.9;9.5;Santos;;;
+;2025-08-04;Ride 380;89.2;29.5;11.3;Rimonta;;;
+;2024-09-07;Ride 381;131.1;23.6;11.8;Santos;;;Nice ride
+;2023-10-10;Ride 382;44.1;24.2;11.5;Rimonta;;;
+;2022-11-13;Ride 383;75.8;29.0;5.8;Santos;;;
+;2021-12-16;Ride 384;64.2;25.6;0.4;Rimonta;https://example.com/ride/384;Link;
+;2026-01-19;Ride 385;56.3;28.3;7.5;Santos;https://example.com/ride/385;Link;
+;2025-02-22;Ride 386;29.9;26.8;8.1;Rimonta;https://example.com/ride/386;Link;
+;2024-03-25;Ride 387;29.3;22.9;2.7;Santos;https://example.com/ride/387;Link;
+;2023-04-01;Ride 388;99.4;22.1;8.1;Rimonta;;;
+;2022-05-04;Ride 389;50.4;27.4;7.6;Santos;https://example.com/ride/389;Link;
+;2021-06-07;Ride 390;26.6;25.1;10.9;Rimonta;;;
+;2026-07-10;Ride 391;140.6;20.7;10.3;Santos;;;Nice ride
+;2025-08-13;Ride 392;76.3;20.2;5.7;Rimonta;;;
+;2024-09-16;Ride 393;91.9;25.5;5.6;Santos;https://example.com/ride/393;Link;Nice ride
+;2023-10-19;Ride 394;79.8;24.4;7.0;Rimonta;;;
+;2022-11-22;Ride 395;90.0;24.2;8.8;Santos;;;
+;2021-12-25;Ride 396;29.1;20.8;2.4;Rimonta;https://example.com/ride/396;Link;
+;2026-01-01;Ride 397;42.6;21.4;5.5;Santos;https://example.com/ride/397;Link;
+;2025-02-04;Ride 398;85.7;28.4;8.8;Rimonta;;;
+;2024-03-07;Ride 399;34.9;27.6;2.9;Santos;https://example.com/ride/399;Link;
+;2023-04-10;Ride 400;78.7;27.1;7.2;Rimonta;;;
+;2022-05-13;Ride 401;113.5;28.9;6.6;Santos;;;
+;2021-06-16;Ride 402;99.7;27.8;9.6;Rimonta;;;Nice ride
+;2026-07-19;Ride 403;61.9;25.3;3.9;Santos;;;
+;2025-08-22;Ride 404;52.5;20.1;6.7;Rimonta;;;Nice ride
+;2024-09-25;Ride 405;59.3;21.1;1.2;Santos;https://example.com/ride/405;Link;
+;2023-10-01;Ride 406;54.9;26.7;9.4;Rimonta;https://example.com/ride/406;Link;Nice ride
+;2022-11-04;Ride 407;91.1;24.2;4.9;Santos;;;
+;2021-12-07;Ride 408;49.7;21.6;4.1;Rimonta;;;
+;2026-01-10;Ride 409;55.3;20.2;5.6;Santos;;;
+;2025-02-13;Ride 410;63.1;29.7;11.5;Rimonta;https://example.com/ride/410;Link;Nice ride
+;2024-03-16;Ride 411;175.5;24.0;2.0;Santos;;;
+;2023-04-19;Ride 412;66.1;27.0;6.5;Rimonta;;;
+;2022-05-22;Ride 413;83.8;23.6;1.3;Santos;;;
+;2021-06-25;Ride 414;71.5;29.0;3.5;Rimonta;https://example.com/ride/414;Link;Nice ride
+;2026-07-01;Ride 415;29.6;24.6;9.3;Santos;;;
+;2025-08-04;Ride 416;27.7;24.9;11.8;Rimonta;https://example.com/ride/416;Link;
+;2024-09-07;Ride 417;21.8;20.2;7.6;Santos;;;
+;2023-10-10;Ride 418;28.7;20.9;6.3;Rimonta;;;
+;2022-11-13;Ride 419;87.1;21.8;2.3;Santos;https://example.com/ride/419;Link;Nice ride
+;2021-12-16;Ride 420;78.1;24.3;3.4;Rimonta;;;Nice ride
+;2026-01-19;Ride 421;172.7;27.9;5.5;Santos;;;
+;2025-02-22;Ride 422;70.4;27.4;2.0;Rimonta;;;Nice ride
+;2024-03-25;Ride 423;94.7;27.9;1.7;Santos;;;Nice ride
+;2023-04-01;Ride 424;51.8;20.1;1.3;Rimonta;https://example.com/ride/424;Link;
+;2022-05-04;Ride 425;73.0;25.2;4.8;Santos;;;
+;2021-06-07;Ride 426;79.9;21.2;6.6;Rimonta;https://example.com/ride/426;Link;
+;2026-07-10;Ride 427;59.9;27.9;5.2;Santos;https://example.com/ride/427;Link;Nice ride
+;2025-08-13;Ride 428;91.6;20.5;3.9;Rimonta;;;
+;2024-09-16;Ride 429;42.4;29.6;9.4;Santos;;;
+;2023-10-19;Ride 430;54.4;24.8;8.7;Rimonta;;;
+;2022-11-22;Ride 431;149.6;23.5;6.1;Santos;https://example.com/ride/431;Link;
+;2021-12-25;Ride 432;68.4;23.3;4.5;Rimonta;;;
+;2026-01-01;Ride 433;66.1;25.7;1.0;Santos;;;
+;2025-02-04;Ride 434;30.6;27.0;5.1;Rimonta;;;Nice ride
+;2024-03-07;Ride 435;80.1;20.2;2.0;Santos;;;Nice ride
+;2023-04-10;Ride 436;30.2;22.7;3.2;Rimonta;;;
+;2022-05-13;Ride 437;79.2;26.4;9.9;Santos;;;
+;2021-06-16;Ride 438;94.8;25.3;11.3;Rimonta;;;
+;2026-07-19;Ride 439;26.5;21.1;6.1;Santos;;;
+;2025-08-22;Ride 440;38.3;27.3;9.3;Rimonta;https://example.com/ride/440;Link;
+;2024-09-25;Ride 441;110.6;27.3;3.4;Santos;https://example.com/ride/441;Link;
+;2023-10-01;Ride 442;89.3;26.5;2.9;Rimonta;https://example.com/ride/442;Link;
+;2022-11-04;Ride 443;31.1;25.8;6.4;Santos;https://example.com/ride/443;Link;Nice ride
+;2021-12-07;Ride 444;28.6;22.6;8.1;Rimonta;;;Nice ride
+;2026-01-10;Ride 445;81.7;24.0;4.5;Santos;;;
+;2025-02-13;Ride 446;97.7;29.7;10.3;Rimonta;https://example.com/ride/446;Link;Nice ride
+;2024-03-16;Ride 447;26.8;24.9;3.3;Santos;;;Nice ride
+;2023-04-19;Ride 448;96.6;25.3;7.7;Rimonta;;;Nice ride
+;2022-05-22;Ride 449;86.3;21.8;5.8;Santos;;;
+;2021-06-25;Ride 450;86.9;21.0;6.3;Rimonta;;;Nice ride
+;2026-07-01;Ride 451;159.4;25.3;5.1;Santos;https://example.com/ride/451;Link;
+;2025-08-04;Ride 452;50.3;22.3;4.1;Rimonta;;;
+;2024-09-07;Ride 453;92.4;21.8;10.5;Santos;https://example.com/ride/453;Link;
+;2023-10-10;Ride 454;42.1;20.1;0.0;Rimonta;;;
+;2022-11-13;Ride 455;24.7;23.1;10.3;Santos;https://example.com/ride/455;Link;
+;2021-12-16;Ride 456;23.5;21.0;8.9;Rimonta;https://example.com/ride/456;Link;
+;2026-01-19;Ride 457;70.5;22.6;7.5;Santos;;;
+;2025-02-22;Ride 458;89.9;30.0;7.1;Rimonta;;;
+;2024-03-25;Ride 459;85.9;21.5;7.5;Santos;;;Nice ride
+;2023-04-01;Ride 460;22.8;20.2;7.7;Rimonta;https://example.com/ride/460;Link;
+;2022-05-04;Ride 461;177.3;28.7;8.9;Santos;;;
+;2021-06-07;Ride 462;97.6;29.3;7.2;Rimonta;https://example.com/ride/462;Link;Nice ride
+;2026-07-10;Ride 463;29.4;28.2;2.8;Santos;https://example.com/ride/463;Link;
+;2025-08-13;Ride 464;69.6;25.5;5.2;Rimonta;;;
+;2024-09-16;Ride 465;53.6;20.6;6.4;Santos;https://example.com/ride/465;Link;
+;2023-10-19;Ride 466;31.4;25.8;3.1;Rimonta;https://example.com/ride/466;Link;
+;2022-11-22;Ride 467;52.3;26.6;2.9;Santos;;;
+;2021-12-25;Ride 468;70.0;27.1;11.3;Rimonta;;;
+;2026-01-01;Ride 469;98.7;21.6;9.3;Santos;https://example.com/ride/469;Link;
+;2025-02-04;Ride 470;83.7;20.4;7.0;Rimonta;;;Nice ride
+;2024-03-07;Ride 471;133.5;24.2;10.4;Santos;https://example.com/ride/471;Link;Nice ride
+;2023-04-10;Ride 472;21.1;20.4;4.6;Rimonta;;;
+;2022-05-13;Ride 473;38.7;23.1;1.0;Santos;https://example.com/ride/473;Link;Nice ride
+;2021-06-16;Ride 474;93.4;26.9;11.4;Rimonta;;;
+;2026-07-19;Ride 475;63.7;22.8;6.2;Santos;;;
+;2025-08-22;Ride 476;99.9;23.4;7.9;Rimonta;;;
+;2024-09-25;Ride 477;64.4;27.0;11.6;Santos;;;
+;2023-10-01;Ride 478;65.6;26.4;6.8;Rimonta;;;Nice ride
+;2022-11-04;Ride 479;63.1;21.4;4.7;Santos;;;
+;2021-12-07;Ride 480;86.4;23.2;2.4;Rimonta;;;
+;2026-01-10;Ride 481;169.7;26.2;10.2;Santos;https://example.com/ride/481;Link;Nice ride
+;2025-02-13;Ride 482;93.2;21.3;8.4;Rimonta;;;Nice ride
+;2024-03-16;Ride 483;55.5;22.6;10.4;Santos;;;
+;2023-04-19;Ride 484;68.9;24.1;8.1;Rimonta;https://example.com/ride/484;Link;Nice ride
+;2022-05-22;Ride 485;95.8;24.0;7.7;Santos;;;
+;2021-06-25;Ride 486;59.1;25.8;6.3;Rimonta;https://example.com/ride/486;Link;
+;2026-07-01;Ride 487;55.9;25.8;4.5;Santos;https://example.com/ride/487;Link;
+;2025-08-04;Ride 488;95.6;24.8;9.9;Rimonta;;;
+;2024-09-07;Ride 489;56.2;22.0;4.1;Santos;;;
+;2023-10-10;Ride 490;31.1;22.6;7.1;Rimonta;https://example.com/ride/490;Link;
+;2022-11-13;Ride 491;138.0;26.5;11.0;Santos;;;
+;2021-12-16;Ride 492;32.0;26.5;10.9;Rimonta;;;Nice ride
+;2026-01-19;Ride 493;34.1;24.4;0.7;Santos;;;
+;2025-02-22;Ride 494;65.8;22.9;0.4;Rimonta;;;
+;2024-03-25;Ride 495;30.4;22.7;7.1;Santos;;;
+;2023-04-01;Ride 496;73.2;25.1;6.6;Rimonta;;;
+;2022-05-04;Ride 497;74.3;28.6;5.6;Santos;https://example.com/ride/497;Link;Nice ride
+;2021-06-07;Ride 498;59.5;21.7;11.2;Rimonta;https://example.com/ride/498;Link;
+;2026-07-10;Ride 499;65.5;21.0;4.1;Santos;https://example.com/ride/499;Link;Nice ride
+;2025-08-13;Ride 500;66.2;27.0;4.0;Rimonta;https://example.com/ride/500;Link;
+;2024-09-16;Ride 501;146.8;28.6;10.5;Santos;;;
+;2023-10-19;Ride 502;77.5;23.3;5.0;Rimonta;https://example.com/ride/502;Link;
+;2022-11-22;Ride 503;63.2;21.0;2.0;Santos;https://example.com/ride/503;Link;Nice ride
+;2021-12-25;Ride 504;40.7;24.7;3.0;Rimonta;https://example.com/ride/504;Link;
+;2026-01-01;Ride 505;69.8;25.0;1.6;Santos;;;Nice ride
+;2025-02-04;Ride 506;96.1;20.3;1.6;Rimonta;;;
+;2024-03-07;Ride 507;54.3;28.1;9.6;Santos;;;Nice ride
+;2023-04-10;Ride 508;30.8;24.1;3.3;Rimonta;;;
+;2022-05-13;Ride 509;42.6;29.2;1.9;Santos;;;Nice ride
+;2021-06-16;Ride 510;58.4;23.1;10.1;Rimonta;https://example.com/ride/510;Link;
+;2026-07-19;Ride 511;134.2;26.6;1.6;Santos;;;
+;2025-08-22;Ride 512;37.4;26.1;3.5;Rimonta;https://example.com/ride/512;Link;Nice ride
+;2024-09-25;Ride 513;79.9;29.5;2.7;Santos;https://example.com/ride/513;Link;Nice ride
+;2023-10-01;Ride 514;52.2;20.7;3.1;Rimonta;https://example.com/ride/514;Link;
+;2022-11-04;Ride 515;87.1;25.3;1.2;Santos;https://example.com/ride/515;Link;
+;2021-12-07;Ride 516;49.0;23.6;5.7;Rimonta;;;Nice ride
+;2026-01-10;Ride 517;40.4;21.0;2.8;Santos;;;
+;2025-02-13;Ride 518;25.6;25.6;0.1;Rimonta;;;Nice ride
+;2024-03-16;Ride 519;93.4;21.6;11.5;Santos;https://example.com/ride/519;Link;Nice ride
+;2023-04-19;Ride 520;86.3;22.0;6.5;Rimonta;;;Nice ride
+;2022-05-22;Ride 521;148.0;27.9;4.5;Santos;;;
+;2021-06-25;Ride 522;95.5;26.7;4.2;Rimonta;;;
+;2026-07-01;Ride 523;69.1;21.6;0.1;Santos;https://example.com/ride/523;Link;
+;2025-08-04;Ride 524;78.1;28.9;8.9;Rimonta;https://example.com/ride/524;Link;
+;2024-09-07;Ride 525;70.2;29.4;2.3;Santos;;;
+;2023-10-10;Ride 526;35.1;20.9;2.4;Rimonta;;;
+;2022-11-13;Ride 527;31.6;21.7;1.8;Santos;;;
+;2021-12-16;Ride 528;77.6;21.5;5.4;Rimonta;https://example.com/ride/528;Link;
+;2026-01-19;Ride 529;31.5;29.7;8.5;Santos;;;Nice ride
+;2025-02-22;Ride 530;54.9;29.3;7.1;Rimonta;;;
+;2024-03-25;Ride 531;137.6;27.3;10.8;Santos;https://example.com/ride/531;Link;
+;2023-04-01;Ride 532;21.6;26.0;6.4;Rimonta;;;Nice ride
+;2022-05-04;Ride 533;89.5;24.1;8.9;Santos;https://example.com/ride/533;Link;Nice ride
+;2021-06-07;Ride 534;97.5;22.7;4.4;Rimonta;;;Nice ride
+;2026-07-10;Ride 535;20.9;27.4;6.7;Santos;;;Nice ride
+;2025-08-13;Ride 536;87.6;24.4;10.0;Rimonta;;;
+;2024-09-16;Ride 537;68.3;26.5;3.5;Santos;;;
+;2023-10-19;Ride 538;60.3;29.5;10.8;Rimonta;;;
+;2022-11-22;Ride 539;34.4;26.6;0.7;Santos;;;Nice ride
+;2021-12-25;Ride 540;52.1;28.7;9.5;Rimonta;;;
+;2026-01-01;Ride 541;156.6;29.3;5.4;Santos;https://example.com/ride/541;Link;
+;2025-02-04;Ride 542;21.8;27.3;6.0;Rimonta;https://example.com/ride/542;Link;Nice ride
+;2024-03-07;Ride 543;47.9;26.7;5.1;Santos;;;
+;2023-04-10;Ride 544;43.3;23.9;7.6;Rimonta;;;
+;2022-05-13;Ride 545;43.2;26.1;1.4;Santos;https://example.com/ride/545;Link;
+;2021-06-16;Ride 546;44.5;21.6;7.0;Rimonta;https://example.com/ride/546;Link;Nice ride
+;2026-07-19;Ride 547;75.8;27.8;2.6;Santos;;;
+;2025-08-22;Ride 548;89.9;21.2;10.5;Rimonta;;;
+;2024-09-25;Ride 549;65.5;26.0;7.9;Santos;;;
+;2023-10-01;Ride 550;23.2;20.1;9.0;Rimonta;;;
+;2022-11-04;Ride 551;178.2;28.4;9.7;Santos;;;Nice ride
+;2021-12-07;Ride 552;62.4;26.5;8.2;Rimonta;;;
+;2026-01-10;Ride 553;91.6;28.8;7.1;Santos;https://example.com/ride/553;Link;
+;2025-02-13;Ride 554;57.8;20.8;6.5;Rimonta;https://example.com/ride/554;Link;
+;2024-03-16;Ride 555;36.8;28.3;9.6;Santos;https://example.com/ride/555;Link;Nice ride
+;2023-04-19;Ride 556;79.6;20.4;9.6;Rimonta;https://example.com/ride/556;Link;
+;2022-05-22;Ride 557;59.7;20.9;10.7;Santos;https://example.com/ride/557;Link;Nice ride
+;2021-06-25;Ride 558;37.5;23.5;2.3;Rimonta;;;
+;2026-07-01;Ride 559;75.5;24.0;1.0;Santos;https://example.com/ride/559;Link;
+;2025-08-04;Ride 560;75.5;28.3;9.4;Rimonta;;;
+;2024-09-07;Ride 561;116.6;21.2;1.8;Santos;;;
+;2023-10-10;Ride 562;84.5;28.9;5.3;Rimonta;;;Nice ride
+;2022-11-13;Ride 563;83.8;26.6;2.1;Santos;https://example.com/ride/563;Link;
+;2021-12-16;Ride 564;74.1;26.7;2.6;Rimonta;;;Nice ride
+;2026-01-19;Ride 565;84.0;21.0;9.3;Santos;;;
+;2025-02-22;Ride 566;53.8;29.9;7.5;Rimonta;;;
+;2024-03-25;Ride 567;60.6;26.5;5.1;Santos;;;
+;2023-04-01;Ride 568;76.9;27.8;4.8;Rimonta;https://example.com/ride/568;Link;
+;2022-05-04;Ride 569;63.6;21.5;9.1;Santos;;;
+;2021-06-07;Ride 570;30.1;22.4;5.6;Rimonta;https://example.com/ride/570;Link;Nice ride
+;2026-07-10;Ride 571;108.8;20.4;10.7;Santos;;;Nice ride
+;2025-08-13;Ride 572;40.9;22.3;2.6;Rimonta;https://example.com/ride/572;Link;
+;2024-09-16;Ride 573;40.2;24.9;2.7;Santos;https://example.com/ride/573;Link;Nice ride
+;2023-10-19;Ride 574;36.7;22.2;9.9;Rimonta;https://example.com/ride/574;Link;
+;2022-11-22;Ride 575;88.2;22.2;4.7;Santos;;;
+;2021-12-25;Ride 576;36.5;26.8;8.8;Rimonta;https://example.com/ride/576;Link;
+;2026-01-01;Ride 577;34.7;23.6;10.1;Santos;;;
+;2025-02-04;Ride 578;92.2;25.0;3.7;Rimonta;https://example.com/ride/578;Link;
+;2024-03-07;Ride 579;75.1;20.1;2.0;Santos;;;
+;2023-04-10;Ride 580;34.8;25.4;5.8;Rimonta;https://example.com/ride/580;Link;Nice ride
+;2022-05-13;Ride 581;111.5;23.9;8.2;Santos;https://example.com/ride/581;Link;
+;2021-06-16;Ride 582;97.6;27.5;8.1;Rimonta;https://example.com/ride/582;Link;
+;2026-07-19;Ride 583;42.6;28.2;5.4;Santos;https://example.com/ride/583;Link;
+;2025-08-22;Ride 584;82.0;24.1;0.8;Rimonta;;;
+;2024-09-25;Ride 585;56.6;22.5;1.6;Santos;https://example.com/ride/585;Link;
+;2023-10-01;Ride 586;98.8;21.0;3.8;Rimonta;https://example.com/ride/586;Link;
+;2022-11-04;Ride 587;65.2;25.0;6.3;Santos;https://example.com/ride/587;Link;
+;2021-12-07;Ride 588;44.1;27.9;2.1;Rimonta;;;
+;2026-01-10;Ride 589;74.6;24.9;7.4;Santos;https://example.com/ride/589;Link;
+;2025-02-13;Ride 590;56.8;23.3;6.8;Rimonta;;;
+;2024-03-16;Ride 591;147.7;27.9;3.0;Santos;;;
+;2023-04-19;Ride 592;23.6;26.5;2.0;Rimonta;;;Nice ride
+;2022-05-22;Ride 593;78.7;22.6;7.8;Santos;;;Nice ride
+;2021-06-25;Ride 594;31.7;26.7;8.7;Rimonta;;;
+;2026-07-01;Ride 595;54.2;25.9;0.3;Santos;https://example.com/ride/595;Link;
+;2025-08-04;Ride 596;97.8;20.5;8.5;Rimonta;;;
+;2024-09-07;Ride 597;99.7;24.5;0.2;Santos;https://example.com/ride/597;Link;Nice ride
+;2023-10-10;Ride 598;70.1;22.3;10.9;Rimonta;;;
+;2022-11-13;Ride 599;35.9;25.6;3.6;Santos;;;
+;2021-12-16;Ride 600;20.6;23.6;2.9;Rimonta;;;
+;2026-01-19;Ride 601;105.7;27.2;3.9;Santos;;;
+;2025-02-22;Ride 602;82.6;28.0;1.4;Rimonta;;;
+;2024-03-25;Ride 603;70.5;24.0;5.1;Santos;;;
+;2023-04-01;Ride 604;42.8;20.8;8.8;Rimonta;https://example.com/ride/604;Link;
+;2022-05-04;Ride 605;37.3;30.0;3.3;Santos;;;
+;2021-06-07;Ride 606;63.3;26.1;8.6;Rimonta;https://example.com/ride/606;Link;
+;2026-07-10;Ride 607;71.7;28.9;0.6;Santos;;;Nice ride
+;2025-08-13;Ride 608;72.5;22.3;2.3;Rimonta;;;
+;2024-09-16;Ride 609;83.5;26.5;0.6;Santos;https://example.com/ride/609;Link;
+;2023-10-19;Ride 610;51.7;29.9;4.4;Rimonta;;;
+;2022-11-22;Ride 611;159.7;23.7;1.6;Santos;;;
+;2021-12-25;Ride 612;32.7;22.5;11.2;Rimonta;;;Nice ride
+;2026-01-01;Ride 613;84.9;27.4;1.2;Santos;;;Nice ride
+;2025-02-04;Ride 614;99.4;21.0;4.5;Rimonta;;;
+;2024-03-07;Ride 615;81.9;28.9;0.3;Santos;;;Nice ride
+;2023-04-10;Ride 616;24.5;27.4;0.4;Rimonta;https://example.com/ride/616;Link;
+;2022-05-13;Ride 617;74.4;28.9;4.1;Santos;;;
+;2021-06-16;Ride 618;86.8;28.8;1.3;Rimonta;;;
+;2026-07-19;Ride 619;35.7;27.9;8.1;Santos;https://example.com/ride/619;Link;Nice ride
+;2025-08-22;Ride 620;75.9;29.2;9.6;Rimonta;;;Nice ride
+;2024-09-25;Ride 621;150.0;29.6;1.6;Santos;;;
+;2023-10-01;Ride 622;54.1;28.3;6.0;Rimonta;;;
+;2022-11-04;Ride 623;48.3;22.5;1.1;Santos;;;Nice ride
+;2021-12-07;Ride 624;26.5;27.1;6.1;Rimonta;;;Nice ride
+;2026-01-10;Ride 625;32.1;22.3;9.6;Santos;https://example.com/ride/625;Link;Nice ride
+;2025-02-13;Ride 626;93.5;25.0;4.2;Rimonta;;;
+;2024-03-16;Ride 627;78.7;23.2;3.2;Santos;;;Nice ride
+;2023-04-19;Ride 628;81.7;22.6;7.9;Rimonta;;;Nice ride
+;2022-05-22;Ride 629;88.7;26.5;10.9;Santos;;;
+;2021-06-25;Ride 630;34.5;24.3;8.8;Rimonta;;;Nice ride
+;2026-07-01;Ride 631;146.2;26.2;8.4;Santos;https://example.com/ride/631;Link;Nice ride
+;2025-08-04;Ride 632;74.0;25.3;11.4;Rimonta;;;Nice ride
+;2024-09-07;Ride 633;97.7;24.6;4.6;Santos;https://example.com/ride/633;Link;Nice ride
+;2023-10-10;Ride 634;31.8;28.7;10.8;Rimonta;;;
+;2022-11-13;Ride 635;98.6;21.5;9.5;Santos;;;Nice ride
+;2021-12-16;Ride 636;56.8;26.8;0.3;Rimonta;;;
+;2026-01-19;Ride 637;67.8;26.3;3.7;Santos;https://example.com/ride/637;Link;Nice ride
+;2025-02-22;Ride 638;64.1;20.6;8.4;Rimonta;;;
+;2024-03-25;Ride 639;54.7;24.5;8.9;Santos;;;
+;2023-04-01;Ride 640;21.7;26.5;0.9;Rimonta;https://example.com/ride/640;Link;
+;2022-05-04;Ride 641;157.0;21.4;1.2;Santos;https://example.com/ride/641;Link;
+;2021-06-07;Ride 642;39.8;23.4;6.7;Rimonta;;;
+;2026-07-10;Ride 643;49.9;25.9;9.5;Santos;;;
+;2025-08-13;Ride 644;44.7;24.1;0.8;Rimonta;;;
+;2024-09-16;Ride 645;90.1;27.2;9.4;Santos;https://example.com/ride/645;Link;
+;2023-10-19;Ride 646;27.6;20.3;4.6;Rimonta;;;Nice ride
+;2022-11-22;Ride 647;61.1;26.1;2.0;Santos;;;Nice ride
+;2021-12-25;Ride 648;29.9;23.0;8.2;Rimonta;;;
+;2026-01-01;Ride 649;37.5;23.9;7.7;Santos;https://example.com/ride/649;Link;
+;2025-02-04;Ride 650;27.5;21.3;7.0;Rimonta;https://example.com/ride/650;Link;Nice ride
+;2024-03-07;Ride 651;145.9;23.7;10.2;Santos;;;
+;2023-04-10;Ride 652;48.1;23.9;10.8;Rimonta;https://example.com/ride/652;Link;Nice ride
+;2022-05-13;Ride 653;87.9;29.4;9.2;Santos;;;
+;2021-06-16;Ride 654;57.1;21.5;6.4;Rimonta;;;
+;2026-07-19;Ride 655;59.8;28.6;0.4;Santos;;;Nice ride
+;2025-08-22;Ride 656;29.0;27.7;10.7;Rimonta;https://example.com/ride/656;Link;
+;2024-09-25;Ride 657;22.4;25.8;1.3;Santos;https://example.com/ride/657;Link;Nice ride
+;2023-10-01;Ride 658;73.0;21.1;10.2;Rimonta;;;
+;2022-11-04;Ride 659;43.6;27.2;4.6;Santos;https://example.com/ride/659;Link;
+;2021-12-07;Ride 660;22.5;25.5;7.5;Rimonta;https://example.com/ride/660;Link;
+;2026-01-10;Ride 661;173.2;25.7;8.6;Santos;;;
+;2025-02-13;Ride 662;52.4;20.4;6.4;Rimonta;;;
+;2024-03-16;Ride 663;59.8;24.6;4.9;Santos;https://example.com/ride/663;Link;
+;2023-04-19;Ride 664;29.7;20.2;5.4;Rimonta;;;
+;2022-05-22;Ride 665;98.8;29.4;7.7;Santos;;;
+;2021-06-25;Ride 666;79.3;21.5;0.5;Rimonta;https://example.com/ride/666;Link;
+;2026-07-01;Ride 667;22.5;23.7;2.1;Santos;https://example.com/ride/667;Link;
+;2025-08-04;Ride 668;84.4;29.9;7.9;Rimonta;https://example.com/ride/668;Link;Nice ride
+;2024-09-07;Ride 669;72.8;29.9;2.6;Santos;;;
+;2023-10-10;Ride 670;24.7;21.4;11.7;Rimonta;;;
+;2022-11-13;Ride 671;134.3;29.3;11.6;Santos;https://example.com/ride/671;Link;
+;2021-12-16;Ride 672;90.3;23.5;7.7;Rimonta;https://example.com/ride/672;Link;
+;2026-01-19;Ride 673;40.8;29.9;7.9;Santos;;;
+;2025-02-22;Ride 674;38.6;28.4;9.9;Rimonta;https://example.com/ride/674;Link;
+;2024-03-25;Ride 675;79.2;21.1;6.5;Santos;https://example.com/ride/675;Link;Nice ride
+;2023-04-01;Ride 676;87.9;27.0;2.8;Rimonta;;;Nice ride
+;2022-05-04;Ride 677;49.7;28.7;1.1;Santos;https://example.com/ride/677;Link;Nice ride
+;2021-06-07;Ride 678;36.1;24.6;7.3;Rimonta;https://example.com/ride/678;Link;Nice ride
+;2026-07-10;Ride 679;51.2;29.0;0.6;Santos;;;
+;2025-08-13;Ride 680;23.7;24.4;11.0;Rimonta;;;
+;2024-09-16;Ride 681;141.8;29.3;9.9;Santos;;;Nice ride
+;2023-10-19;Ride 682;22.5;26.2;3.0;Rimonta;;;
+;2022-11-22;Ride 683;73.9;21.4;7.7;Santos;https://example.com/ride/683;Link;Nice ride
+;2021-12-25;Ride 684;90.1;24.3;6.1;Rimonta;https://example.com/ride/684;Link;
+;2026-01-01;Ride 685;96.3;20.6;3.7;Santos;https://example.com/ride/685;Link;
+;2025-02-04;Ride 686;53.6;25.0;6.4;Rimonta;;;Nice ride
+;2024-03-07;Ride 687;57.1;21.1;5.7;Santos;https://example.com/ride/687;Link;
+;2023-04-10;Ride 688;94.2;26.8;8.1;Rimonta;https://example.com/ride/688;Link;Nice ride
+;2022-05-13;Ride 689;60.1;28.5;8.8;Santos;;;
+;2021-06-16;Ride 690;31.3;26.5;10.3;Rimonta;;;
+;2026-07-19;Ride 691;167.9;20.8;0.4;Santos;https://example.com/ride/691;Link;
+;2025-08-22;Ride 692;24.7;28.8;9.9;Rimonta;https://example.com/ride/692;Link;
+;2024-09-25;Ride 693;58.1;29.0;2.6;Santos;;;
+;2023-10-01;Ride 694;77.9;20.5;8.1;Rimonta;;;
+;2022-11-04;Ride 695;93.5;28.4;7.4;Santos;;;
+;2021-12-07;Ride 696;49.8;29.4;2.0;Rimonta;https://example.com/ride/696;Link;Nice ride
+;2026-01-10;Ride 697;31.2;27.5;5.0;Santos;;;Nice ride
+;2025-02-13;Ride 698;99.0;23.0;11.3;Rimonta;;;
+;2024-03-16;Ride 699;25.9;23.5;2.4;Santos;https://example.com/ride/699;Link;
+;2023-04-19;Ride 700;77.8;26.5;7.6;Rimonta;;;
+;2022-05-22;Ride 701;152.6;25.8;11.1;Santos;;;Nice ride
+;2021-06-25;Ride 702;95.0;24.0;6.5;Rimonta;https://example.com/ride/702;Link;
+;2026-07-01;Ride 703;38.7;26.2;7.4;Santos;https://example.com/ride/703;Link;Nice ride
+;2025-08-04;Ride 704;31.7;25.7;2.2;Rimonta;;;Nice ride
+;2024-09-07;Ride 705;67.2;28.7;4.6;Santos;;;
+;2023-10-10;Ride 706;87.6;20.9;9.6;Rimonta;;;
+;2022-11-13;Ride 707;55.1;25.2;0.8;Santos;https://example.com/ride/707;Link;
+;2021-12-16;Ride 708;34.5;29.3;1.3;Rimonta;;;
+;2026-01-19;Ride 709;73.7;23.9;10.5;Santos;https://example.com/ride/709;Link;Nice ride
+;2025-02-22;Ride 710;68.5;27.5;3.0;Rimonta;;;
+;2024-03-25;Ride 711;176.6;24.8;4.1;Santos;;;
+;2023-04-01;Ride 712;24.7;22.8;2.4;Rimonta;https://example.com/ride/712;Link;
+;2022-05-04;Ride 713;99.8;27.3;8.3;Santos;;;
+;2021-06-07;Ride 714;47.6;21.7;6.3;Rimonta;https://example.com/ride/714;Link;Nice ride
+;2026-07-10;Ride 715;48.3;20.5;10.1;Santos;;;
+;2025-08-13;Ride 716;40.9;26.4;8.7;Rimonta;https://example.com/ride/716;Link;
+;2024-09-16;Ride 717;52.5;29.7;9.7;Santos;https://example.com/ride/717;Link;
+;2023-10-19;Ride 718;67.8;27.6;9.6;Rimonta;https://example.com/ride/718;Link;
+;2022-11-22;Ride 719;88.5;27.2;6.4;Santos;;;Nice ride
+;2021-12-25;Ride 720;72.3;28.5;7.4;Rimonta;https://example.com/ride/720;Link;
+;2026-01-01;Ride 721;137.6;28.2;2.2;Santos;https://example.com/ride/721;Link;Nice ride
+;2025-02-04;Ride 722;98.4;27.8;3.6;Rimonta;;;
+;2024-03-07;Ride 723;27.2;24.0;4.1;Santos;;;
+;2023-04-10;Ride 724;96.2;25.8;1.3;Rimonta;;;Nice ride
+;2022-05-13;Ride 725;86.3;24.4;0.4;Santos;;;
+;2021-06-16;Ride 726;89.5;21.6;10.7;Rimonta;;;
+;2026-07-19;Ride 727;46.3;25.9;7.3;Santos;;;Nice ride
+;2025-08-22;Ride 728;66.2;20.1;7.4;Rimonta;https://example.com/ride/728;Link;Nice ride
+;2024-09-25;Ride 729;86.9;29.3;7.5;Santos;;;Nice ride
+;2023-10-01;Ride 730;98.8;26.2;4.5;Rimonta;https://example.com/ride/730;Link;Nice ride
+;2022-11-04;Ride 731;145.1;24.2;6.0;Santos;https://example.com/ride/731;Link;
+;2021-12-07;Ride 732;45.1;23.2;1.2;Rimonta;;;
+;2026-01-10;Ride 733;24.4;25.6;0.4;Santos;https://example.com/ride/733;Link;Nice ride
+;2025-02-13;Ride 734;72.7;26.8;2.4;Rimonta;;;
+;2024-03-16;Ride 735;55.0;27.5;6.9;Santos;https://example.com/ride/735;Link;
+;2023-04-19;Ride 736;46.6;28.0;11.6;Rimonta;https://example.com/ride/736;Link;
+;2022-05-22;Ride 737;30.7;25.8;3.9;Santos;https://example.com/ride/737;Link;
+;2021-06-25;Ride 738;27.4;21.1;5.0;Rimonta;;;Nice ride
+;2026-07-01;Ride 739;46.3;26.1;7.0;Santos;;;
+;2025-08-04;Ride 740;93.8;27.0;9.8;Rimonta;;;Nice ride
+;2024-09-07;Ride 741;102.5;28.6;6.5;Santos;;;Nice ride
+;2023-10-10;Ride 742;55.2;25.4;5.4;Rimonta;;;Nice ride
+;2022-11-13;Ride 743;83.4;28.2;8.7;Santos;;;Nice ride
+;2021-12-16;Ride 744;32.5;24.2;1.6;Rimonta;;;
+;2026-01-19;Ride 745;42.4;27.6;6.0;Santos;;;
+;2025-02-22;Ride 746;26.4;21.4;4.8;Rimonta;https://example.com/ride/746;Link;Nice ride
+;2024-03-25;Ride 747;81.8;24.9;2.9;Santos;;;
+;2023-04-01;Ride 748;48.1;26.1;9.8;Rimonta;;;
+;2022-05-04;Ride 749;26.6;20.7;3.5;Santos;;;
+;2021-06-07;Ride 750;78.3;26.8;1.3;Rimonta;https://example.com/ride/750;Link;
+;2026-07-10;Ride 751;155.9;24.9;6.9;Santos;;;Nice ride
+;2025-08-13;Ride 752;85.6;22.7;10.5;Rimonta;;;
+;2024-09-16;Ride 753;84.5;26.9;9.9;Santos;https://example.com/ride/753;Link;
+;2023-10-19;Ride 754;21.9;23.1;4.1;Rimonta;;;
+;2022-11-22;Ride 755;20.2;26.4;2.9;Santos;;;
+;2021-12-25;Ride 756;54.1;28.4;3.3;Rimonta;;;Nice ride
+;2026-01-01;Ride 757;55.2;24.3;0.1;Santos;https://example.com/ride/757;Link;Nice ride
+;2025-02-04;Ride 758;26.2;28.0;10.1;Rimonta;;;
+;2024-03-07;Ride 759;45.5;22.2;1.1;Santos;;;Nice ride
+;2023-04-10;Ride 760;68.5;22.2;9.4;Rimonta;;;
+;2022-05-13;Ride 761;118.9;21.4;4.0;Santos;;;
+;2021-06-16;Ride 762;37.4;30.0;3.3;Rimonta;https://example.com/ride/762;Link;Nice ride
+;2026-07-19;Ride 763;70.2;27.4;11.5;Santos;;;
+;2025-08-22;Ride 764;64.1;23.8;6.5;Rimonta;;;
+;2024-09-25;Ride 765;31.6;20.9;7.9;Santos;;;
+;2023-10-01;Ride 766;86.5;22.3;9.1;Rimonta;https://example.com/ride/766;Link;
+;2022-11-04;Ride 767;62.4;27.9;10.4;Santos;https://example.com/ride/767;Link;
+;2021-12-07;Ride 768;34.4;25.2;0.7;Rimonta;https://example.com/ride/768;Link;Nice ride
+;2026-01-10;Ride 769;59.6;26.5;9.8;Santos;;;
+;2025-02-13;Ride 770;32.8;25.6;7.8;Rimonta;https://example.com/ride/770;Link;
+;2024-03-16;Ride 771;127.8;24.3;3.8;Santos;https://example.com/ride/771;Link;Nice ride
+;2023-04-19;Ride 772;45.0;23.2;4.5;Rimonta;https://example.com/ride/772;Link;
+;2022-05-22;Ride 773;32.5;29.0;6.6;Santos;https://example.com/ride/773;Link;Nice ride
+;2021-06-25;Ride 774;64.3;26.3;6.8;Rimonta;;;
+;2026-07-01;Ride 775;81.8;28.9;8.2;Santos;https://example.com/ride/775;Link;Nice ride
+;2025-08-04;Ride 776;45.2;27.5;10.3;Rimonta;https://example.com/ride/776;Link;
+;2024-09-07;Ride 777;68.3;23.7;6.1;Santos;https://example.com/ride/777;Link;
+;2023-10-10;Ride 778;93.2;25.4;2.1;Rimonta;https://example.com/ride/778;Link;
+;2022-11-13;Ride 779;80.9;23.4;5.3;Santos;https://example.com/ride/779;Link;
+;2021-12-16;Ride 780;75.7;26.6;4.6;Rimonta;https://example.com/ride/780;Link;
+;2026-01-19;Ride 781;179.7;20.1;7.6;Santos;;;
+;2025-02-22;Ride 782;21.5;28.1;6.0;Rimonta;;;
+;2024-03-25;Ride 783;57.1;26.8;11.3;Santos;;;
+;2023-04-01;Ride 784;55.7;23.3;1.5;Rimonta;;;Nice ride
+;2022-05-04;Ride 785;77.4;28.4;11.1;Santos;https://example.com/ride/785;Link;Nice ride
+;2021-06-07;Ride 786;29.9;24.5;6.2;Rimonta;;;Nice ride
+;2026-07-10;Ride 787;59.9;24.8;2.0;Santos;;;
+;2025-08-13;Ride 788;48.6;23.3;5.2;Rimonta;;;Nice ride
+;2024-09-16;Ride 789;79.8;29.7;0.5;Santos;;;
+;2023-10-19;Ride 790;33.5;27.0;10.3;Rimonta;;;
+;2022-11-22;Ride 791;148.8;24.5;6.4;Santos;https://example.com/ride/791;Link;
+;2021-12-25;Ride 792;58.3;20.4;1.6;Rimonta;;;
+;2026-01-01;Ride 793;96.0;20.6;0.2;Santos;https://example.com/ride/793;Link;
+;2025-02-04;Ride 794;57.6;28.9;2.6;Rimonta;;;
+;2024-03-07;Ride 795;38.5;23.4;3.5;Santos;;;
+;2023-04-10;Ride 796;71.6;29.7;2.5;Rimonta;;;
+;2022-05-13;Ride 797;50.1;20.5;2.7;Santos;https://example.com/ride/797;Link;
+;2021-06-16;Ride 798;75.3;28.5;3.3;Rimonta;;;
+;2026-07-19;Ride 799;39.2;24.0;11.7;Santos;https://example.com/ride/799;Link;Nice ride
+;2025-08-22;Ride 800;39.5;28.1;3.0;Rimonta;https://example.com/ride/800;Link;
+;2024-09-25;Ride 801;109.1;28.9;5.0;Santos;https://example.com/ride/801;Link;Nice ride
+;2023-10-01;Ride 802;46.1;26.5;3.3;Rimonta;;;
+;2022-11-04;Ride 803;34.5;22.5;2.5;Santos;;;Nice ride
+;2021-12-07;Ride 804;55.5;22.2;5.0;Rimonta;;;Nice ride
+;2026-01-10;Ride 805;90.0;24.3;1.5;Santos;;;Nice ride
+;2025-02-13;Ride 806;59.2;20.9;8.2;Rimonta;;;Nice ride
+;2024-03-16;Ride 807;38.8;25.4;6.6;Santos;;;
+;2023-04-19;Ride 808;39.5;23.3;10.8;Rimonta;https://example.com/ride/808;Link;
+;2022-05-22;Ride 809;93.1;28.2;7.3;Santos;;;
+;2021-06-25;Ride 810;81.4;28.9;6.2;Rimonta;;;
+;2026-07-01;Ride 811;160.3;29.6;6.9;Santos;;;
+;2025-08-04;Ride 812;39.7;27.4;6.2;Rimonta;https://example.com/ride/812;Link;
+;2024-09-07;Ride 813;59.2;21.3;11.3;Santos;;;Nice ride
+;2023-10-10;Ride 814;52.5;26.4;7.1;Rimonta;;;
+;2022-11-13;Ride 815;22.2;21.3;6.6;Santos;https://example.com/ride/815;Link;
+;2021-12-16;Ride 816;51.1;29.2;7.8;Rimonta;https://example.com/ride/816;Link;
+;2026-01-19;Ride 817;97.8;25.7;7.5;Santos;;;
+;2025-02-22;Ride 818;27.0;20.4;5.9;Rimonta;;;Nice ride
+;2024-03-25;Ride 819;75.1;22.4;9.5;Santos;;;
+;2023-04-01;Ride 820;78.8;20.0;10.7;Rimonta;;;
+;2022-05-04;Ride 821;137.3;22.8;9.0;Santos;https://example.com/ride/821;Link;
+;2021-06-07;Ride 822;54.5;28.8;2.9;Rimonta;;;Nice ride
+;2026-07-10;Ride 823;83.1;21.2;9.6;Santos;;;
+;2025-08-13;Ride 824;28.3;20.2;1.4;Rimonta;;;
+;2024-09-16;Ride 825;60.1;22.6;11.6;Santos;;;
+;2023-10-19;Ride 826;96.5;27.0;3.9;Rimonta;;;Nice ride
+;2022-11-22;Ride 827;51.9;27.0;9.7;Santos;;;
+;2021-12-25;Ride 828;87.0;26.4;6.3;Rimonta;;;
+;2026-01-01;Ride 829;86.5;24.3;11.1;Santos;;;
+;2025-02-04;Ride 830;88.7;28.8;2.8;Rimonta;;;Nice ride
+;2024-03-07;Ride 831;120.2;20.1;7.0;Santos;;;
+;2023-04-10;Ride 832;52.7;27.7;7.9;Rimonta;;;Nice ride
+;2022-05-13;Ride 833;34.1;26.0;10.3;Santos;;;
+;2021-06-16;Ride 834;75.0;24.2;1.2;Rimonta;https://example.com/ride/834;Link;Nice ride
+;2026-07-19;Ride 835;21.6;26.6;9.1;Santos;;;Nice ride
+;2025-08-22;Ride 836;54.4;24.7;6.6;Rimonta;;;
+;2024-09-25;Ride 837;93.2;25.8;2.4;Santos;https://example.com/ride/837;Link;
+;2023-10-01;Ride 838;32.5;22.8;11.4;Rimonta;;;
+;2022-11-04;Ride 839;33.9;25.9;11.1;Santos;https://example.com/ride/839;Link;
+;2021-12-07;Ride 840;70.7;25.1;4.7;Rimonta;https://example.com/ride/840;Link;Nice ride
+;2026-01-10;Ride 841;128.5;27.1;7.1;Santos;;;
+;2025-02-13;Ride 842;50.4;25.5;5.7;Rimonta;https://example.com/ride/842;Link;
+;2024-03-16;Ride 843;61.8;28.9;8.8;Santos;;;Nice ride
+;2023-04-19;Ride 844;97.5;27.0;0.2;Rimonta;https://example.com/ride/844;Link;
+;2022-05-22;Ride 845;55.1;23.4;10.8;Santos;;;
+;2021-06-25;Ride 846;40.5;23.5;3.5;Rimonta;https://example.com/ride/846;Link;Nice ride
+;2026-07-01;Ride 847;20.4;21.6;2.7;Santos;;;Nice ride
+;2025-08-04;Ride 848;76.2;20.7;6.8;Rimonta;;;Nice ride
+;2024-09-07;Ride 849;63.4;28.7;5.2;Santos;https://example.com/ride/849;Link;
+;2023-10-10;Ride 850;43.6;20.8;6.7;Rimonta;https://example.com/ride/850;Link;
+;2022-11-13;Ride 851;178.6;29.6;6.3;Santos;;;
+;2021-12-16;Ride 852;94.7;20.1;10.4;Rimonta;https://example.com/ride/852;Link;Nice ride
+;2026-01-19;Ride 853;89.2;22.2;11.9;Santos;https://example.com/ride/853;Link;
+;2025-02-22;Ride 854;26.4;21.6;0.9;Rimonta;;;Nice ride
+;2024-03-25;Ride 855;73.4;25.3;9.7;Santos;;;
+;2023-04-01;Ride 856;81.1;23.8;8.5;Rimonta;https://example.com/ride/856;Link;
+;2022-05-04;Ride 857;50.3;25.9;10.2;Santos;;;
+;2021-06-07;Ride 858;53.3;27.2;0.3;Rimonta;;;Nice ride
+;2026-07-10;Ride 859;59.8;28.0;5.9;Santos;https://example.com/ride/859;Link;
+;2025-08-13;Ride 860;50.2;28.6;0.2;Rimonta;;;
+;2024-09-16;Ride 861;179.6;25.4;5.5;Santos;;;
+;2023-10-19;Ride 862;69.1;26.3;8.9;Rimonta;;;
+;2022-11-22;Ride 863;58.1;24.6;7.7;Santos;;;
+;2021-12-25;Ride 864;36.1;24.7;9.0;Rimonta;https://example.com/ride/864;Link;
+;2026-01-01;Ride 865;26.4;28.3;8.3;Santos;;;
+;2025-02-04;Ride 866;58.3;22.0;9.1;Rimonta;;;
+;2024-03-07;Ride 867;67.3;22.8;1.2;Santos;;;Nice ride
+;2023-04-10;Ride 868;56.2;26.3;0.2;Rimonta;;;
+;2022-05-13;Ride 869;90.1;24.1;4.3;Santos;;;Nice ride
+;2021-06-16;Ride 870;22.0;23.4;10.7;Rimonta;;;
+;2026-07-19;Ride 871;124.6;29.2;6.5;Santos;https://example.com/ride/871;Link;
+;2025-08-22;Ride 872;36.4;26.0;1.3;Rimonta;;;
+;2024-09-25;Ride 873;21.0;23.1;4.0;Santos;https://example.com/ride/873;Link;
+;2023-10-01;Ride 874;22.5;25.7;3.0;Rimonta;;;Nice ride
+;2022-11-04;Ride 875;43.3;23.5;0.5;Santos;;;
+;2021-12-07;Ride 876;65.9;24.9;2.9;Rimonta;https://example.com/ride/876;Link;Nice ride
+;2026-01-10;Ride 877;59.4;27.5;11.5;Santos;https://example.com/ride/877;Link;Nice ride
+;2025-02-13;Ride 878;49.8;26.5;2.8;Rimonta;;;
+;2024-03-16;Ride 879;73.7;24.4;9.0;Santos;https://example.com/ride/879;Link;Nice ride
+;2023-04-19;Ride 880;40.0;25.1;9.0;Rimonta;;;
+;2022-05-22;Ride 881;102.8;25.3;10.8;Santos;;;Nice ride
+;2021-06-25;Ride 882;96.7;24.6;1.1;Rimonta;;;
+;2026-07-01;Ride 883;98.0;25.7;1.2;Santos;;;
+;2025-08-04;Ride 884;79.0;23.1;9.4;Rimonta;;;Nice ride
+;2024-09-07;Ride 885;93.2;25.3;9.6;Santos;;;
+;2023-10-10;Ride 886;48.2;28.3;2.5;Rimonta;https://example.com/ride/886;Link;Nice ride
+;2022-11-13;Ride 887;85.9;25.6;9.2;Santos;;;
+;2021-12-16;Ride 888;66.7;20.6;5.6;Rimonta;;;
+;2026-01-19;Ride 889;54.5;28.5;6.4;Santos;;;Nice ride
+;2025-02-22;Ride 890;45.8;27.3;2.1;Rimonta;;;
+;2024-03-25;Ride 891;177.9;20.8;3.8;Santos;https://example.com/ride/891;Link;
+;2023-04-01;Ride 892;82.2;21.8;4.3;Rimonta;;;
+;2022-05-04;Ride 893;58.5;22.9;6.4;Santos;;;
+;2021-06-07;Ride 894;28.4;25.9;10.9;Rimonta;;;Nice ride
+;2026-07-10;Ride 895;26.3;20.9;2.6;Santos;;;Nice ride
+;2025-08-13;Ride 896;85.4;24.1;1.0;Rimonta;;;
+;2024-09-16;Ride 897;82.6;27.6;3.1;Santos;https://example.com/ride/897;Link;
+;2023-10-19;Ride 898;71.5;28.7;11.8;Rimonta;https://example.com/ride/898;Link;
+;2022-11-22;Ride 899;22.0;21.6;6.5;Santos;https://example.com/ride/899;Link;
+;2021-12-25;Ride 900;91.4;21.3;3.6;Rimonta;;;
+;2026-01-01;Ride 901;102.4;27.9;11.0;Santos;;;
+;2025-02-04;Ride 902;36.2;27.5;0.5;Rimonta;;;
+;2024-03-07;Ride 903;49.2;29.9;11.0;Santos;;;
+;2023-04-10;Ride 904;21.6;23.0;6.7;Rimonta;https://example.com/ride/904;Link;Nice ride
+;2022-05-13;Ride 905;88.2;24.2;5.0;Santos;;;
+;2021-06-16;Ride 906;79.1;27.4;7.1;Rimonta;;;Nice ride
+;2026-07-19;Ride 907;64.8;20.2;11.4;Santos;;;Nice ride
+;2025-08-22;Ride 908;45.2;21.8;9.3;Rimonta;;;
+;2024-09-25;Ride 909;62.2;22.9;2.2;Santos;;;
+;2023-10-01;Ride 910;49.0;22.5;4.5;Rimonta;;;
+;2022-11-04;Ride 911;140.1;25.4;7.0;Santos;;;
+;2021-12-07;Ride 912;20.7;21.0;8.5;Rimonta;;;
+;2026-01-10;Ride 913;91.3;23.8;5.4;Santos;https://example.com/ride/913;Link;
+;2025-02-13;Ride 914;32.3;25.6;4.8;Rimonta;https://example.com/ride/914;Link;
+;2024-03-16;Ride 915;26.8;22.1;1.7;Santos;;;
+;2023-04-19;Ride 916;77.2;25.5;9.5;Rimonta;https://example.com/ride/916;Link;
+;2022-05-22;Ride 917;84.9;20.9;4.6;Santos;https://example.com/ride/917;Link;
+;2021-06-25;Ride 918;92.0;21.9;10.4;Rimonta;;;Nice ride
+;2026-07-01;Ride 919;82.5;26.7;7.9;Santos;;;Nice ride
+;2025-08-04;Ride 920;72.3;29.8;4.2;Rimonta;;;
+;2024-09-07;Ride 921;110.6;24.0;9.1;Santos;https://example.com/ride/921;Link;
+;2023-10-10;Ride 922;20.3;22.5;9.7;Rimonta;;;
+;2022-11-13;Ride 923;57.6;28.4;5.0;Santos;;;
+;2021-12-16;Ride 924;40.8;26.4;3.3;Rimonta;;;
+;2026-01-19;Ride 925;29.8;24.3;10.4;Santos;https://example.com/ride/925;Link;
+;2025-02-22;Ride 926;66.7;29.4;2.6;Rimonta;;;
+;2024-03-25;Ride 927;26.6;24.1;0.8;Santos;;;
+;2023-04-01;Ride 928;28.0;21.8;1.7;Rimonta;;;Nice ride
+;2022-05-04;Ride 929;80.1;22.2;9.6;Santos;https://example.com/ride/929;Link;
+;2021-06-07;Ride 930;77.7;23.9;5.3;Rimonta;https://example.com/ride/930;Link;
+;2026-07-10;Ride 931;178.0;21.5;8.5;Santos;;;
+;2025-08-13;Ride 932;33.8;21.4;9.1;Rimonta;;;
+;2024-09-16;Ride 933;28.9;27.2;4.2;Santos;https://example.com/ride/933;Link;Nice ride
+;2023-10-19;Ride 934;67.1;23.5;1.5;Rimonta;https://example.com/ride/934;Link;
+;2022-11-22;Ride 935;85.7;23.1;0.9;Santos;https://example.com/ride/935;Link;
+;2021-12-25;Ride 936;99.2;28.0;3.6;Rimonta;;;
+;2026-01-01;Ride 937;51.2;28.0;6.6;Santos;https://example.com/ride/937;Link;
+;2025-02-04;Ride 938;44.4;21.0;11.1;Rimonta;;;
+;2024-03-07;Ride 939;73.1;26.3;10.9;Santos;https://example.com/ride/939;Link;
+;2023-04-10;Ride 940;78.7;22.4;1.0;Rimonta;https://example.com/ride/940;Link;
+;2022-05-13;Ride 941;156.6;22.2;0.7;Santos;;;
+;2021-06-16;Ride 942;51.8;25.9;10.2;Rimonta;;;
+;2026-07-19;Ride 943;86.2;29.5;11.0;Santos;https://example.com/ride/943;Link;
+;2025-08-22;Ride 944;84.6;28.5;7.4;Rimonta;https://example.com/ride/944;Link;
+;2024-09-25;Ride 945;61.7;23.1;0.9;Santos;;;Nice ride
+;2023-10-01;Ride 946;61.9;24.8;6.3;Rimonta;https://example.com/ride/946;Link;Nice ride
+;2022-11-04;Ride 947;46.8;28.8;3.4;Santos;https://example.com/ride/947;Link;
+;2021-12-07;Ride 948;48.7;29.9;9.0;Rimonta;;;
+;2026-01-10;Ride 949;43.1;27.6;1.8;Santos;;;Nice ride
+;2025-02-13;Ride 950;72.4;27.9;10.4;Rimonta;https://example.com/ride/950;Link;Nice ride
+;2024-03-16;Ride 951;138.5;27.8;5.4;Santos;https://example.com/ride/951;Link;Nice ride
+;2023-04-19;Ride 952;20.2;27.0;8.4;Rimonta;;;Nice ride
+;2022-05-22;Ride 953;71.3;22.3;4.6;Santos;https://example.com/ride/953;Link;
+;2021-06-25;Ride 954;87.7;21.9;1.5;Rimonta;;;Nice ride
+;2026-07-01;Ride 955;86.9;29.6;11.2;Santos;;;
+;2025-08-04;Ride 956;97.0;26.7;3.6;Rimonta;;;Nice ride
+;2024-09-07;Ride 957;51.0;23.0;2.6;Santos;https://example.com/ride/957;Link;
+;2023-10-10;Ride 958;74.7;23.8;8.0;Rimonta;;;Nice ride
+;2022-11-13;Ride 959;34.2;20.6;5.5;Santos;https://example.com/ride/959;Link;
+;2021-12-16;Ride 960;50.6;20.4;9.0;Rimonta;;;
+;2026-01-19;Ride 961;100.5;24.5;6.0;Santos;;;Nice ride
+;2025-02-22;Ride 962;65.0;21.3;10.2;Rimonta;;;
+;2024-03-25;Ride 963;33.0;23.7;10.4;Santos;https://example.com/ride/963;Link;
+;2023-04-01;Ride 964;21.9;24.0;11.3;Rimonta;;;
+;2022-05-04;Ride 965;76.8;22.2;11.7;Santos;;;Nice ride
+;2021-06-07;Ride 966;76.2;22.2;9.1;Rimonta;;;
+;2026-07-10;Ride 967;66.3;28.8;8.4;Santos;https://example.com/ride/967;Link;Nice ride
+;2025-08-13;Ride 968;95.3;25.1;9.2;Rimonta;https://example.com/ride/968;Link;Nice ride
+;2024-09-16;Ride 969;61.9;22.5;11.8;Santos;;;
+;2023-10-19;Ride 970;94.1;28.7;3.6;Rimonta;;;
+;2022-11-22;Ride 971;154.6;21.7;9.3;Santos;;;
+;2021-12-25;Ride 972;44.8;20.5;11.8;Rimonta;;;
+;2026-01-01;Ride 973;36.3;28.6;9.0;Santos;;;
+;2025-02-04;Ride 974;71.7;28.7;2.8;Rimonta;https://example.com/ride/974;Link;
+;2024-03-07;Ride 975;36.2;28.1;3.5;Santos;;;
+;2023-04-10;Ride 976;53.4;20.5;7.2;Rimonta;;;Nice ride
+;2022-05-13;Ride 977;65.2;29.6;11.8;Santos;;;
+;2021-06-16;Ride 978;75.3;23.0;9.3;Rimonta;;;
+;2026-07-19;Ride 979;26.2;27.1;5.3;Santos;https://example.com/ride/979;Link;
+;2025-08-22;Ride 980;39.6;23.1;3.7;Rimonta;https://example.com/ride/980;Link;
+;2024-09-25;Ride 981;173.1;27.2;5.3;Santos;;;
+;2023-10-01;Ride 982;52.9;28.1;10.1;Rimonta;;;
+;2022-11-04;Ride 983;23.7;25.3;8.2;Santos;;;
+;2021-12-07;Ride 984;30.8;22.8;2.4;Rimonta;;;
+;2026-01-10;Ride 985;35.4;29.6;5.2;Santos;https://example.com/ride/985;Link;Nice ride
+;2025-02-13;Ride 986;36.0;29.4;4.5;Rimonta;;;Nice ride
+;2024-03-16;Ride 987;81.2;27.7;7.1;Santos;;;Nice ride
+;2023-04-19;Ride 988;43.9;26.8;9.0;Rimonta;;;
+;2022-05-22;Ride 989;35.7;21.5;7.4;Santos;https://example.com/ride/989;Link;
+;2021-06-25;Ride 990;48.9;21.0;12.0;Rimonta;;;
+;2026-07-01;Ride 991;133.6;23.7;4.3;Santos;https://example.com/ride/991;Link;Nice ride
+;2025-08-04;Ride 992;65.0;29.6;2.9;Rimonta;;;
+;2024-09-07;Ride 993;57.5;29.1;7.4;Santos;https://example.com/ride/993;Link;Nice ride
+;2023-10-10;Ride 994;96.0;29.4;3.7;Rimonta;;;
+;2022-11-13;Ride 995;76.1;28.5;12.0;Santos;;;
+;2021-12-16;Ride 996;89.0;26.6;2.4;Rimonta;;;
+;2026-01-19;Ride 997;89.4;20.3;7.2;Santos;;;Nice ride
+;2025-02-22;Ride 998;23.9;22.1;10.8;Rimonta;;;Nice ride
+;2024-03-25;Ride 999;76.0;29.6;4.5;Santos;;;
+;2023-04-01;Ride 1000;67.7;27.7;8.0;Rimonta;;;

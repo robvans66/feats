@@ -9,6 +9,35 @@ export default defineEventHandler(async () => {
 
     const longestPerYear = db.prepare("SELECT strftime('%Y', date) as year, MAX(distance) as longest FROM rides_table GROUP BY year ORDER BY longest DESC").all()
 
+    const highestAveragePerYear = db
+      .prepare("SELECT strftime('%Y', date) as year, ROUND(MAX(average), 2) as highestAverage FROM rides_table WHERE average IS NOT NULL GROUP BY year ORDER BY year DESC")
+      .all()
+
+    const topAverageSpeedsPerYear = db
+      .prepare(`
+        WITH ranked AS (
+          SELECT
+            id,
+            strftime('%Y', date) as year,
+            date,
+            description,
+            bike,
+            ROUND(distance, 2) as distance,
+            ROUND(average, 2) as average,
+            ROW_NUMBER() OVER (
+              PARTITION BY strftime('%Y', date)
+              ORDER BY average DESC, date DESC, id DESC
+            ) as rank
+          FROM rides_table
+          WHERE average IS NOT NULL
+        )
+        SELECT id, year, rank, date, description, bike, distance, average
+        FROM ranked
+        WHERE rank <= 10
+        ORDER BY year DESC, rank ASC
+      `)
+      .all()
+
     const monthlyTotals = db.prepare("SELECT strftime('%Y', date) as year, strftime('%m', date) as month, ROUND(SUM(distance),2) as distance, COUNT(*) as rides FROM rides_table GROUP BY year, month ORDER BY year DESC, month ASC").all()
 
     // Rides over 100km per year
@@ -26,7 +55,15 @@ export default defineEventHandler(async () => {
       return acc
     }, [])
 
-    return { yearTotals, perBike, longestPerYear, monthlyTotals, ridesOver100ByYear }
+    return {
+      yearTotals,
+      perBike,
+      longestPerYear,
+      highestAveragePerYear,
+      topAverageSpeedsPerYear,
+      monthlyTotals,
+      ridesOver100ByYear
+    }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
     console.error(`Stats API error: ${message}`)

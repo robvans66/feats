@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen flex flex-col">
-    <UHeader />
     <UMain>
       <slot />
     </UMain>
@@ -9,10 +8,44 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onBeforeUnmount, onMounted } from 'vue'
 import { navigateTo } from '#app'
 
+type ThemeMode = 'system' | 'light' | 'dark'
+
+function getConfig(): { themeMode?: ThemeMode } {
+  try {
+    return JSON.parse(localStorage.getItem('user_config') || '{}')
+  } catch {
+    return {}
+  }
+}
+
+function applyTheme(mode: ThemeMode) {
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+  const shouldBeDark = mode === 'dark' || (mode === 'system' && prefersDark)
+  document.documentElement.classList.toggle('dark', shouldBeDark)
+}
+
+function handleConfigUpdated(e: Event) {
+  const detail = (e as CustomEvent).detail as { themeMode?: ThemeMode }
+  applyTheme(detail?.themeMode || 'system')
+}
+
+let mediaQuery: MediaQueryList | null = null
+function handleSystemChange() {
+  const mode = getConfig().themeMode || 'system'
+  if (mode === 'system') applyTheme('system')
+}
+
 onMounted(() => {
+  const mode = getConfig().themeMode || 'system'
+  applyTheme(mode)
+
+  window.addEventListener('user-config-updated', handleConfigUpdated)
+  mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+  mediaQuery.addEventListener('change', handleSystemChange)
+
   const electron = (window as any).electron
 
   if (electron?.onMenuRides) {
@@ -40,4 +73,10 @@ onMounted(() => {
       navigateTo('/configuration')
     })
   }
-})</script>
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('user-config-updated', handleConfigUpdated)
+  mediaQuery?.removeEventListener('change', handleSystemChange)
+})
+</script>

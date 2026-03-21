@@ -372,6 +372,9 @@ async function confirmDelete(){
     toast.value = `${selectedRows.value.length} route${selectedRows.value.length > 1 ? 's' : ''} deleted`
     setTimeout(()=> toast.value = '', 2500)
     selectedRows.value = []
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('data-updated'))
+    }
     load()
   } catch (err) {
     toast.value = 'Failed to delete routes'
@@ -393,6 +396,9 @@ async function onSubmit(){
   let successMessage = ''
   if (isEditing.value){
     await $fetch('/api/routes', { method: 'PUT', body: form.value })
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('data-updated'))
+    }
     isEditing.value = false
     selectedRows.value = []
     successMessage = 'Route updated'
@@ -400,6 +406,9 @@ async function onSubmit(){
     const body = { ...form.value }
     if (body.reference && !body.link) body.link = 'Link'
     await $fetch('/api/routes', { method: 'POST', body })
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('data-updated'))
+    }
     successMessage = 'Route added'
   }
   clearForm()
