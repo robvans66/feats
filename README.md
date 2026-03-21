@@ -21,18 +21,18 @@ See the [wiki](https://github.com/robvans66/feats/wiki) for detailed how-tos and
 When you start the application for the first time, it will create a new database and populate it with some sample data. If you want more sample data to play with before using the app, you can download and import the CSV file in `./sample-data`. See the wiki for more information about adding data to the database.
 
 # Screenhots
-These screenshots are from a first installation of the app with the randomly generated sample data.
+These screenshots are from a demo installation of the app with 1000 randomly generated bike rides.
 <p align="center">
-  <img width="95%" alt="feats: rides form" src="https://github.com/user-attachments/assets/d207ca00-2fee-41aa-8182-d15600e0aa65" />
+  <img width="95%" alt="feats: rides form" src="https://github.com/user-attachments/assets/723016fb-0112-46f2-8e0b-bbf173e2cd62" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: statistics: tables" src="https://github.com/user-attachments/assets/eeced754-71d9-4348-a92f-ab13cd5bb348" />
+  <img width="95%" alt="feats: statistics: tables" src="https://github.com/user-attachments/assets/3eaca239-f10f-4ac1-b04e-2002c724592c" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: statistics: charts" src="https://github.com/user-attachments/assets/8b82f1f1-4022-463b-8d4d-a6b885ddea21" />
+  <img width="95%" alt="feats: statistics: charts" src="https://github.com/user-attachments/assets/bbc9a9c6-2ff6-4888-9da3-df48a269fdef" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: settings" src="https://github.com/user-attachments/assets/41749848-5318-4aa0-884c-ba4e49015772" />
+  <img width="95%" alt="feats: settings" src="https://github.com/user-attachments/assets/9f63ef49-86d1-4631-948e-5e0ff104c6fa" />
 </p>
 
 # License
