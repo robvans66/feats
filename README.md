@@ -1,6 +1,5 @@
 
-
-<img width="640" height="256" alt="feats: keep track of your bicycle rides and planned routes" src="https://github.com/user-attachments/assets/7d2f10e0-6311-4591-b030-9fcc952b9100" />
+<img width="1280" height="512" alt="feats-github-social" src="https://github.com/user-attachments/assets/ed6a0c95-2253-4c24-bee0-81956ff078ce" />
 
 # Feats
 Feats is a lightweight, free-to-use desktop app for keeping track of your completed bicycle rides and planned routes.
