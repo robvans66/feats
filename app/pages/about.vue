@@ -8,7 +8,7 @@
       The extensive use of charts and statistics provides insights into your riding habits and achievements.<br><br>
       Feats is by no means a replacement for existing bicycle platforms. It is not a navigation app and not a social app, but rather a personal diary and statistics tool for your rides and routes. Everything is stored locally on your device.</p>
 
-      <img src='/icon.png' alt="Feats application logo: a bicycle icon representing a simple desktop app for tracking rides and routes" class="w-32 h-32 shrink-0">
+      <img src='/feats.png' alt="Feats application logo: an icon with the letters F, T and S with a background of statistic bars representing a desktop app for tracking rides and routes" class="w-32 h-32 shrink-0">
     </div>
 
     <h1 class="text-2xl pt-8 font-semibold mb-3">Using Feats</h1>

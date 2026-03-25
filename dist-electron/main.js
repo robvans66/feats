@@ -3,7 +3,7 @@ import { spawn as A } from "node:child_process";
 import { existsSync as d, readdirSync as N } from "node:fs";
 import { dirname as C, join as l } from "node:path";
 import { fileURLToPath as _ } from "node:url";
-const v = "1.1.0", y = "21 Mar 2026", S = _(import.meta.url), x = C(S);
+const v = "1.1.3", y = "25 Mar 2026", S = _(import.meta.url), x = C(S);
 n.setName("Feats");
 process.platform === "win32" && n.setAppUserModelId("com.feats.app");
 n.setAboutPanelOptions({
