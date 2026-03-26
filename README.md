@@ -34,7 +34,7 @@ These screenshots are from a demo installation of the app with 1000 randomly gen
   <img width="95%" alt="feats: statistics: charts" src="https://github.com/user-attachments/assets/db5678f3-3e7a-49ba-ad99-6d65fde640f7" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: settings" src="ttps://github.com/user-attachments/assets/de1ec148-7a70-4a0e-a803-330370bc3e81" />
+  <img width="95%" alt="feats: settings" src="https://github.com/user-attachments/assets/de1ec148-7a70-4a0e-a803-330370bc3e81" />
 </p>
 
 # License
