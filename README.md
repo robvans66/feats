@@ -22,16 +22,19 @@ When you start the application for the first time, it will create a new database
 # Screenhots
 These screenshots are from a demo installation of the app with 1000 randomly generated bike rides.
 <p align="center">
-  <img width="95%" alt="feats: rides form" src="https://github.com/user-attachments/assets/723016fb-0112-46f2-8e0b-bbf173e2cd62" />
+  <img width="95%" alt="feats: rides" src="https://github.com/user-attachments/assets/cc251f01-5699-41d2-853f-b80b9c2af0ef" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: statistics: tables" src="https://github.com/user-attachments/assets/3eaca239-f10f-4ac1-b04e-2002c724592c" />
+  <img width="95%" alt="feats: routes" src="https://github.com/user-attachments/assets/772abd04-de92-48e3-bd29-6f653783b2ad" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: statistics: charts" src="https://github.com/user-attachments/assets/bbc9a9c6-2ff6-4888-9da3-df48a269fdef" />
+  <img width="95%" alt="feats: statistics: tables" src="https://github.com/user-attachments/assets/95eecc4e-ef07-437e-892f-f1942d4062da" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: settings" src="https://github.com/user-attachments/assets/9f63ef49-86d1-4631-948e-5e0ff104c6fa" />
+  <img width="95%" alt="feats: statistics: charts" src="https://github.com/user-attachments/assets/db5678f3-3e7a-49ba-ad99-6d65fde640f7" />
+</p>
+<p align="center">
+  <img width="95%" alt="feats: settings" src="ttps://github.com/user-attachments/assets/de1ec148-7a70-4a0e-a803-330370bc3e81" />
 </p>
 
 # License
