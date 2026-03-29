@@ -14,7 +14,7 @@ Download the source code or go to the Releases to get the latest version of the 
 And don’t forget to get out and ride. The more you ride, the more data you collect.
 
 # Wiki
-See the [wiki](https://github.com/robvans66/feats/wiki) for detailed how-tos and in-depth information about using Feats. The wiki includes step-by-step guides, troubleshooting tips, and additional resources to help you get the most out of the app.
+See the [wiki](https://github.com/robvans66/feats/wiki) for detailed how-tos and in-depth information about using Feats. The wiki includes a step-by-step guide for importing data, and additional resources to help you get the most out of the app.
 
 # Sample data
 When you start the application for the first time, it will create a new database and populate it with some sample data. If you want more sample data to play with before using the app, you can download and import the CSV file in `./sample-data`. See the wiki for more information about adding data to the database.
