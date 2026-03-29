@@ -8,6 +8,8 @@ It’s not intended to be a full‑featured app, but rather a simple and easy‑
 
 The extensive use of charts and statistics provides insights into your riding habits and achievements.
 
+Feats is by no means a replacement for existing bicycle platforms. It is not a navigation app and not a social app, but rather a personal diary and statistics tool for your rides and routes. Everything is stored locally on your device.
+
 # Quick start
 Download the source code or go to the Releases to get the latest version of the app for MacOs (*.dmg) or Windows (WILL BE ADDED SOON)
   
