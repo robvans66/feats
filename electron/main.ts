@@ -221,7 +221,7 @@ async function startNuxtServerIfNeeded() {
 
   nuxtServer = spawn(nodeBin, [entry], {
     cwd: getServerWorkingDirectory(),
-    env: { ...runnerEnv, PORT: String(APP_PORT), HOST: '127.0.0.1' },
+    env: { ...runnerEnv, PORT: String(APP_PORT), HOST: '127.0.0.1', FEATS_USER_DATA: app.getPath('userData') },
     stdio: 'pipe'
   })
 

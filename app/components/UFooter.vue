@@ -1,7 +1,7 @@
 <template>
   <footer class="fts mt-auto sticky bottom-0 z-20 border-t border-white/20">
     <div class="px-4 py-1 text-xs text-white overflow-x-auto whitespace-nowrap text-center">
-      Total Rides: {{ status.totalRides }} - Total Routes: {{ status.totalRoutes }} - Last Change: {{ formattedLastChange }} - Last Backup: {{ formattedLastBackup }}
+      Total Rides: {{ status.totalRides }} - Total Routes: {{ status.totalRoutes }} - Last Change: {{ formattedLastChange }} - Last Backup: {{ formattedLastBackup }} - Database: {{ formattedDatabasePath }}
     </div>
   </footer>
 </template>
@@ -15,13 +15,15 @@ type FooterStatus = {
   totalRides: number
   totalRoutes: number
   lastChangeAt: string | null
+  databasePath: string
 }
 
 const status = ref<FooterStatus>({
   version: '-',
   totalRides: 0,
   totalRoutes: 0,
-  lastChangeAt: null
+  lastChangeAt: null,
+  databasePath: '-'
 })
 
 const lastBackupAt = ref<string | null>(null)
@@ -38,6 +40,11 @@ function formatDate(value: string | null): string {
 
 const formattedLastChange = computed(() => formatDate(status.value.lastChangeAt))
 const formattedLastBackup = computed(() => formatDate(lastBackupAt.value))
+const formattedDatabasePath = computed(() => {
+  const value = status.value.databasePath || '-'
+  if (value === '-') return value
+  return value.startsWith('/User/') ? value.replace('/User/', '/Users/') : value
+})
 
 function loadLastBackup() {
   if (typeof window === 'undefined') return

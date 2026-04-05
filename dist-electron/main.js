@@ -1,25 +1,25 @@
-import { app as n, BrowserWindow as u, dialog as P, Menu as w, shell as b } from "electron";
-import { spawn as A } from "node:child_process";
+import { app as o, BrowserWindow as u, dialog as A, Menu as w, shell as b } from "electron";
+import { spawn as P } from "node:child_process";
 import { existsSync as d, readdirSync as N } from "node:fs";
-import { dirname as C, join as l } from "node:path";
-import { fileURLToPath as _ } from "node:url";
-const v = "1.1.3", y = "25 Mar 2026", S = _(import.meta.url), x = C(S);
-n.setName("Feats");
-process.platform === "win32" && n.setAppUserModelId("com.feats.app");
-n.setAboutPanelOptions({
+import { dirname as _, join as l } from "node:path";
+import { fileURLToPath as S } from "node:url";
+const v = "1.1.9", y = "04 Apr 2026", C = S(import.meta.url), x = _(C);
+o.setName("Feats");
+process.platform === "win32" && o.setAppUserModelId("com.feats.app");
+o.setAboutPanelOptions({
   applicationName: "Feats",
   applicationVersion: `${v} (${y})`,
   version: ""
   // Suppress default Electron version info
 });
 const E = Number(process.env.NUXT_PORT || 3e3), p = `http://127.0.0.1:${E}`;
-let c = null, o = null, i = null;
+let c = null, n = null, i = null;
 function m() {
-  return n.isPackaged ? n.getAppPath() : l(x, "..");
+  return o.isPackaged ? o.getAppPath() : l(x, "..");
 }
 function R() {
   const e = process.platform === "win32" ? "icon.ico" : "icon.png";
-  return n.isPackaged ? l(process.resourcesPath, e) : l(m(), "build", e);
+  return o.isPackaged ? l(process.resourcesPath, e) : l(m(), "build", e);
 }
 function T(e) {
   return e.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
@@ -96,8 +96,8 @@ function O() {
     fullscreenable: !1,
     autoHideMenuBar: !0,
     title: "About Feats",
-    parent: o ?? void 0,
-    modal: o !== null,
+    parent: n ?? void 0,
+    modal: n !== null,
     icon: R(),
     webPreferences: {
       nodeIntegration: !1,
@@ -112,12 +112,12 @@ function k() {
     O();
     return;
   }
-  n.showAboutPanel();
-}
-function U() {
-  return n.isPackaged ? process.resourcesPath : m();
+  o.showAboutPanel();
 }
 function D() {
+  return o.isPackaged ? process.resourcesPath : m();
+}
+function U() {
   const e = m();
   if (process.env.NUXT_SERVER_ENTRY && d(process.env.NUXT_SERVER_ENTRY))
     return process.env.NUXT_SERVER_ENTRY;
@@ -151,23 +151,23 @@ function I(e, r = 2e4) {
     }, 300);
   });
 }
-async function W() {
+async function F() {
   if (process.env.NODE_ENV === "development") return;
-  const e = D();
+  const e = U();
   if (!e)
     throw new Error("Cannot find Nuxt server entry (feats_v*/server/index.mjs)");
   const r = process.execPath, a = { ...process.env, ELECTRON_RUN_AS_NODE: "1" };
-  c = A(r, [e], {
-    cwd: U(),
-    env: { ...a, PORT: String(E), HOST: "127.0.0.1" },
+  c = P(r, [e], {
+    cwd: D(),
+    env: { ...a, PORT: String(E), HOST: "127.0.0.1", FEATS_USER_DATA: o.getPath("userData") },
     stdio: "pipe"
   }), c.stdout.on("data", (t) => console.log(`[nuxt] ${t}`)), c.stderr.on("data", (t) => console.error(`[nuxt] ${t}`)), await I(p);
 }
-function $() {
+function W() {
   const e = process.platform === "darwin", r = [
     // App Menu (macOS only)
     ...e ? [{
-      label: n.name,
+      label: o.name,
       submenu: [
         { role: "about" },
         { type: "separator" },
@@ -187,23 +187,23 @@ function $() {
         {
           label: "Rides",
           accelerator: "CmdOrCtrl+R",
-          click: () => o?.webContents.send("menu-rides")
+          click: () => n?.webContents.send("menu-rides")
         },
         {
           label: "Routes",
           accelerator: "CmdOrCtrl+T",
-          click: () => o?.webContents.send("menu-routes")
+          click: () => n?.webContents.send("menu-routes")
         },
         {
           label: "Statistics",
           accelerator: "CmdOrCtrl+S",
-          click: () => o?.webContents.send("menu-statistics")
+          click: () => n?.webContents.send("menu-statistics")
         },
         { type: "separator" },
         {
           label: "Settings",
           accelerator: "CmdOrCtrl+,",
-          click: () => o?.webContents.send("menu-settings")
+          click: () => n?.webContents.send("menu-settings")
         },
         { type: "separator" },
         ...e ? [
@@ -271,7 +271,7 @@ function $() {
       submenu: [
         {
           label: "Documentation",
-          click: () => o?.webContents.send("menu-documentation")
+          click: () => n?.webContents.send("menu-documentation")
         },
         { type: "separator" },
         ...e ? [] : [
@@ -288,7 +288,7 @@ function $() {
   w.setApplicationMenu(a);
 }
 async function g() {
-  o = new u({
+  n = new u({
     width: 1200,
     height: 800,
     title: "",
@@ -308,23 +308,23 @@ async function g() {
       return !1;
     }
   };
-  o.webContents.setWindowOpenHandler(({ url: t }) => (a(t) && b.openExternal(t), { action: "deny" })), o.webContents.on("will-navigate", (t, s) => {
+  n.webContents.setWindowOpenHandler(({ url: t }) => (a(t) && b.openExternal(t), { action: "deny" })), n.webContents.on("will-navigate", (t, s) => {
     a(s) && (t.preventDefault(), b.openExternal(s));
-  }), process.env.NODE_ENV === "development" ? (await o.loadURL("http://localhost:3000"), o.webContents.openDevTools()) : await o.loadURL(p), o.on("closed", () => {
-    o = null;
+  }), process.env.NODE_ENV === "development" ? (await n.loadURL("http://localhost:3000"), n.webContents.openDevTools()) : await n.loadURL(p), n.on("closed", () => {
+    n = null;
   });
 }
-n.whenReady().then(async () => {
-  await W(), $(), await g(), n.on("activate", async () => {
+o.whenReady().then(async () => {
+  await F(), W(), await g(), o.on("activate", async () => {
     u.getAllWindows().length === 0 && await g();
   });
 }).catch((e) => {
   const r = e instanceof Error ? e.message : String(e);
-  console.error("[main] startup failed:", e), P.showErrorBox("Feats failed to start", r), n.quit();
+  console.error("[main] startup failed:", e), A.showErrorBox("Feats failed to start", r), o.quit();
 });
-n.on("before-quit", () => {
+o.on("before-quit", () => {
   c && !c.killed && c.kill();
 });
-n.on("window-all-closed", () => {
-  process.platform !== "darwin" && n.quit();
+o.on("window-all-closed", () => {
+  process.platform !== "darwin" && o.quit();
 });

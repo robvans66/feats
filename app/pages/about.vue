@@ -4,9 +4,9 @@
     <h2 class="text-l mb-4 font-semibold">Keep track of your bicycle rides and planned routes</h2>
     <div class="flex items-start gap-4">
       <p class="mb-4 flex-1">Feats is a desktop application for keeping track of completed bicycle rides and planned bicycle routes.<br><br>
-      It is not intended to be a full-featured app, but rather a simple and easy-to-use tool. Feats is particularly practical if you use multiple bicycle platforms and want an overview of all your rides and routes in one place. It's also useful if you don't use any platform at all and simply want to keep track of your rides and routes.<br><br>
+      It is not intended to be a full-featured app, but rather a simple and easy-to-use tool. Feats is particularly practical if you use multiple cycling platforms and have a lot of previously unusable legacy data, and want to see all your rides and routes in one place. It's also useful if you don't use any platform at all and simply want to keep track of your rides and routes.<br><br>
       The extensive use of charts and statistics provides insights into your riding habits and achievements.<br><br>
-      Feats is by no means a replacement for existing bicycle platforms. It is not a navigation app and not a social app, but rather a personal diary and statistics tool for your rides and routes. Everything is stored locally on your device.</p>
+      Feats is by no means a replacement for existing bicycle platforms. It is not a GPX route planner or a navigation app, but rather a personal diary and statistics tool for your rides and routes. Everything is stored locally on your device.</p>
 
       <img src='/feats.png' alt="Feats application logo: an icon with the letters F, T and S with a background of statistic bars representing a desktop app for tracking rides and routes" class="w-32 h-32 shrink-0">
     </div>
@@ -35,6 +35,9 @@
     <h2 class="text-xl pt-4 mb-3 font-semibold">Settings page</h2>
     <p class="mb-4">The 'Settings' page allows you to customize the application settings, such as the bikes you ride and other preferences. You can add, edit, and delete bikes, and you can also choose which columns to display in the Rides and Routes tables.<br><br>
     This page also includes a backup feature that allows you to export your data as a SQL file. This is useful for creating backups of your data or transferring it to another device.
+    </p>
+    <h1 class="text-2xl pt-8 font-semibold mb-3">Wiki</h1>
+    <p class="mb-4">See the <a href="https://github.com/robvans66/feats/wiki" target="_blank" class="underline">wiki</a> for detailed how-tos and in-depth information about using Feats. The wiki includes a step-by-step guide for importing data, and additional resources to help you get the most out of the app.
     </p>
   </section>
 </template>

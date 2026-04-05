@@ -5,14 +5,82 @@ import fs from 'fs'
 import { LatestVersion } from '../../version'
 import { LatestVersionDate } from '../../version'
 
-const DB_DIR = path.join(os.homedir(), '.feats')
+const LEGACY_DB_DIR = path.join(os.homedir(), '.feats')
+const DB_DIR = process.env.FEATS_USER_DATA ?? LEGACY_DB_DIR
 const DB_PATH = path.join(DB_DIR, 'feats.db')
+
+type DatabaseCounts = {
+  rides: number
+  routes: number
+}
+
+function readDatabaseCounts(filePath: string): DatabaseCounts | null {
+  if (!fs.existsSync(filePath)) return null
+
+  try {
+    const db = new Database(filePath, { readonly: true })
+    const rides = (db.prepare('SELECT COUNT(*) as c FROM rides_table').get() as { c: number }).c
+    const routes = (db.prepare('SELECT COUNT(*) as c FROM routes_table').get() as { c: number }).c
+    db.close()
+    return { rides, routes }
+  } catch {
+    return null
+  }
+}
+
+function backupAndCopySqliteFileSet(sourcePath: string, targetPath: string) {
+  const suffixes = ['', '-shm', '-wal']
+  const timestamp = new Date().toISOString().replaceAll(':', '-').replaceAll('.', '-')
+
+  for (const suffix of suffixes) {
+    const sourceFile = `${sourcePath}${suffix}`
+    const targetFile = `${targetPath}${suffix}`
+    const backupFile = `${targetFile}.backup-${timestamp}`
+
+    if (fs.existsSync(targetFile)) {
+      fs.renameSync(targetFile, backupFile)
+    }
+
+    if (fs.existsSync(sourceFile)) {
+      fs.copyFileSync(sourceFile, targetFile)
+    }
+  }
+}
+
+function migrateLegacyDatabaseIfNeeded() {
+  if (DB_DIR === LEGACY_DB_DIR) return
+
+  const legacyDbPath = path.join(LEGACY_DB_DIR, 'feats.db')
+  if (!fs.existsSync(legacyDbPath)) return
+
+  if (!fs.existsSync(DB_PATH)) {
+    backupAndCopySqliteFileSet(legacyDbPath, DB_PATH)
+    console.log(`Migrated database from ${legacyDbPath} to ${DB_PATH}`)
+    return
+  }
+
+  const legacyCounts = readDatabaseCounts(legacyDbPath)
+  const targetCounts = readDatabaseCounts(DB_PATH)
+  if (!legacyCounts || !targetCounts) return
+
+  const legacyTotal = legacyCounts.rides + legacyCounts.routes
+  const targetTotal = targetCounts.rides + targetCounts.routes
+
+  if (legacyTotal > targetTotal) {
+    backupAndCopySqliteFileSet(legacyDbPath, DB_PATH)
+    console.log(
+      `Replaced ${DB_PATH} with legacy database from ${legacyDbPath} because it contains more data (${legacyCounts.rides}/${legacyCounts.routes} vs ${targetCounts.rides}/${targetCounts.routes})`
+    )
+  }
+}
 
 function init() {
   // Ensure database directory exists
   if (!fs.existsSync(DB_DIR)) {
     fs.mkdirSync(DB_DIR, { recursive: true })
   }
+
+  migrateLegacyDatabaseIfNeeded()
 
   console.log()
   console.log(`Feats v${LatestVersion} (${LatestVersionDate})`)
@@ -292,3 +360,4 @@ function ensureColumn(db: typeof Database.prototype, table: string, column: stri
 const db = init()
 
 export default db
+export { DB_PATH }
