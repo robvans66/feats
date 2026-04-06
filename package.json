@@ -34,7 +34,7 @@
     "mac": {
       "target": ["dmg", "zip"],
       "icon": "build/icon.icns",
-      "category": "public.app-category.health-and-fitness"
+      "category": "public.app-category.healthcare-fitness"
     },
     "mas": {
       "type": "distribution",
