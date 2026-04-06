@@ -21,8 +21,7 @@
 
     <h2 class="text-xl pt-4 mb-3 font-semibold">Rides page</h2>
     <p class="mb-4">On the Rides page, you can add a new ride by filling out the form and clicking the 'Add' button. You can also edit a single existing ride or delete multiple existing rides.<br><br>
-    On the Rides page, you can add a new ride by filling out the form and clicking the 'Add' button. You can also edit an existing ride or delete multiple rides at once.<br><br>
-    In the 'Reference' field, you can add a URL to the route on an external bicycle platform such as RWGPS, Komoot, or Strava. In the 'Link' field, you can add a short text label that will appear as a clickable link.<br><br>
+    In the 'Reference' field, you can add an URL to the ride on an external bicycle platform such as RWGPS, Komoot, or Strava. In the 'Link' field, you can add a short text label that will appear as a clickable link to the URL in the reference field.<br><br>
     In the 'Columns' section, you can choose which columns to display in the table, and you can sort the table by clicking on the column headers. Note that hidden columns, although not visible, are still included in searches.
     </p>
 
@@ -33,7 +32,7 @@
     <p class="mb-4">The Statistics page provides insights into your riding habits and achievements. The page consists of two tabs: one with tables and one with charts. </p>
 
     <h2 class="text-xl pt-4 mb-3 font-semibold">Settings page</h2>
-    <p class="mb-4">The 'Settings' page allows you to customize the application settings, such as the bikes you ride and other preferences. You can add, edit, and delete bikes, and you can also choose which columns to display in the Rides and Routes tables.<br><br>
+    <p class="mb-4">The Settings page allows you to customize the application settings, such as the bikes you ride and other preferences. You can add, edit, and delete bikes, and you can also choose which columns to display in the Rides and Routes tables.<br><br>
     This page also includes a backup feature that allows you to export your data as a SQL file. This is useful for creating backups of your data or transferring it to another device.
     </p>
     <h1 class="text-2xl pt-8 font-semibold mb-3">Wiki</h1>
