@@ -26,4 +26,4 @@ We aim to respond to all enquiries within **2 business days**.
 
 ## Useful Links
 
-- [Documentation](../../wiki)
+- [Wiki](../../wiki)
