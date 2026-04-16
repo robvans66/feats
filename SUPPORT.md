@@ -18,12 +18,6 @@ Join the conversation in [GitHub Discussions](../../discussions)
 
 ---
 
-## Response Times
-
-We aim to respond to all enquiries within **2 business days**.
-
----
-
 ## Useful Links
 
 - [Wiki](../../wiki)

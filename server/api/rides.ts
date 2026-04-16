@@ -1,13 +1,11 @@
 import db from '../db/index'
 
-const touchLastDataChange = db.prepare(
-  `INSERT INTO app_meta (key, value)
-   VALUES ('last_data_change_at', ?)
-   ON CONFLICT(key) DO UPDATE SET value=excluded.value`
-)
-
 export default defineEventHandler(async (event) => {
   try {
+    if (!db) {
+      throw new Error('Database is not available')
+    }
+
     const method = event.node.req.method
     if (method === 'GET') {
       const q = getQuery(event)
@@ -31,7 +29,7 @@ export default defineEventHandler(async (event) => {
       const body = await readBody(event)
       const stmt = db.prepare('INSERT INTO rides_table (date,description,distance,average,grade,bike,reference,link,notes) VALUES (?,?,?,?,?,?,?,?,?)')
       const info = stmt.run(body.date, body.description, body.distance, body.average ?? null, body.grade ?? null, body.bike, body.reference ?? null, body.link ?? null, body.notes ?? null)
-      touchLastDataChange.run(new Date().toISOString())
+      db.prepare(`INSERT INTO app_meta (key, value) VALUES ('last_data_change_at', ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value`).run(new Date().toISOString())
       return { id: info.lastInsertRowid }
     }
 
@@ -40,7 +38,7 @@ export default defineEventHandler(async (event) => {
       const stmt = db.prepare('UPDATE rides_table SET date=?,description=?,distance=?,average=?,grade=?,bike=?,reference=?,link=?,notes=? WHERE id=?')
       const info = stmt.run(body.date, body.description, body.distance, body.average ?? null, body.grade ?? null, body.bike, body.reference ?? null, body.link ?? null, body.notes ?? null, body.id)
       if (info.changes > 0) {
-        touchLastDataChange.run(new Date().toISOString())
+        db.prepare(`INSERT INTO app_meta (key, value) VALUES ('last_data_change_at', ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value`).run(new Date().toISOString())
       }
       return { ok: true }
     }
@@ -50,7 +48,7 @@ export default defineEventHandler(async (event) => {
       if (!id) return { ok: false }
       const info = db.prepare('DELETE FROM rides_table WHERE id=?').run(Number(id))
       if (info.changes > 0) {
-        touchLastDataChange.run(new Date().toISOString())
+        db.prepare(`INSERT INTO app_meta (key, value) VALUES ('last_data_change_at', ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value`).run(new Date().toISOString())
       }
       return { ok: true }
     }

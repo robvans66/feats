@@ -97,6 +97,10 @@ function parseJson<T>(value: string | null | undefined, fallback: T): T {
 
 export default defineEventHandler(async (event) => {
   try {
+    if (!db) {
+      throw new Error('Database is not available')
+    }
+
     const method = event.node.req.method
 
     if (method === 'GET') {

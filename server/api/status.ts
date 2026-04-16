@@ -60,8 +60,9 @@ function getAppLevelLastChangedAt(): string | null {
 }
 
 export default defineEventHandler(async () => {
-  try {
-    const totalRides = (db.prepare('SELECT COUNT(*) as c FROM rides_table').get() as { c: number }).c
+  try {    if (!db) {
+      throw new Error('Database is not available')
+    }    const totalRides = (db.prepare('SELECT COUNT(*) as c FROM rides_table').get() as { c: number }).c
     const totalRoutes = (db.prepare('SELECT COUNT(*) as c FROM routes_table').get() as { c: number }).c
 
     return {

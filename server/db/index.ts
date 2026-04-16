@@ -86,7 +86,13 @@ function init() {
   console.log(`Feats v${LatestVersion} (${LatestVersionDate})`)
   console.log(`Using database at: ${DB_PATH}`)
 
-  const db = new Database(DB_PATH)
+  let db: ReturnType<typeof Database>
+  try {
+    db = new Database(DB_PATH)
+  } catch (error) {
+    console.error(`Failed to initialize database: ${error instanceof Error ? error.message : String(error)}`)
+    throw error
+  }
   db.pragma('journal_mode = WAL')
 
   // rides-table
@@ -357,7 +363,15 @@ function ensureColumn(db: typeof Database.prototype, table: string, column: stri
   }
 }
 
-const db = init()
+let db: ReturnType<typeof Database> | null = null
+
+try {
+  db = init()
+} catch (error) {
+  console.error(`Critical: Database initialization failed during app startup.`)
+  console.error(`Error: ${error instanceof Error ? error.message : String(error)}`)
+  console.error(`App will attempt to continue, but database features will be unavailable.`)
+}
 
 export default db
 export { DB_PATH }
