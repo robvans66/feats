@@ -3,6 +3,7 @@ import { app, BrowserWindow, Menu, dialog, shell } from 'electron'
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process'
 import { existsSync, readdirSync } from 'node:fs'
 import { join, dirname } from 'node:path'
+import { Socket } from 'node:net'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { LatestVersion, LatestVersionDate } from '../version.ts'
 
@@ -10,6 +11,9 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 app.setName('Feats') // Set your app name here for macOS menu
+// Work around macOS 26 proxy preference crashes seen on App Review devices.
+app.commandLine.appendSwitch('no-proxy-server')
+app.commandLine.appendSwitch('proxy-bypass-list', '*')
 if (process.platform === 'win32') {
   app.setAppUserModelId('com.feats.app')
 }
@@ -185,24 +189,40 @@ function findServerEntry(): string | null {
   return null
 }
 
-function waitForServer(url: string, timeoutMs = 20000): Promise<void> {
+function waitForServer(host: string, port: number, timeoutMs = 20000): Promise<void> {
   const started = Date.now()
   return new Promise((resolve, reject) => {
-    const timer = setInterval(async () => {
-      try {
-        const res = await fetch(url)
-        if (res.ok || res.status < 500) {
-          clearInterval(timer)
-          resolve()
-          return
-        }
-      } catch {
-        // keep polling
-      }
+    const timer = setInterval(() => {
+      const socket = new Socket()
+      let settled = false
+
+      socket.setTimeout(1000)
+
+      socket.on('connect', () => {
+        if (settled) return
+        settled = true
+        socket.destroy()
+        clearInterval(timer)
+        resolve()
+      })
+
+      socket.on('timeout', () => {
+        if (settled) return
+        settled = true
+        socket.destroy()
+      })
+
+      socket.on('error', () => {
+        if (settled) return
+        settled = true
+        socket.destroy()
+      })
+
+      socket.connect(port, host)
 
       if (Date.now() - started > timeoutMs) {
         clearInterval(timer)
-        reject(new Error(`Nuxt server did not start in time: ${url}`))
+        reject(new Error(`Nuxt server did not start in time: ${host}:${port}`))
       }
     }, 300)
   })
@@ -228,7 +248,7 @@ async function startNuxtServerIfNeeded() {
   nuxtServer.stdout.on('data', d => console.log(`[nuxt] ${d}`))
   nuxtServer.stderr.on('data', d => console.error(`[nuxt] ${d}`))
 
-  await waitForServer(APP_URL)
+  await waitForServer('127.0.0.1', APP_PORT)
 }
 
 function createMenu() {
