@@ -1,38 +1,55 @@
-import { app as o, BrowserWindow as h, dialog as S, Menu as g, shell as y } from "electron";
-import { spawn as N } from "node:child_process";
-import { existsSync as u, readdirSync as _ } from "node:fs";
+import { app as o, BrowserWindow as h, dialog as N, session as y, Menu as g, shell as v } from "electron";
+import { spawn as C } from "node:child_process";
+import { existsSync as u, readdirSync as D } from "node:fs";
 import { dirname as T, join as i } from "node:path";
-import { Socket as C } from "node:net";
-import { fileURLToPath as k } from "node:url";
-const x = "1.1.12", E = "22 Apr 2026", O = k(import.meta.url), R = T(O);
+import { Socket as _ } from "node:net";
+import { fileURLToPath as O } from "node:url";
+const E = "1.1.13", A = "22 Apr 2026", U = O(import.meta.url), P = T(U);
 o.setName("Feats");
 o.commandLine.appendSwitch("no-proxy-server");
 o.commandLine.appendSwitch("proxy-bypass-list", "*");
+o.commandLine.appendSwitch("host-resolver-rules", "MAP * ~NOTFOUND, EXCLUDE localhost, EXCLUDE 127.0.0.1");
+o.commandLine.appendSwitch("disable-features", "AsyncDns");
 process.platform === "win32" && o.setAppUserModelId("com.feats.app");
 o.setAboutPanelOptions({
   applicationName: "Feats",
-  applicationVersion: `${x} (${E})`,
+  applicationVersion: `${E} (${A})`,
   version: ""
   // Suppress default Electron version info
 });
 const f = Number(process.env.NUXT_PORT || 3e3), m = `http://127.0.0.1:${f}`;
-let d = null, r = null, c = null;
-function w() {
-  return o.isPackaged ? o.getAppPath() : i(R, "..");
+let p = null, r = null, c = null;
+o.on("session-created", (e) => {
+  e.setProxy({ mode: "direct" }).then(() => e.closeAllConnections()).catch((n) => {
+    console.error("[main] failed to force direct proxy mode on session:", n);
+  });
+});
+async function k() {
+  await Promise.all([
+    o.setProxy({ mode: "direct" }),
+    y.defaultSession.setProxy({ mode: "direct" })
+  ]), o.configureHostResolver({
+    enableBuiltInResolver: !1,
+    enableHappyEyeballs: !1,
+    secureDnsMode: "off"
+  }), await y.defaultSession.closeAllConnections();
 }
-function A() {
+function w() {
+  return o.isPackaged ? o.getAppPath() : i(P, "..");
+}
+function R() {
   const e = process.platform === "win32" ? "icon.ico" : "icon.png";
   return o.isPackaged ? i(process.resourcesPath, e) : i(w(), "build", e);
 }
-function D(e) {
+function I(e) {
   return e.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
-function U() {
+function L() {
   if (c && !c.isDestroyed()) {
     c.focus();
     return;
   }
-  const e = `Version ${x} (${E})`, n = `<!doctype html>
+  const e = `Version ${E} (${A})`, n = `<!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -86,7 +103,7 @@ function U() {
     <div class="wrap">
       <h1 class="name">Feats</h1>
       <p class="tagline">Keep track of your bicycle rides and planned routes.</p>
-      <p class="version">${D(e)}</p>
+      <p class="version">${I(e)}</p>
     </div>
   </body>
 </html>`;
@@ -101,7 +118,7 @@ function U() {
     title: "About Feats",
     parent: r ?? void 0,
     modal: r !== null,
-    icon: A(),
+    icon: R(),
     webPreferences: {
       nodeIntegration: !1,
       contextIsolation: !0
@@ -110,9 +127,9 @@ function U() {
     c = null;
   }), c.loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(n)}`);
 }
-function I() {
+function F() {
   if (process.platform === "win32") {
-    U();
+    L();
     return;
   }
   o.showAboutPanel();
@@ -120,11 +137,11 @@ function I() {
 function $() {
   return o.isPackaged ? process.resourcesPath : w();
 }
-function F() {
+function W() {
   const e = w();
   if (process.env.NUXT_SERVER_ENTRY && u(process.env.NUXT_SERVER_ENTRY))
     return process.env.NUXT_SERVER_ENTRY;
-  const n = _(e, { withFileTypes: !0 }).filter((t) => t.isDirectory() && t.name.startsWith("feats_v")).map((t) => t.name).sort();
+  const n = D(e, { withFileTypes: !0 }).filter((t) => t.isDirectory() && t.name.startsWith("feats_v")).map((t) => t.name).sort();
   for (let t = n.length - 1; t >= 0; t--) {
     const s = i(e, n[t], "server", "index.mjs");
     if (u(s)) return s;
@@ -138,35 +155,35 @@ function F() {
     if (u(t)) return t;
   return null;
 }
-function W(e, n, a = 2e4) {
+function z(e, n, a = 2e4) {
   const t = Date.now();
-  return new Promise((s, P) => {
+  return new Promise((s, S) => {
     const b = setInterval(() => {
-      const l = new C();
-      let p = !1;
+      const l = new _();
+      let d = !1;
       l.setTimeout(1e3), l.on("connect", () => {
-        p || (p = !0, l.destroy(), clearInterval(b), s());
+        d || (d = !0, l.destroy(), clearInterval(b), s());
       }), l.on("timeout", () => {
-        p || (p = !0, l.destroy());
+        d || (d = !0, l.destroy());
       }), l.on("error", () => {
-        p || (p = !0, l.destroy());
-      }), l.connect(n, e), Date.now() - t > a && (clearInterval(b), P(new Error(`Nuxt server did not start in time: ${e}:${n}`)));
+        d || (d = !0, l.destroy());
+      }), l.connect(n, e), Date.now() - t > a && (clearInterval(b), S(new Error(`Nuxt server did not start in time: ${e}:${n}`)));
     }, 300);
   });
 }
-async function z() {
+async function V() {
   if (process.env.NODE_ENV === "development") return;
-  const e = F();
+  const e = W();
   if (!e)
     throw new Error("Cannot find Nuxt server entry (feats_v*/server/index.mjs)");
   const n = process.execPath, a = { ...process.env, ELECTRON_RUN_AS_NODE: "1" };
-  d = N(n, [e], {
+  p = C(n, [e], {
     cwd: $(),
     env: { ...a, PORT: String(f), HOST: "127.0.0.1", FEATS_USER_DATA: o.getPath("userData") },
     stdio: "pipe"
-  }), d.stdout.on("data", (t) => console.log(`[nuxt] ${t}`)), d.stderr.on("data", (t) => console.error(`[nuxt] ${t}`)), await W("127.0.0.1", f);
+  }), p.stdout.on("data", (t) => console.log(`[nuxt] ${t}`)), p.stderr.on("data", (t) => console.error(`[nuxt] ${t}`)), await z("127.0.0.1", f);
 }
-function L() {
+function M() {
   const e = process.platform === "darwin", n = [
     // App Menu (macOS only)
     ...e ? [{
@@ -281,7 +298,7 @@ function L() {
           {
             label: "About",
             click: () => {
-              I();
+              F();
             }
           }
         ]
@@ -290,16 +307,16 @@ function L() {
   ], a = g.buildFromTemplate(n);
   g.setApplicationMenu(a);
 }
-async function v() {
+async function x() {
   r = new h({
     width: 1200,
     height: 800,
     title: "",
-    icon: A(),
+    icon: R(),
     webPreferences: {
       nodeIntegration: !1,
       contextIsolation: !0,
-      preload: i(R, "preload.js")
+      preload: i(P, "preload.js")
     }
   });
   const e = process.env.NODE_ENV === "development" ? ["http://localhost:3000", m] : [m], n = (t) => e.some((s) => t.startsWith(s)), a = (t) => {
@@ -311,22 +328,22 @@ async function v() {
       return !1;
     }
   };
-  r.webContents.setWindowOpenHandler(({ url: t }) => (a(t) && y.openExternal(t), { action: "deny" })), r.webContents.on("will-navigate", (t, s) => {
-    a(s) && (t.preventDefault(), y.openExternal(s));
+  r.webContents.setWindowOpenHandler(({ url: t }) => (a(t) && v.openExternal(t), { action: "deny" })), r.webContents.on("will-navigate", (t, s) => {
+    a(s) && (t.preventDefault(), v.openExternal(s));
   }), process.env.NODE_ENV === "development" ? (await r.loadURL("http://localhost:3000"), r.webContents.openDevTools()) : await r.loadURL(m), r.on("closed", () => {
     r = null;
   });
 }
 o.whenReady().then(async () => {
-  await z(), L(), await v(), o.on("activate", async () => {
-    h.getAllWindows().length === 0 && await v();
+  await k(), await V(), M(), await x(), o.on("activate", async () => {
+    h.getAllWindows().length === 0 && await x();
   });
 }).catch((e) => {
   const n = e instanceof Error ? e.message : String(e);
-  console.error("[main] startup failed:", e), S.showErrorBox("Feats failed to start", n), o.quit();
+  console.error("[main] startup failed:", e), N.showErrorBox("Feats failed to start", n), o.quit();
 });
 o.on("before-quit", () => {
-  d && !d.killed && d.kill();
+  p && !p.killed && p.kill();
 });
 o.on("window-all-closed", () => {
   process.platform !== "darwin" && o.quit();

@@ -1,13 +1,11 @@
 import { existsSync, readdirSync, statSync } from 'node:fs'
-import { basename, dirname, isAbsolute, join, sep } from 'node:path'
-import os from 'node:os'
+import { basename, dirname, isAbsolute, sep } from 'node:path'
 import db, { DB_PATH } from '../db/index'
 import { LatestVersion } from '../../version'
 
 function getFallbackDatabaseLastChangedAt(): string | null {
   try {
-    const dbPath = join(os.homedir(), '.feats', 'feats.db')
-    return statSync(dbPath).mtime.toISOString()
+    return statSync(DB_PATH).mtime.toISOString()
   } catch {
     return null
   }

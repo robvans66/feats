@@ -1,5 +1,5 @@
 // electron/main.ts
-import { app, BrowserWindow, Menu, dialog, shell } from 'electron'
+import { app, BrowserWindow, Menu, dialog, session, shell } from 'electron'
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process'
 import { existsSync, readdirSync } from 'node:fs'
 import { join, dirname } from 'node:path'
@@ -14,6 +14,10 @@ app.setName('Feats') // Set your app name here for macOS menu
 // Work around macOS 26 proxy preference crashes seen on App Review devices.
 app.commandLine.appendSwitch('no-proxy-server')
 app.commandLine.appendSwitch('proxy-bypass-list', '*')
+// Prevent c-ares DNS resolution in the MAS sandbox — external DNS socket calls
+// trigger a sandbox violation that aborts the process before app.whenReady().
+app.commandLine.appendSwitch('host-resolver-rules', 'MAP * ~NOTFOUND, EXCLUDE localhost, EXCLUDE 127.0.0.1')
+app.commandLine.appendSwitch('disable-features', 'AsyncDns')
 if (process.platform === 'win32') {
   app.setAppUserModelId('com.feats.app')
 }
@@ -29,6 +33,29 @@ const APP_URL = `http://127.0.0.1:${APP_PORT}`
 let nuxtServer: ChildProcessWithoutNullStreams | null = null
 let mainWindow: BrowserWindow | null = null
 let aboutWindow: BrowserWindow | null = null
+
+app.on('session-created', (createdSession) => {
+  void createdSession.setProxy({ mode: 'direct' })
+    .then(() => createdSession.closeAllConnections())
+    .catch((error: unknown) => {
+      console.error('[main] failed to force direct proxy mode on session:', error)
+    })
+})
+
+async function configureDirectNetworking() {
+  await Promise.all([
+    app.setProxy({ mode: 'direct' }),
+    session.defaultSession.setProxy({ mode: 'direct' })
+  ])
+
+  app.configureHostResolver({
+    enableBuiltInResolver: false,
+    enableHappyEyeballs: false,
+    secureDnsMode: 'off'
+  })
+
+  await session.defaultSession.closeAllConnections()
+}
 
 function getAppRoot(): string {
   return app.isPackaged ? app.getAppPath() : join(__dirname, '..')
@@ -438,6 +465,7 @@ async function createWindow() {
 }
 
 app.whenReady().then(async () => {
+  await configureDirectNetworking()
   await startNuxtServerIfNeeded()
   createMenu()
   await createWindow()
