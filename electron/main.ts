@@ -15,9 +15,14 @@ app.setName('Feats') // Set your app name here for macOS menu
 app.commandLine.appendSwitch('no-proxy-server')
 app.commandLine.appendSwitch('proxy-bypass-list', '*')
 // Prevent c-ares DNS resolution in the MAS sandbox — external DNS socket calls
-// trigger a sandbox violation that aborts the process before app.whenReady().
+// trigger a sandbox violation that aborts the process during NSApplication init.
+// Use multiple aggressive flags to disable DNS at all levels:
 app.commandLine.appendSwitch('host-resolver-rules', 'MAP * ~NOTFOUND, EXCLUDE localhost, EXCLUDE 127.0.0.1')
-app.commandLine.appendSwitch('disable-features', 'AsyncDns')
+app.commandLine.appendSwitch('disable-features', 'AsyncDns,SystemResolverConfigChanged,CertificateNetworkService')
+// Disable network service operations that might trigger DNS
+app.commandLine.appendSwitch('disable-net-logging')
+// Prevent Blink DNS prefetching
+app.commandLine.appendSwitch('disable-blink-features', 'DnsPrefetch')
 if (process.platform === 'win32') {
   app.setAppUserModelId('com.feats.app')
 }
@@ -467,6 +472,9 @@ async function createWindow() {
 app.whenReady().then(async () => {
   await configureDirectNetworking()
   await startNuxtServerIfNeeded()
+  // Defer menu creation slightly to allow thread pool DNS tasks to complete/fail safely
+  // before NSApplication customizes menus (which triggers menu localization → file I/O → DNS)
+  await new Promise(resolve => setTimeout(resolve, 50))
   createMenu()
   await createWindow()
 

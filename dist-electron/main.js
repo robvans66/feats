@@ -1,19 +1,21 @@
-import { app as o, BrowserWindow as h, dialog as N, session as y, Menu as g, shell as v } from "electron";
-import { spawn as C } from "node:child_process";
+import { app as o, BrowserWindow as h, dialog as C, session as g, Menu as y, shell as v } from "electron";
+import { spawn as N } from "node:child_process";
 import { existsSync as u, readdirSync as D } from "node:fs";
-import { dirname as T, join as i } from "node:path";
+import { dirname as T, join as l } from "node:path";
 import { Socket as _ } from "node:net";
-import { fileURLToPath as O } from "node:url";
-const E = "1.1.13", A = "22 Apr 2026", U = O(import.meta.url), P = T(U);
+import { fileURLToPath as k } from "node:url";
+const E = "1.1.14", P = "29 Apr 2026", O = k(import.meta.url), S = T(O);
 o.setName("Feats");
 o.commandLine.appendSwitch("no-proxy-server");
 o.commandLine.appendSwitch("proxy-bypass-list", "*");
 o.commandLine.appendSwitch("host-resolver-rules", "MAP * ~NOTFOUND, EXCLUDE localhost, EXCLUDE 127.0.0.1");
-o.commandLine.appendSwitch("disable-features", "AsyncDns");
+o.commandLine.appendSwitch("disable-features", "AsyncDns,SystemResolverConfigChanged,CertificateNetworkService");
+o.commandLine.appendSwitch("disable-net-logging");
+o.commandLine.appendSwitch("disable-blink-features", "DnsPrefetch");
 process.platform === "win32" && o.setAppUserModelId("com.feats.app");
 o.setAboutPanelOptions({
   applicationName: "Feats",
-  applicationVersion: `${E} (${A})`,
+  applicationVersion: `${E} (${P})`,
   version: ""
   // Suppress default Electron version info
 });
@@ -24,32 +26,32 @@ o.on("session-created", (e) => {
     console.error("[main] failed to force direct proxy mode on session:", n);
   });
 });
-async function k() {
+async function U() {
   await Promise.all([
     o.setProxy({ mode: "direct" }),
-    y.defaultSession.setProxy({ mode: "direct" })
+    g.defaultSession.setProxy({ mode: "direct" })
   ]), o.configureHostResolver({
     enableBuiltInResolver: !1,
     enableHappyEyeballs: !1,
     secureDnsMode: "off"
-  }), await y.defaultSession.closeAllConnections();
+  }), await g.defaultSession.closeAllConnections();
 }
 function w() {
-  return o.isPackaged ? o.getAppPath() : i(P, "..");
+  return o.isPackaged ? o.getAppPath() : l(S, "..");
 }
-function R() {
+function A() {
   const e = process.platform === "win32" ? "icon.ico" : "icon.png";
-  return o.isPackaged ? i(process.resourcesPath, e) : i(w(), "build", e);
+  return o.isPackaged ? l(process.resourcesPath, e) : l(w(), "build", e);
 }
-function I(e) {
+function L(e) {
   return e.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
-function L() {
+function I() {
   if (c && !c.isDestroyed()) {
     c.focus();
     return;
   }
-  const e = `Version ${E} (${A})`, n = `<!doctype html>
+  const e = `Version ${E} (${P})`, n = `<!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -103,7 +105,7 @@ function L() {
     <div class="wrap">
       <h1 class="name">Feats</h1>
       <p class="tagline">Keep track of your bicycle rides and planned routes.</p>
-      <p class="version">${I(e)}</p>
+      <p class="version">${L(e)}</p>
     </div>
   </body>
 </html>`;
@@ -118,7 +120,7 @@ function L() {
     title: "About Feats",
     parent: r ?? void 0,
     modal: r !== null,
-    icon: R(),
+    icon: A(),
     webPreferences: {
       nodeIntegration: !1,
       contextIsolation: !0
@@ -129,7 +131,7 @@ function L() {
 }
 function F() {
   if (process.platform === "win32") {
-    L();
+    I();
     return;
   }
   o.showAboutPanel();
@@ -143,13 +145,13 @@ function W() {
     return process.env.NUXT_SERVER_ENTRY;
   const n = D(e, { withFileTypes: !0 }).filter((t) => t.isDirectory() && t.name.startsWith("feats_v")).map((t) => t.name).sort();
   for (let t = n.length - 1; t >= 0; t--) {
-    const s = i(e, n[t], "server", "index.mjs");
+    const s = l(e, n[t], "server", "index.mjs");
     if (u(s)) return s;
   }
   const a = [
-    i(e, ".output", "server", "index.mjs"),
-    i(process.resourcesPath, ".output", "server", "index.mjs"),
-    i(process.resourcesPath, "app.asar.unpacked", ".output", "server", "index.mjs")
+    l(e, ".output", "server", "index.mjs"),
+    l(process.resourcesPath, ".output", "server", "index.mjs"),
+    l(process.resourcesPath, "app.asar.unpacked", ".output", "server", "index.mjs")
   ];
   for (const t of a)
     if (u(t)) return t;
@@ -157,17 +159,17 @@ function W() {
 }
 function z(e, n, a = 2e4) {
   const t = Date.now();
-  return new Promise((s, S) => {
+  return new Promise((s, R) => {
     const b = setInterval(() => {
-      const l = new _();
+      const i = new _();
       let d = !1;
-      l.setTimeout(1e3), l.on("connect", () => {
-        d || (d = !0, l.destroy(), clearInterval(b), s());
-      }), l.on("timeout", () => {
-        d || (d = !0, l.destroy());
-      }), l.on("error", () => {
-        d || (d = !0, l.destroy());
-      }), l.connect(n, e), Date.now() - t > a && (clearInterval(b), S(new Error(`Nuxt server did not start in time: ${e}:${n}`)));
+      i.setTimeout(1e3), i.on("connect", () => {
+        d || (d = !0, i.destroy(), clearInterval(b), s());
+      }), i.on("timeout", () => {
+        d || (d = !0, i.destroy());
+      }), i.on("error", () => {
+        d || (d = !0, i.destroy());
+      }), i.connect(n, e), Date.now() - t > a && (clearInterval(b), R(new Error(`Nuxt server did not start in time: ${e}:${n}`)));
     }, 300);
   });
 }
@@ -177,7 +179,7 @@ async function V() {
   if (!e)
     throw new Error("Cannot find Nuxt server entry (feats_v*/server/index.mjs)");
   const n = process.execPath, a = { ...process.env, ELECTRON_RUN_AS_NODE: "1" };
-  p = C(n, [e], {
+  p = N(n, [e], {
     cwd: $(),
     env: { ...a, PORT: String(f), HOST: "127.0.0.1", FEATS_USER_DATA: o.getPath("userData") },
     stdio: "pipe"
@@ -304,19 +306,19 @@ function M() {
         ]
       ]
     }
-  ], a = g.buildFromTemplate(n);
-  g.setApplicationMenu(a);
+  ], a = y.buildFromTemplate(n);
+  y.setApplicationMenu(a);
 }
 async function x() {
   r = new h({
     width: 1200,
     height: 800,
     title: "",
-    icon: R(),
+    icon: A(),
     webPreferences: {
       nodeIntegration: !1,
       contextIsolation: !0,
-      preload: i(P, "preload.js")
+      preload: l(S, "preload.js")
     }
   });
   const e = process.env.NODE_ENV === "development" ? ["http://localhost:3000", m] : [m], n = (t) => e.some((s) => t.startsWith(s)), a = (t) => {
@@ -335,12 +337,12 @@ async function x() {
   });
 }
 o.whenReady().then(async () => {
-  await k(), await V(), M(), await x(), o.on("activate", async () => {
+  await U(), await V(), await new Promise((e) => setTimeout(e, 50)), M(), await x(), o.on("activate", async () => {
     h.getAllWindows().length === 0 && await x();
   });
 }).catch((e) => {
   const n = e instanceof Error ? e.message : String(e);
-  console.error("[main] startup failed:", e), N.showErrorBox("Feats failed to start", n), o.quit();
+  console.error("[main] startup failed:", e), C.showErrorBox("Feats failed to start", n), o.quit();
 });
 o.on("before-quit", () => {
   p && !p.killed && p.kill();
