@@ -1,10 +1,10 @@
-import { app as o, BrowserWindow as h, dialog as C, session as g, Menu as y, shell as v } from "electron";
+import { app as o, BrowserWindow as h, dialog as C, session as y, Menu as g, shell as v } from "electron";
 import { spawn as N } from "node:child_process";
 import { existsSync as u, readdirSync as D } from "node:fs";
 import { dirname as T, join as l } from "node:path";
 import { Socket as _ } from "node:net";
 import { fileURLToPath as k } from "node:url";
-const E = "1.1.14", P = "29 Apr 2026", O = k(import.meta.url), S = T(O);
+const E = "1.1.15", P = "01 May 2026", O = k(import.meta.url), S = T(O);
 o.setName("Feats");
 o.commandLine.appendSwitch("no-proxy-server");
 o.commandLine.appendSwitch("proxy-bypass-list", "*");
@@ -29,17 +29,17 @@ o.on("session-created", (e) => {
 async function U() {
   await Promise.all([
     o.setProxy({ mode: "direct" }),
-    g.defaultSession.setProxy({ mode: "direct" })
+    y.defaultSession.setProxy({ mode: "direct" })
   ]), o.configureHostResolver({
     enableBuiltInResolver: !1,
     enableHappyEyeballs: !1,
     secureDnsMode: "off"
-  }), await g.defaultSession.closeAllConnections();
+  }), await y.defaultSession.closeAllConnections();
 }
 function w() {
   return o.isPackaged ? o.getAppPath() : l(S, "..");
 }
-function A() {
+function R() {
   const e = process.platform === "win32" ? "icon.ico" : "icon.png";
   return o.isPackaged ? l(process.resourcesPath, e) : l(w(), "build", e);
 }
@@ -120,7 +120,7 @@ function I() {
     title: "About Feats",
     parent: r ?? void 0,
     modal: r !== null,
-    icon: A(),
+    icon: R(),
     webPreferences: {
       nodeIntegration: !1,
       contextIsolation: !0
@@ -159,7 +159,7 @@ function W() {
 }
 function z(e, n, a = 2e4) {
   const t = Date.now();
-  return new Promise((s, R) => {
+  return new Promise((s, A) => {
     const b = setInterval(() => {
       const i = new _();
       let d = !1;
@@ -169,7 +169,7 @@ function z(e, n, a = 2e4) {
         d || (d = !0, i.destroy());
       }), i.on("error", () => {
         d || (d = !0, i.destroy());
-      }), i.connect(n, e), Date.now() - t > a && (clearInterval(b), R(new Error(`Nuxt server did not start in time: ${e}:${n}`)));
+      }), i.connect(n, e), Date.now() - t > a && (clearInterval(b), A(new Error(`Nuxt server did not start in time: ${e}:${n}`)));
     }, 300);
   });
 }
@@ -306,15 +306,15 @@ function M() {
         ]
       ]
     }
-  ], a = y.buildFromTemplate(n);
-  y.setApplicationMenu(a);
+  ], a = g.buildFromTemplate(n);
+  g.setApplicationMenu(a);
 }
 async function x() {
   r = new h({
     width: 1200,
     height: 800,
     title: "",
-    icon: A(),
+    icon: R(),
     webPreferences: {
       nodeIntegration: !1,
       contextIsolation: !0,

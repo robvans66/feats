@@ -1,6 +1,6 @@
 {
   "name": "feats",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "license": "MIT",
   "description": "Keep track of your bicycle rides and planned routes.",
   "author": "Rob van Strien <robvans@gmail.com>",
@@ -103,7 +103,7 @@
     "dist:mac:x64": "npm run build && npm run rebuild:electron-native && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac --arch x64",
     "dist:mac:universal": "npm run build && npm run rebuild:electron-native && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac --arch universal",
     "dist:mac:signed": "npm run build && npm run rebuild:electron-native && electron-builder --mac",
-    "dist:mas": "npm run build && npm run rebuild:electron-native && electron-builder --mas",
+    "dist:mas": "npm run build && npm run rebuild:electron-native && electron-builder --mac mas",
     "dist:mas:dev": "npm run build && npm run rebuild:electron-native && CSC_NAME='Apple Development: robvans@gmail.com (5DNA72GK6G)' electron-builder --mac mas-dev",
     "dist:win": "npm run build && npm run rebuild:electron-native && electron-builder --win",
     "dist:win:unsigned": "npm run build && npm run rebuild:electron-native && set CSC_IDENTITY_AUTO_DISCOVERY=false && electron-builder --win -c.win.signAndEditExecutable=false",

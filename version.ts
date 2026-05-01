@@ -1,2 +1,2 @@
-export const LatestVersion = '1.1.14'
-export const LatestVersionDate = '29 Apr 2026'
+export const LatestVersion = '1.1.15'
+export const LatestVersionDate = '01 May 2026'
