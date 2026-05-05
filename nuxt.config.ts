@@ -5,8 +5,7 @@ export default defineNuxtConfig({
   nitro: {
     output: {
       dir: '.output',
-      serverDir: '.output/server',
-      publicDir: 'dist'
+      serverDir: '.output/server'
     }
   },
   compatibilityDate: '2025-07-15',

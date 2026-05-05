@@ -5,82 +5,13 @@ import fs from 'fs'
 import { LatestVersion } from '../../version'
 import { LatestVersionDate } from '../../version'
 
-const LEGACY_DB_DIR = path.join(os.homedir(), '.feats')
-const DB_DIR = process.env.FEATS_USER_DATA ?? LEGACY_DB_DIR
+const DB_DIR = process.env.FEATS_USER_DATA ?? path.join(os.homedir(), '.feats')
 const DB_PATH = path.join(DB_DIR, 'feats.db')
 
-type DatabaseCounts = {
-  rides: number
-  routes: number
-}
-
-function readDatabaseCounts(filePath: string): DatabaseCounts | null {
-  if (!fs.existsSync(filePath)) return null
-
-  try {
-    const db = new Database(filePath, { readonly: true })
-    const rides = (db.prepare('SELECT COUNT(*) as c FROM rides_table').get() as { c: number }).c
-    const routes = (db.prepare('SELECT COUNT(*) as c FROM routes_table').get() as { c: number }).c
-    db.close()
-    return { rides, routes }
-  } catch {
-    return null
-  }
-}
-
-function backupAndCopySqliteFileSet(sourcePath: string, targetPath: string) {
-  const suffixes = ['', '-shm', '-wal']
-  const timestamp = new Date().toISOString().replaceAll(':', '-').replaceAll('.', '-')
-
-  for (const suffix of suffixes) {
-    const sourceFile = `${sourcePath}${suffix}`
-    const targetFile = `${targetPath}${suffix}`
-    const backupFile = `${targetFile}.backup-${timestamp}`
-
-    if (fs.existsSync(targetFile)) {
-      fs.renameSync(targetFile, backupFile)
-    }
-
-    if (fs.existsSync(sourceFile)) {
-      fs.copyFileSync(sourceFile, targetFile)
-    }
-  }
-}
-
-function migrateLegacyDatabaseIfNeeded() {
-  if (DB_DIR === LEGACY_DB_DIR) return
-
-  const legacyDbPath = path.join(LEGACY_DB_DIR, 'feats.db')
-  if (!fs.existsSync(legacyDbPath)) return
-
-  if (!fs.existsSync(DB_PATH)) {
-    backupAndCopySqliteFileSet(legacyDbPath, DB_PATH)
-    console.log(`Migrated database from ${legacyDbPath} to ${DB_PATH}`)
-    return
-  }
-
-  const legacyCounts = readDatabaseCounts(legacyDbPath)
-  const targetCounts = readDatabaseCounts(DB_PATH)
-  if (!legacyCounts || !targetCounts) return
-
-  const legacyTotal = legacyCounts.rides + legacyCounts.routes
-  const targetTotal = targetCounts.rides + targetCounts.routes
-
-  if (legacyTotal > targetTotal) {
-    backupAndCopySqliteFileSet(legacyDbPath, DB_PATH)
-    console.log(
-      `Replaced ${DB_PATH} with legacy database from ${legacyDbPath} because it contains more data (${legacyCounts.rides}/${legacyCounts.routes} vs ${targetCounts.rides}/${targetCounts.routes})`
-    )
-  }
-}
-
 function init() {
-  // Ensure database directory exists
   if (!fs.existsSync(DB_DIR)) {
     fs.mkdirSync(DB_DIR, { recursive: true })
   }
-
-  migrateLegacyDatabaseIfNeeded()
 
   console.log()
   console.log(`Feats v${LatestVersion} (${LatestVersionDate})`)
@@ -95,7 +26,6 @@ function init() {
   }
   db.pragma('journal_mode = WAL')
 
-  // rides-table
   db.prepare(`CREATE TABLE IF NOT EXISTS rides_table (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     date TEXT NOT NULL,
@@ -109,7 +39,6 @@ function init() {
     notes TEXT
   )`).run()
 
-  // routes-table
   db.prepare(`CREATE TABLE IF NOT EXISTS routes_table (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     description TEXT NOT NULL,
@@ -123,7 +52,6 @@ function init() {
     notes TEXT
   )`).run()
 
-  // user-config
   db.prepare(`CREATE TABLE IF NOT EXISTS user_config (
     id INTEGER PRIMARY KEY,
     bike_options TEXT NOT NULL,
@@ -133,7 +61,6 @@ function init() {
     routes_column_visibility TEXT NOT NULL
   )`).run()
 
-  // app metadata
   db.prepare(`CREATE TABLE IF NOT EXISTS app_meta (
     key TEXT PRIMARY KEY,
     value TEXT NOT NULL
@@ -146,10 +73,8 @@ function init() {
   ensureColumn(db, 'user_config', 'page_size_options', 'TEXT')
   ensureColumn(db, 'user_config', 'rides_column_visibility', 'TEXT')
   ensureColumn(db, 'user_config', 'routes_column_visibility', 'TEXT')
-  migrateLegacyUserConfig(db)
   ensureUserConfig(db)
 
-  // seed if empty
   const rideCount = (db.prepare('SELECT COUNT(*) as c FROM rides_table').get() as { c: number }).c
   if (rideCount === 0) seed(db)
 
@@ -180,108 +105,6 @@ function ensureUserConfig(db: typeof Database.prototype) {
     JSON.stringify(defaults.pageSizeOptions),
     JSON.stringify(defaults.ridesColumnVisibility),
     JSON.stringify(defaults.routesColumnVisibility)
-  )
-}
-
-type LegacyUserConfig = {
-  bikeOptions?: unknown
-  surfaceOptions?: unknown
-  pageSizeOptions?: unknown
-  ridesColumnVisibility?: unknown
-  routesColumnVisibility?: unknown
-}
-
-function normalizeStringArray(value: unknown, fallback: string[]) {
-  if (!Array.isArray(value)) return fallback
-  const normalized = value.map((item) => String(item).trim()).filter(Boolean)
-  return normalized.length ? normalized : fallback
-}
-
-function normalizeNumberArray(value: unknown, fallback: number[]) {
-  if (!Array.isArray(value)) return fallback
-  const normalized = value
-    .map((item) => Number(item))
-    .filter((item) => Number.isFinite(item) && item > 0)
-  return normalized.length ? normalized : fallback
-}
-
-function normalizeVisibility(
-  keys: string[],
-  value: unknown,
-  fallback: Record<string, boolean>
-) {
-  const result: Record<string, boolean> = {}
-  const source = typeof value === 'object' && value !== null
-    ? (value as Record<string, unknown>)
-    : fallback
-
-  for (const key of keys) {
-    const current = source[key]
-    result[key] = typeof current === 'boolean' ? current : fallback[key] ?? true
-  }
-
-  return result
-}
-
-function migrateLegacyUserConfig(db: typeof Database.prototype) {
-  const columns = db.prepare('PRAGMA table_info(user_config)').all() as { name: string }[]
-  const hasLegacyConfigJson = columns.some((column) => column.name === 'config_json')
-  if (!hasLegacyConfigJson) return
-
-  const legacyRow = db
-    .prepare('SELECT id, config_json FROM user_config WHERE config_json IS NOT NULL ORDER BY id LIMIT 1')
-    .get() as { id: number; config_json: string | null } | undefined
-
-  if (!legacyRow?.config_json) return
-
-  let parsed: LegacyUserConfig = {}
-  try {
-    parsed = JSON.parse(legacyRow.config_json) as LegacyUserConfig
-  } catch {
-    return
-  }
-
-  const defaults = getDefaultUserConfig()
-  const ridesKeys = Object.keys(defaults.ridesColumnVisibility)
-  const routesKeys = Object.keys(defaults.routesColumnVisibility)
-
-  const bikeOptions = normalizeStringArray(parsed.bikeOptions, defaults.bikeOptions)
-  const surfaceOptions = normalizeStringArray(parsed.surfaceOptions, defaults.surfaceOptions)
-  const pageSizeOptions = normalizeNumberArray(parsed.pageSizeOptions, defaults.pageSizeOptions)
-  const ridesColumnVisibility = normalizeVisibility(
-    ridesKeys,
-    parsed.ridesColumnVisibility,
-    defaults.ridesColumnVisibility
-  )
-  const routesColumnVisibility = normalizeVisibility(
-    routesKeys,
-    parsed.routesColumnVisibility,
-    defaults.routesColumnVisibility
-  )
-
-  const existsId1 = (db.prepare('SELECT COUNT(*) as c FROM user_config WHERE id=1').get() as { c: number }).c > 0
-
-  if (existsId1) {
-    db.prepare(
-      'UPDATE user_config SET bike_options=COALESCE(bike_options, ?), surface_options=COALESCE(surface_options, ?), page_size_options=COALESCE(page_size_options, ?), rides_column_visibility=COALESCE(rides_column_visibility, ?), routes_column_visibility=COALESCE(routes_column_visibility, ?) WHERE id=1'
-    ).run(
-      JSON.stringify(bikeOptions),
-      JSON.stringify(surfaceOptions),
-      JSON.stringify(pageSizeOptions),
-      JSON.stringify(ridesColumnVisibility),
-      JSON.stringify(routesColumnVisibility)
-    )
-    return
-  }
-
-  db.prepare(
-    'INSERT INTO user_config (id, bike_options, surface_options, page_size_options, rides_column_visibility, routes_column_visibility) VALUES (1, ?, ?, ?, ?, ?)'
-  ).run(
-    JSON.stringify(bikeOptions),
-    JSON.stringify(surfaceOptions),
-    JSON.stringify(pageSizeOptions),
-    JSON.stringify(ridesColumnVisibility),
-    JSON.stringify(routesColumnVisibility)
   )
 }
 

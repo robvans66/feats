@@ -4,7 +4,7 @@ import { existsSync as u, readdirSync as D } from "node:fs";
 import { dirname as T, join as l } from "node:path";
 import { Socket as _ } from "node:net";
 import { fileURLToPath as k } from "node:url";
-const E = "1.1.15", P = "01 May 2026", O = k(import.meta.url), S = T(O);
+const E = "1.2.0", P = "05 May 2026", O = k(import.meta.url), S = T(O);
 o.setName("Feats");
 o.commandLine.appendSwitch("no-proxy-server");
 o.commandLine.appendSwitch("proxy-bypass-list", "*");
