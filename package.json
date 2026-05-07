@@ -1,9 +1,9 @@
 {
   "name": "feats",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "description": "Keep track of your bicycle rides and planned routes.",
-  "author": "Rob van Strien <robvans@gmail.com>",
+  "author": "robvans <robvans@gmail.com>",
   "productName": "Feats",
   "main": "dist-electron/main.js",
   "build": {

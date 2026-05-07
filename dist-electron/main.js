@@ -1,10 +1,10 @@
-import { app as o, BrowserWindow as h, dialog as C, session as y, Menu as g, shell as v } from "electron";
+import { app as o, BrowserWindow as h, dialog as C, session as g, Menu as y, shell as v } from "electron";
 import { spawn as N } from "node:child_process";
 import { existsSync as u, readdirSync as D } from "node:fs";
 import { dirname as T, join as l } from "node:path";
 import { Socket as _ } from "node:net";
 import { fileURLToPath as k } from "node:url";
-const E = "1.2.0", P = "05 May 2026", O = k(import.meta.url), S = T(O);
+const E = "1.2.1", P = "07 May 2026", O = k(import.meta.url), S = T(O);
 o.setName("Feats");
 o.commandLine.appendSwitch("no-proxy-server");
 o.commandLine.appendSwitch("proxy-bypass-list", "*");
@@ -29,12 +29,12 @@ o.on("session-created", (e) => {
 async function U() {
   await Promise.all([
     o.setProxy({ mode: "direct" }),
-    y.defaultSession.setProxy({ mode: "direct" })
+    g.defaultSession.setProxy({ mode: "direct" })
   ]), o.configureHostResolver({
     enableBuiltInResolver: !1,
     enableHappyEyeballs: !1,
     secureDnsMode: "off"
-  }), await y.defaultSession.closeAllConnections();
+  }), await g.defaultSession.closeAllConnections();
 }
 function w() {
   return o.isPackaged ? o.getAppPath() : l(S, "..");
@@ -277,11 +277,7 @@ function M() {
       submenu: [
         { role: "minimize" },
         ...e ? [
-          { role: "zoom" },
-          { type: "separator" },
-          { role: "front" },
-          { type: "separator" },
-          { role: "window" }
+          { role: "zoom" }
         ] : [
           { role: "close" }
         ]
@@ -306,8 +302,8 @@ function M() {
         ]
       ]
     }
-  ], a = g.buildFromTemplate(n);
-  g.setApplicationMenu(a);
+  ], a = y.buildFromTemplate(n);
+  y.setApplicationMenu(a);
 }
 async function x() {
   r = new h({

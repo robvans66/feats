@@ -381,11 +381,7 @@ function createMenu() {
       submenu: [
         { role: 'minimize' as const },
         ...(isMac ? [
-          { role: 'zoom' as const },
-          { type: 'separator' as const },
-          { role: 'front' as const },
-          { type: 'separator' as const },
-          { role: 'window' as const }
+          { role: 'zoom' as const }
         ] : [
           { role: 'close' as const }
         ])
