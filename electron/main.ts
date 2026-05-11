@@ -26,18 +26,13 @@ app.commandLine.appendSwitch('disable-blink-features', 'DnsPrefetch')
 if (process.platform === 'win32') {
   app.setAppUserModelId('com.feats.app')
 }
-app.setAboutPanelOptions({
-  applicationName: 'Feats',
-  applicationVersion: `${LatestVersion} (${LatestVersionDate})`,
-  version: '' // Suppress default Electron version info
-})
 
 const APP_PORT = Number(process.env.NUXT_PORT || 3000)
 const APP_URL = `http://127.0.0.1:${APP_PORT}`
 
 let nuxtServer: ChildProcessWithoutNullStreams | null = null
 let mainWindow: BrowserWindow | null = null
-let aboutWindow: BrowserWindow | null = null
+// let aboutWindow: BrowserWindow | null = null
 
 app.on('session-created', (createdSession) => {
   void createdSession.setProxy({ mode: 'direct' })
@@ -76,111 +71,113 @@ function getAppIconPath(): string {
   return join(getAppRoot(), 'build', iconFile)
 }
 
-function escapeHtml(input: string): string {
-  return input
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-}
-
-function showWindowsAboutWindow() {
-  if (aboutWindow && !aboutWindow.isDestroyed()) {
-    aboutWindow.focus()
-    return
+function getAboutPanelIconPath(): string {
+  if (app.isPackaged) {
+    return join(process.resourcesPath, 'icon.png')
   }
-
-  const versionText = `Version ${LatestVersion} (${LatestVersionDate})`
-  const html = `<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data: file:; style-src 'unsafe-inline'" />
-    <title>About Feats</title>
-    <style>
-      :root {
-        color-scheme: light;
-        font-family: "Segoe UI", sans-serif;
-      }
-      html, body {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
-      body {
-        margin: 0;
-        background: #f5f6f7;
-        color: #111827;
-      }
-      .wrap {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 40px 20px;
-        height: 100%;
-        box-sizing: border-box;
-      }
-      .name {
-        margin: 20px 0 0;
-        padding-top: 16px;
-        font-size: 20px;
-        font-weight: 600;
-      }
-      .tagline {
-        margin: 8px 0 0;
-        color: #374151;
-        font-size: 13px;
-      }
-      .version {
-        margin: 6px 0 20px;
-        padding-bottom: 16px;
-        color: #4b5563;
-        font-size: 13px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <h1 class="name">Feats</h1>
-      <p class="tagline">Keep track of your bicycle rides and planned routes.</p>
-      <p class="version">${escapeHtml(versionText)}</p>
-    </div>
-  </body>
-</html>`
-
-  aboutWindow = new BrowserWindow({
-    width: 380,
-    height: 130,
-    resizable: false,
-    minimizable: false,
-    maximizable: false,
-    fullscreenable: false,
-    autoHideMenuBar: true,
-    title: 'About Feats',
-    parent: mainWindow ?? undefined,
-    modal: mainWindow !== null,
-    icon: getAppIconPath(),
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true
-    }
-  })
-
-  aboutWindow.on('closed', () => {
-    aboutWindow = null
-  })
-
-  void aboutWindow.loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(html)}`)
+  return join(getAppRoot(), 'build', 'icon.png')
 }
+
+// function escapeHtml(input: string): string {
+//   return input
+//     .replaceAll('&', '&amp;')
+//     .replaceAll('<', '&lt;')
+//     .replaceAll('>', '&gt;')
+//     .replaceAll('"', '&quot;')
+// }
+
+// function showWindowsAboutWindow() {
+//   if (aboutWindow && !aboutWindow.isDestroyed()) {
+//     aboutWindow.focus()
+//     return
+//   }
+
+//   const versionText = `Version ${LatestVersion} (${LatestVersionDate})`
+//   const html = `<!doctype html>
+// <html>
+//   <head>
+//     <meta charset="utf-8" />
+//     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data: file:; style-src 'unsafe-inline'" />
+//     <title>About Feats</title>
+//     <style>
+//       :root {
+//         color-scheme: light;
+//         font-family: "Segoe UI", sans-serif;
+//       }
+//       html, body {
+//         width: 100%;
+//         height: 100%;
+//         overflow: hidden;
+//       }
+//       body {
+//         margin: 0;
+//         background: #f5f6f7;
+//         color: #111827;
+//       }
+//       .wrap {
+//         display: flex;
+//         flex-direction: column;
+//         justify-content: center;
+//         align-items: center;
+//         text-align: center;
+//         padding: 40px 20px;
+//         height: 100%;
+//         box-sizing: border-box;
+//       }
+//       .name {
+//         margin: 20px 0 0;
+//         padding-top: 16px;
+//         font-size: 20px;
+//         font-weight: 600;
+//       }
+//       .tagline {
+//         margin: 8px 0 0;
+//         color: #374151;
+//         font-size: 13px;
+//       }
+//       .version {
+//         margin: 6px 0 20px;
+//         padding-bottom: 16px;
+//         color: #4b5563;
+//         font-size: 13px;
+//       }
+//     </style>
+//   </head>
+//   <body>
+//     <div class="wrap">
+//       <h1 class="name">Feats</h1>
+//       <p class="tagline">Keep track of your bicycle rides and planned routes.</p>
+//       <p class="version">${escapeHtml(versionText)}</p>
+//     </div>
+//   </body>
+// </html>`
+
+//   aboutWindow = new BrowserWindow({
+//     width: 380,
+//     height: 130,
+//     resizable: false,
+//     minimizable: false,
+//     maximizable: false,
+//     fullscreenable: false,
+//     autoHideMenuBar: true,
+//     title: 'About Feats',
+//     parent: mainWindow ?? undefined,
+//     modal: mainWindow !== null,
+//     icon: getAppIconPath(),
+//     webPreferences: {
+//       nodeIntegration: false,
+//       contextIsolation: true
+//     }
+//   })
+
+//   aboutWindow.on('closed', () => {
+//     aboutWindow = null
+//   })
+
+//   void aboutWindow.loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(html)}`)
+// }
 
 function showAboutDialog() {
-  if (process.platform === 'win32') {
-    showWindowsAboutWindow()
-    return
-  }
-
   app.showAboutPanel()
 }
 
@@ -466,6 +463,12 @@ async function createWindow() {
 }
 
 app.whenReady().then(async () => {
+  app.setAboutPanelOptions({
+    applicationName: 'Feats',
+    applicationVersion: `${LatestVersion} (${LatestVersionDate})`,
+    version: '',
+    iconPath: getAboutPanelIconPath()
+  })
   await configureDirectNetworking()
   await startNuxtServerIfNeeded()
   // Defer menu creation slightly to allow thread pool DNS tasks to complete/fail safely

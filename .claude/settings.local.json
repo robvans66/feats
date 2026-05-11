@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"c:\\\\Users\\\\robva\\\\feats\\\\.output\\\\server\\\\node_modules\\\\better-sqlite3\\\\build\\\\Release\" /b 2>nul)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\robva\\feats"
+    ]
+  }
+}

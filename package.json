@@ -34,7 +34,10 @@
       }
     ],
     "mac": {
-      "target": ["dmg", "zip"],
+      "target": [
+        "dmg",
+        "zip"
+      ],
       "icon": "build/icon.icns",
       "category": "public.app-category.healthcare-fitness",
       "hardenedRuntime": true,
@@ -58,8 +61,11 @@
       ]
     },
     "win": {
-      "target": ["nsis", "portable"],
-      "signAndEditExecutable": true,
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "signAndEditExecutable": false,
       "icon": "build/icon.ico"
     },
     "nsis": {
@@ -69,10 +75,15 @@
       "createStartMenuShortcut": true,
       "installerIcon": "build/icon.ico",
       "uninstallerIcon": "build/icon.ico",
-      "installerHeaderIcon": "build/icon.ico"
+      "installerHeaderIcon": "build/icon.ico",
+      "include": "build/installer-override.nsh",
+      "shortcutName": "Feats"
     },
     "linux": {
-      "target": ["AppImage", "deb"],
+      "target": [
+        "AppImage",
+        "deb"
+      ],
       "icon": "build/icon.png",
       "category": "Sports"
     }
@@ -88,14 +99,14 @@
     "dev": "nuxt dev",
     "electron": "npm run build:electron && npm run rebuild:electron-native && electron electron/main.ts",
     "electron:dev": "npm run dev & npm run electron",
-    "dist": "npm run build && npm run rebuild:electron-native && electron-builder",
-    "dist:mac": "npm run build && npm run rebuild:electron-native && electron-builder --mac",
-    "dist:mac:local": "npm run build && npm run rebuild:electron-native && electron-builder --mac",
+    "dist": "npm run rebuild:electron-native && npm run build && electron-builder",
+    "dist:mac": "npm run rebuild:electron-native && npm run build && electron-builder --mac",
+    "dist:mac:local": "npm run rebuild:electron-native && npm run build && electron-builder --mac",
     "dist:mac:local:run": "npm run dist:mac:local && open release/mac-arm64/Feats.app",
-    "dist:mac:x64": "npm run build && npm run rebuild:electron-native && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac --arch x64",
-    "dist:mac:universal": "npm run build && npm run rebuild:electron-native && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac --arch universal",
-    "dist:win": "npm run build && npm run rebuild:electron-native && electron-builder --win",
-    "dist:win:unsigned": "npm run build && npm run rebuild:electron-native && set CSC_IDENTITY_AUTO_DISCOVERY=false && electron-builder --win -c.win.signAndEditExecutable=false",
+    "dist:mac:x64": "npm run rebuild:electron-native && npm run build && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac --arch x64",
+    "dist:mac:universal": "npm run rebuild:electron-native && npm run build && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac --arch universal",
+    "dist:win": "npm run rebuild:electron-native && npm run build && electron-builder --win",
+    "dist:win:unsigned": "npm run rebuild:electron-native && npm run build && set CSC_IDENTITY_AUTO_DISCOVERY=false && electron-builder --win",
     "dist:linux": "npm run build && npm run rebuild:electron-native && electron-builder --linux",
     "dist:linux:appimage": "npm run build && npm run rebuild:electron-native && electron-builder --linux AppImage",
     "dist:linux:appimage:x64": "npm run build && npm run rebuild:electron-native && ELECTRON_BUILDER_ARCH=x64 electron-builder --linux AppImage",
