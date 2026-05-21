@@ -1,6 +1,6 @@
 # Privacy Policy for Feats
 
-Last Updated: April 6, 2026
+Last Updated: May 21, 2026
 
 Feats does not collect, store, or share any personal information, usage data, or diagnostic information. 
 
@@ -21,6 +21,3 @@ If you email the developer, your email address may be retained only to reply to 
 
 6. Consent
 By using this application, you consent to this privacy policy. 
-
-7. Contact Us
-If you have any questions, please contact us at: robvans@gmail.com

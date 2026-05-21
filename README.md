@@ -46,5 +46,5 @@ These screenshots are from a demo installation of the app with 1000 randomly gen
 
 Feats is open source software and free to use.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT).
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/robvans66/feats/blob/main/LICENSE).
 
