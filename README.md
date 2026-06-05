@@ -11,7 +11,7 @@ The extensive use of charts and statistics provides insights into your riding ha
 Feats is by no means a replacement for existing bicycle platforms. It is not a navigation app and not a social app, but rather a personal diary and statistics tool for your rides and routes. Everything is stored locally on your device.
 
 # Quick start
-Go to the [Feats landing page](https://robvans66.github.io/featsPages/) to get the latest version.
+Go to the [Feats landing page]https://featsapp.cc) to get the latest version.
   
 And don’t forget to get out and ride. The more you ride, the more data you collect.
 
