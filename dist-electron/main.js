@@ -1,10 +1,10 @@
-import { app as o, BrowserWindow as g, dialog as S, session as h, Menu as b, shell as v } from "electron";
+import { app as o, BrowserWindow as y, dialog as S, session as h, Menu as b, shell as v } from "electron";
 import { spawn as R } from "node:child_process";
 import { existsSync as u, readdirSync as N } from "node:fs";
 import { dirname as C, join as i } from "node:path";
 import { Socket as x } from "node:net";
 import { fileURLToPath as A } from "node:url";
-const D = "1.2.1", T = "07 May 2026", _ = A(import.meta.url), E = C(_);
+const D = "1.2.2", T = "10 Jun 2026", _ = A(import.meta.url), E = C(_);
 o.setName("Feats");
 o.commandLine.appendSwitch("no-proxy-server");
 o.commandLine.appendSwitch("proxy-bypass-list", "*");
@@ -80,7 +80,7 @@ function V(e, n, a = 2e4) {
     }, 300);
   });
 }
-async function M() {
+async function W() {
   if (process.env.NODE_ENV === "development") return;
   const e = F();
   if (!e)
@@ -92,7 +92,7 @@ async function M() {
     stdio: "pipe"
   }), d.stdout.on("data", (t) => console.log(`[nuxt] ${t}`)), d.stderr.on("data", (t) => console.error(`[nuxt] ${t}`)), await V("127.0.0.1", f);
 }
-function W() {
+function $() {
   const e = process.platform === "darwin", n = [
     // App Menu (macOS only)
     ...e ? [{
@@ -212,8 +212,8 @@ function W() {
   ], a = b.buildFromTemplate(n);
   b.setApplicationMenu(a);
 }
-async function y() {
-  r = new g({
+async function g() {
+  r = new y({
     width: 1200,
     height: 800,
     title: "",
@@ -245,8 +245,8 @@ o.whenReady().then(async () => {
     applicationVersion: `${D} (${T})`,
     version: "",
     iconPath: U()
-  }), await k(), await M(), await new Promise((e) => setTimeout(e, 50)), W(), await y(), o.on("activate", async () => {
-    g.getAllWindows().length === 0 && await y();
+  }), await k(), await W(), await new Promise((e) => setTimeout(e, 50)), $(), await g(), o.on("activate", async () => {
+    y.getAllWindows().length === 0 && await g();
   });
 }).catch((e) => {
   const n = e instanceof Error ? e.message : String(e);

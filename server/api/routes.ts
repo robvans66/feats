@@ -15,7 +15,16 @@ export default defineEventHandler(async (event) => {
       const sortBy = (q.sortBy || 'description').toString()
       const sortDir = ((q.sortDir || 'asc') as string).toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
 
-      const where = filter ? "WHERE description LIKE @f OR start LIKE @f OR destination LIKE @f OR notes LIKE @f" : ''
+      const filterCol = (q.filterCol || 'all').toString()
+      let where = ''
+      if (filter) {
+        if (filterCol === 'description') where = 'WHERE description LIKE @f'
+        else if (filterCol === 'distance') where = 'WHERE CAST(distance AS TEXT) LIKE @f'
+        else if (filterCol === 'start') where = 'WHERE start LIKE @f'
+        else if (filterCol === 'destination') where = 'WHERE destination LIKE @f'
+        else if (filterCol === 'notes') where = 'WHERE notes LIKE @f'
+        else where = "WHERE description LIKE @f OR start LIKE @f OR destination LIKE @f OR notes LIKE @f OR CAST(distance AS TEXT) LIKE @f"
+      }
       const countStmt = db.prepare(`SELECT COUNT(*) as c FROM routes_table ${where}`)
       const total = filter ? countStmt.get({ f: `%${filter}%` }).c : countStmt.get().c
 

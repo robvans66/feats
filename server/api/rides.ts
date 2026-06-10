@@ -16,7 +16,17 @@ export default defineEventHandler(async (event) => {
       const sortDir = ((q.sortDir || 'desc') as string).toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
 
       // build where clause for basic global filter (search in description or notes)
-      const where = filter ? "WHERE description LIKE @f OR notes LIKE @f" : ''
+      const filterCol = (q.filterCol || 'all').toString()
+      let where = ''
+      if (filter) {
+        if (filterCol === 'date') where = 'WHERE date LIKE @f'
+        else if (filterCol === 'description') where = 'WHERE description LIKE @f'
+        else if (filterCol === 'distance') where = 'WHERE CAST(distance AS TEXT) LIKE @f'
+        else if (filterCol === 'average') where = 'WHERE CAST(average AS TEXT) LIKE @f'
+        else if (filterCol === 'bike') where = 'WHERE bike LIKE @f'
+        else if (filterCol === 'notes') where = 'WHERE notes LIKE @f'
+        else where = "WHERE description LIKE @f OR notes LIKE @f OR date LIKE @f OR CAST(distance AS TEXT) LIKE @f"
+      }
       const countStmt = db.prepare(`SELECT COUNT(*) as c FROM rides_table ${where}`)
       const total = filter ? countStmt.get({ f: `%${filter}%` }).c : countStmt.get().c
 

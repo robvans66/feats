@@ -57,6 +57,7 @@
         <button class="px-3 py-1 fts-delete disabled:opacity-50" :disabled="selectedRows.length === 0 || loading" @click="onDelete">Delete {{ selectedRows.length > 1 ? `(${selectedRows.length})` : '' }}</button>
       </div>
       <div class="flex items-center space-x-2">
+          <USelect v-model="tableState.filterCol" :items="filterColOptions" :ui="selectUi" variant="none" class="w-36" />
           <input v-model="tableState.globalFilter" placeholder="Search" class="border px-2 py-1" />
           <USelect
             v-model="tableState.pagination.pageSize"
@@ -120,6 +121,15 @@ import Spinner from '../components/Spinner.vue'
 
 const bikeOptions = ref<string[]>(['Santos', 'Rimonta'])
 const pageSizeOptions = ref<number[]>([5, 10, 20])
+const filterColOptions = [
+  { label: 'Search all', value: 'all' },
+  { label: 'Date', value: 'date' },
+  { label: 'Description', value: 'description' },
+  { label: 'Distance', value: 'distance' },
+  { label: 'Average', value: 'average' },
+  { label: 'Bike', value: 'bike' },
+  { label: 'Notes', value: 'notes' },
+]
 
 const rows = ref<any[]>([])
 const total = ref(0)
@@ -156,7 +166,8 @@ async function load(state?: any){
   const sort = (s.sorting && s.sorting[0]) || null
   const sortBy = sort?.id || 'date'
   const sortDir = sort?.desc ? 'desc' : 'asc'
-  const params = new URLSearchParams({ page: String(pageIndex), pageSize: String(pageSize), filter: filter, sortBy, sortDir })
+  const filterCol = s.filterCol || 'all'
+  const params = new URLSearchParams({ page: String(pageIndex), pageSize: String(pageSize), filter: filter, filterCol, sortBy, sortDir })
   setLoading(true)
   try {
     const res:any = await $fetch(`/api/rides?${params.toString()}`)
@@ -247,7 +258,7 @@ function fetchDebounced(state?: any){
 const { loading, setLoading, wrap } = useGlobalLoading()
 
   // Table-managed state (globalFilter, sorting, pagination)
-  const tableState = ref({ globalFilter: '', sorting: [{ id: 'date', desc: true }], pagination: { pageIndex: 0, pageSize: 10 }, columnVisibility: defaultColumnVisibility })
+  const tableState = ref({ globalFilter: '', filterCol: 'all', sorting: [{ id: 'date', desc: true }], pagination: { pageIndex: 0, pageSize: 10 }, columnVisibility: defaultColumnVisibility })
 
   watch(() => tableState.value.columnVisibility, (v)=>{
     if (typeof window === 'undefined') return
