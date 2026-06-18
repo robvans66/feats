@@ -89,6 +89,7 @@
         :advancedFilters="advancedFilters"
         :onAdvancedFilterChange="onAdvancedFilterChange"
         :columnFilterTypes="columnFilterTypes"
+        :columnFilterPlaceholders="columnFilterPlaceholders"
       />
       <Spinner v-if="loading" />
     </div>
@@ -312,6 +313,7 @@ const { loading, setLoading, wrap } = useGlobalLoading()
 const showAdvancedSearch = ref(false)
 const advancedFilters = ref<Record<string, string>>({})
 const columnFilterTypes: Record<string, 'text' | 'numeric'> = { distance: 'numeric', grade: 'numeric' }
+const columnFilterPlaceholders: Record<string, string> = { distance: '>100, 50-100', grade: '>10, 5-10' }
 
 function toggleAdvancedSearch() {
   showAdvancedSearch.value = !showAdvancedSearch.value

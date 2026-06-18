@@ -25,7 +25,7 @@
             <input
               :value="advancedFilters?.[colId(col)] || ''"
               @input="onFilterInput(colId(col), ($event.target as HTMLInputElement).value)"
-              :placeholder="columnFilterTypes?.[colId(col)] === 'numeric' ? '>100, 50-100' : ''"
+              :placeholder="columnFilterPlaceholders?.[colId(col)] || ''"
               class="border px-1 py-0.5 w-full text-sm font-normal"
             />
           </th>
@@ -97,6 +97,7 @@ const props = defineProps<{
   advancedFilters?: Record<string, string>
   onAdvancedFilterChange?: (col: string, value: string) => void
   columnFilterTypes?: Record<string, 'text' | 'numeric'>
+  columnFilterPlaceholders?: Record<string, string>
 }>()
 
 const visibleColumns = computed(() => {
