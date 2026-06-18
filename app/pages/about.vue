@@ -22,7 +22,9 @@
     <h2 class="text-xl pt-4 mb-3 font-semibold">Rides page</h2>
     <p class="mb-4">On the Rides page, you can add a new ride by filling out the form and clicking the 'Add' button. You can also edit a single existing ride or delete multiple existing rides.<br><br>
     In the 'Reference' field, you can add an URL to the ride on an external bicycle platform such as RWGPS, Komoot, or Strava. In the 'Link' field, you can add a short text label that will appear as a clickable link to the URL in the reference field.<br><br>
-    In the 'Columns' section, you can choose which columns to display in the table, and you can sort the table by clicking on the column headers. Note that hidden columns, although not visible, are still included in searches.
+    The 'Search...' field lets you search for a string in any column of the table. If you click the 'Advanced Search' button, search input fields will appear at the top of each column. You can then search in specific columns and even combine searches, such as 'Date' = '2025-05' and 'Distance' = '>100' to show all your rides above 100 km in May 2025.<br><br>
+    In the 'Columns' section, you can choose which columns to display in the table, and you can sort the table by clicking on the column headers. 
+    
     </p>
 
     <h2 class="text-xl pt-4 mb-3 font-semibold">Routes page</h2>

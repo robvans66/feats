@@ -1,5 +1,15 @@
 import db from '../db/index'
 
+function parseNumericFilter(val: string): { clause: string; params: number[] } | null {
+  const rangeMatch = val.match(/^(\d+(?:\.\d+)?)-(\d+(?:\.\d+)?)$/)
+  if (rangeMatch) return { clause: 'BETWEEN ? AND ?', params: [Number(rangeMatch[1]), Number(rangeMatch[2])] }
+  const compMatch = val.match(/^([><]=?)(\d+(?:\.\d+)?)$/)
+  if (compMatch) return { clause: `${compMatch[1]} ?`, params: [Number(compMatch[2])] }
+  const numMatch = val.match(/^\d+(?:\.\d+)?$/)
+  if (numMatch) return { clause: '= ?', params: [Number(val)] }
+  return null
+}
+
 export default defineEventHandler(async (event) => {
   try {
     if (!db) {
@@ -11,27 +21,56 @@ export default defineEventHandler(async (event) => {
       const q = getQuery(event)
       const page = Number(q.page || 0)
       const pageSize = Number(q.pageSize || 10)
-      const filter = (q.filter || '').toString()
       const sortBy = (q.sortBy || 'date').toString()
       const sortDir = ((q.sortDir || 'desc') as string).toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
 
-      // build where clause for basic global filter (search in description or notes)
-      const filterCol = (q.filterCol || 'all').toString()
-      let where = ''
-      if (filter) {
-        if (filterCol === 'date') where = 'WHERE date LIKE @f'
-        else if (filterCol === 'description') where = 'WHERE description LIKE @f'
-        else if (filterCol === 'distance') where = 'WHERE CAST(distance AS TEXT) LIKE @f'
-        else if (filterCol === 'average') where = 'WHERE CAST(average AS TEXT) LIKE @f'
-        else if (filterCol === 'bike') where = 'WHERE bike LIKE @f'
-        else if (filterCol === 'notes') where = 'WHERE notes LIKE @f'
-        else where = "WHERE description LIKE @f OR notes LIKE @f OR date LIKE @f OR CAST(distance AS TEXT) LIKE @f"
-      }
-      const countStmt = db.prepare(`SELECT COUNT(*) as c FROM rides_table ${where}`)
-      const total = filter ? countStmt.get({ f: `%${filter}%` }).c : countStmt.get().c
+      const conditions: string[] = []
+      const bindParams: any[] = []
 
-      const stmt = db.prepare(`SELECT * FROM rides_table ${where} ORDER BY ${sortBy} ${sortDir} LIMIT @limit OFFSET @offset`)
-      const rows = stmt.all({ f: `%${filter}%`, limit: pageSize, offset: page * pageSize })
+      const hasAdvanced = Object.keys(q).some(k => k.startsWith('adv_'))
+      if (hasAdvanced) {
+        const numericCols = new Set(['distance', 'average', 'grade'])
+        const allowedCols = new Set(['id', 'date', 'description', 'distance', 'average', 'grade', 'bike', 'reference', 'link', 'notes'])
+        for (const key of Object.keys(q)) {
+          if (!key.startsWith('adv_')) continue
+          const col = key.slice(4)
+          if (!allowedCols.has(col)) continue
+          const val = (q[key] || '').toString().trim()
+          if (!val) continue
+          if (numericCols.has(col)) {
+            const parsed = parseNumericFilter(val)
+            if (parsed) {
+              conditions.push(`${col} ${parsed.clause}`)
+              bindParams.push(...parsed.params)
+            }
+          } else {
+            conditions.push(`${col} LIKE ?`)
+            bindParams.push(`%${val}%`)
+          }
+        }
+      } else {
+        const filter = (q.filter || '').toString()
+        const filterCol = (q.filterCol || 'all').toString()
+        if (filter) {
+          if (filterCol === 'date') { conditions.push('date LIKE ?'); bindParams.push(`%${filter}%`) }
+          else if (filterCol === 'description') { conditions.push('description LIKE ?'); bindParams.push(`%${filter}%`) }
+          else if (filterCol === 'distance') { conditions.push('CAST(distance AS TEXT) LIKE ?'); bindParams.push(`%${filter}%`) }
+          else if (filterCol === 'average') { conditions.push('CAST(average AS TEXT) LIKE ?'); bindParams.push(`%${filter}%`) }
+          else if (filterCol === 'bike') { conditions.push('bike LIKE ?'); bindParams.push(`%${filter}%`) }
+          else if (filterCol === 'notes') { conditions.push('notes LIKE ?'); bindParams.push(`%${filter}%`) }
+          else {
+            conditions.push('(description LIKE ? OR notes LIKE ? OR date LIKE ? OR CAST(distance AS TEXT) LIKE ?)')
+            bindParams.push(`%${filter}%`, `%${filter}%`, `%${filter}%`, `%${filter}%`)
+          }
+        }
+      }
+
+      const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : ''
+      const countStmt = db.prepare(`SELECT COUNT(*) as c FROM rides_table ${where}`)
+      const total = (bindParams.length ? (countStmt.get(...bindParams) as any) : (countStmt.get() as any)).c
+
+      const stmt = db.prepare(`SELECT * FROM rides_table ${where} ORDER BY ${sortBy} ${sortDir} LIMIT ? OFFSET ?`)
+      const rows = stmt.all(...bindParams, pageSize, page * pageSize) as any[]
       return { rows, total }
     }
 

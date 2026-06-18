@@ -19,6 +19,17 @@
             <span v-else>{{ col.headerLabel || colId(col) }}</span>
           </th>
         </tr>
+        <tr v-if="showAdvancedSearch" class="bg-gray-50 dark:bg-gray-800">
+          <th v-if="multiSelect" class="p-1 w-10"></th>
+          <th v-for="col in visibleColumns" :key="'adv-' + colId(col)" class="p-1">
+            <input
+              :value="advancedFilters?.[colId(col)] || ''"
+              @input="onFilterInput(colId(col), ($event.target as HTMLInputElement).value)"
+              :placeholder="columnFilterTypes?.[colId(col)] === 'numeric' ? '>100, 50-100' : ''"
+              class="border px-1 py-0.5 w-full text-sm font-normal"
+            />
+          </th>
+        </tr>
       </thead>
       <tbody>
         <tr v-if="!data || data.length === 0">
@@ -82,6 +93,10 @@ const props = defineProps<{
   multiSelect?: boolean
   selectedRowIds?: (string | number)[]
   onSelectionChange?: (ids: (string | number)[]) => void
+  showAdvancedSearch?: boolean
+  advancedFilters?: Record<string, string>
+  onAdvancedFilterChange?: (col: string, value: string) => void
+  columnFilterTypes?: Record<string, 'text' | 'numeric'>
 }>()
 
 const visibleColumns = computed(() => {
@@ -173,6 +188,10 @@ const allSelected = computed(() => {
   const currentIds = props.selectedRowIds || []
   return props.data.every(row => currentIds.includes(rowKey(row, 0)))
 })
+
+function onFilterInput(col: string, value: string) {
+  props.onAdvancedFilterChange?.(col, value)
+}
 
 function toggleSelectAll() {
   if (!props.multiSelect || !props.onSelectionChange) return

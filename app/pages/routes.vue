@@ -56,8 +56,8 @@
         <button class="px-3 py-1 fts-delete disabled:opacity-50" :disabled="selectedRows.length === 0 || loading" @click="onDelete">Delete {{ selectedRows.length > 1 ? `(${selectedRows.length})` : '' }}</button>
       </div>
       <div class="flex items-center space-x-2">
-          <USelect v-model="tableState.filterCol" :items="filterColOptions" :ui="selectUi" variant="none" class="w-36" />
-          <input v-model="tableState.globalFilter" placeholder="Search" class="border px-2 py-1" />
+          <input v-if="!showAdvancedSearch" v-model="tableState.globalFilter" placeholder="Search" class="border px-2 py-1" />
+          <button @click="toggleAdvancedSearch" :class="showAdvancedSearch ? 'fts px-2 py-1' : 'border px-2 py-1'">{{ showAdvancedSearch ? 'Basic Search' : 'Advanced Search' }}</button>
           <USelect
             v-model="tableState.pagination.pageSize"
             :items="pageSizeOptions"
@@ -76,15 +76,19 @@
     </div>
 
     <div class="table-routes bg-white border overflow-x-auto relative">
-      <Table 
-        :data="rows" 
-        :columns="tableColumns" 
-        :state="tableState" 
+      <Table
+        :data="rows"
+        :columns="tableColumns"
+        :state="tableState"
         :multiSelect="true"
         :selectedRowIds="selectedRows"
         :onSelectionChange="handleSelectionChange"
-        :onStateChange="onStateChange" 
-        :onSelect="(e: MouseEvent, row: any)=>handleTableSelect(e,row)" 
+        :onStateChange="onStateChange"
+        :onSelect="(e: MouseEvent, row: any)=>handleTableSelect(e,row)"
+        :showAdvancedSearch="showAdvancedSearch"
+        :advancedFilters="advancedFilters"
+        :onAdvancedFilterChange="onAdvancedFilterChange"
+        :columnFilterTypes="columnFilterTypes"
       />
       <Spinner v-if="loading" />
     </div>
@@ -162,16 +166,22 @@ watch(visibleColumns, (v)=>{
 }, { deep: true })
 
 let loadTimeout: any = null
-async function load(state?: any){
-  const s = state || tableState.value
+async function load(){
+  const s = tableState.value
   const pageIndex = s.pagination?.pageIndex || 0
   const pageSize = s.pagination?.pageSize || 10
-  const filter = s.globalFilter || ''
   const sort = (s.sorting && s.sorting[0]) || null
   const sortBy = sort?.id || 'distance'
   const sortDir = sort?.desc ? 'desc' : 'asc'
-  const filterCol = s.filterCol || 'all'
-  const params = new URLSearchParams({ page: String(pageIndex), pageSize: String(pageSize), filter: filter, filterCol, sortBy, sortDir })
+  const params = new URLSearchParams({ page: String(pageIndex), pageSize: String(pageSize), sortBy, sortDir })
+  if (showAdvancedSearch.value) {
+    for (const [col, val] of Object.entries(advancedFilters.value)) {
+      if (val) params.set(`adv_${col}`, val)
+    }
+  } else {
+    params.set('filter', s.globalFilter || '')
+    params.set('filterCol', s.filterCol || 'all')
+  }
   setLoading(true)
   try {
     const res:any = await $fetch(`/api/routes?${params.toString()}`)
@@ -261,9 +271,9 @@ function handleStorageEvent(event: StorageEvent) {
   } catch {}
 }
 
-function fetchDebounced(state?: any){
+function fetchDebounced(){
   clearTimeout(loadTimeout)
-  loadTimeout = setTimeout(()=> load(state), 200)
+  loadTimeout = setTimeout(() => load(), 200)
 }
 
 const filtered = computed(()=>{
@@ -295,9 +305,26 @@ watch(() => tableState.value.sorting, (v) => {
   localStorage.setItem('routes_sorting', JSON.stringify(v || []))
 }, { deep: true })
 
-watch(tableState, (v)=> fetchDebounced(v), { deep: true })
+watch(tableState, () => fetchDebounced(), { deep: true })
 
 const { loading, setLoading, wrap } = useGlobalLoading()
+
+const showAdvancedSearch = ref(false)
+const advancedFilters = ref<Record<string, string>>({})
+const columnFilterTypes: Record<string, 'text' | 'numeric'> = { distance: 'numeric', grade: 'numeric' }
+
+function toggleAdvancedSearch() {
+  showAdvancedSearch.value = !showAdvancedSearch.value
+  if (!showAdvancedSearch.value) advancedFilters.value = {}
+  tableState.value.pagination.pageIndex = 0
+  fetchDebounced()
+}
+
+function onAdvancedFilterChange(col: string, value: string) {
+  advancedFilters.value[col] = value
+  tableState.value.pagination.pageIndex = 0
+  fetchDebounced()
+}
 
 const start = computed(()=> (tableState.value.pagination?.pageIndex || 0) * (tableState.value.pagination?.pageSize || 10))
 const end = computed(()=> Math.min(start.value + (tableState.value.pagination?.pageSize || 10), total.value))
