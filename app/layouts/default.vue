@@ -73,6 +73,11 @@ onMounted(() => {
       navigateTo('/configuration')
     })
   }
+  if (electron?.onMenuManageData) {
+    electron.onMenuManageData(() => {
+      navigateTo('/manage-data')
+    })
+  }
 })
 
 onBeforeUnmount(() => {

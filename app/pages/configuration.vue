@@ -82,11 +82,6 @@
       </div>
     </div>
 
-    <div class="fts-cfg-options flex gap-3 mt-6">
-        <button class="fts px-3 py-1" :disabled="saving || backingUp" @click="backupData">Backup Data</button>
-        <span class="px-3 py-1">Make a backup of your data. This will download a SQL file containing all your rides, routes and settings.</span>
-    </div>
-
     <ConfirmModal
       :show="showResetConfirm"
       title="Reset Settings"
@@ -104,7 +99,6 @@ import { $fetch } from 'ofetch'
 
 type ThemeMode = 'system' | 'light' | 'dark'
 
-const backingUp = ref(false)
 const bikeOptions = ref<string[]>([])
 const surfaceOptions = ref<string[]>([])
 const pageSizeOptions = ref<number[]>([])
@@ -267,163 +261,6 @@ function confirmReset() {
   routesColumnVisibility.value = { ...defaults.routesColumnVisibility }
   themeMode.value = defaults.themeMode
   saveConfig()
-}
-
-async function backupData() {
-  backingUp.value = true
-  try {
-    const ridesRes = await $fetch('/api/rides?pageSize=10000&page=0')
-    const rides = ridesRes.rows || []
-
-    const routesRes = await $fetch('/api/routes?pageSize=10000&page=0')
-    const routes = routesRes.rows || []
-
-    const configData = await $fetch('/api/config').catch(() => null)
-
-    let sqlContent = '-- Feats Backup\n'
-    sqlContent += `-- Generated: ${new Date().toISOString()}\n\n`
-    
-    sqlContent += '-- Rides Table\n'
-    sqlContent += 'DROP TABLE IF EXISTS rides_table;\n'
-    sqlContent += 'CREATE TABLE rides_table (\n'
-    sqlContent += '  id INTEGER PRIMARY KEY,\n'
-    sqlContent += '  date TEXT,\n'
-    sqlContent += '  description TEXT,\n'
-    sqlContent += '  distance REAL,\n'
-    sqlContent += '  average REAL,\n'
-    sqlContent += '  grade TEXT,\n'
-    sqlContent += '  bike TEXT,\n'
-    sqlContent += '  reference TEXT,\n'
-    sqlContent += '  link TEXT,\n'
-    sqlContent += '  notes TEXT\n'
-    sqlContent += ');\n\n'
-    
-    if (rides && rides.length > 0) {
-      for (const ride of rides) {
-        const values = [
-          ride.id || 'NULL',
-          sqlEscape(ride.date),
-          sqlEscape(ride.description),
-          ride.distance || 'NULL',
-          ride.average || 'NULL',
-          sqlEscape(ride.grade),
-          sqlEscape(ride.bike),
-          sqlEscape(ride.reference),
-          sqlEscape(ride.link),
-          sqlEscape(ride.notes)
-        ].join(', ')
-        sqlContent += `INSERT INTO rides_table (id, date, description, distance, average, grade, bike, reference, link, notes) VALUES (${values});\n`
-      }
-      sqlContent += '\n'
-    }
-    
-    sqlContent += '-- Routes Table\n'
-    sqlContent += 'DROP TABLE IF EXISTS routes_table;\n'
-    sqlContent += 'CREATE TABLE routes_table (\n'
-    sqlContent += '  id INTEGER PRIMARY KEY,\n'
-    sqlContent += '  description TEXT,\n'
-    sqlContent += '  distance REAL,\n'
-    sqlContent += '  grade TEXT,\n'
-    sqlContent += '  start TEXT,\n'
-    sqlContent += '  destination TEXT,\n'
-    sqlContent += '  surface TEXT,\n'
-    sqlContent += '  reference TEXT,\n'
-    sqlContent += '  link TEXT,\n'
-    sqlContent += '  notes TEXT\n'
-    sqlContent += ');\n\n'
-    
-    if (routes && routes.length > 0) {
-      for (const route of routes) {
-        const values = [
-          route.id || 'NULL',
-          sqlEscape(route.description),
-          route.distance || 'NULL',
-          sqlEscape(route.grade),
-          sqlEscape(route.start),
-          sqlEscape(route.destination),
-          sqlEscape(route.surface),
-          sqlEscape(route.reference),
-          sqlEscape(route.link),
-          sqlEscape(route.notes)
-        ].join(', ')
-        sqlContent += `INSERT INTO routes_table (id, description, distance, grade, start, destination, surface, reference, link, notes) VALUES (${values});\n`
-      }
-      sqlContent += '\n'
-    }
-    
-    sqlContent += '-- User Config Table\n'
-    sqlContent += 'DROP TABLE IF EXISTS user_config;\n'
-    sqlContent += 'CREATE TABLE user_config (\n'
-    sqlContent += '  id INTEGER PRIMARY KEY,\n'
-    sqlContent += '  bike_options TEXT NOT NULL,\n'
-    sqlContent += '  surface_options TEXT NOT NULL,\n'
-    sqlContent += '  page_size_options TEXT NOT NULL,\n'
-    sqlContent += '  rides_column_visibility TEXT NOT NULL,\n'
-    sqlContent += '  routes_column_visibility TEXT NOT NULL\n'
-    sqlContent += ');\n\n'
-
-    if (configData) {
-      const bikeOptions = sqlEscape(JSON.stringify(configData.bikeOptions || []))
-      const surfaceOptions = sqlEscape(JSON.stringify(configData.surfaceOptions || []))
-      const pageSizeOptions = sqlEscape(JSON.stringify(configData.pageSizeOptions || []))
-      const ridesColumnVisibility = sqlEscape(JSON.stringify(configData.ridesColumnVisibility || {}))
-      const routesColumnVisibility = sqlEscape(JSON.stringify(configData.routesColumnVisibility || {}))
-      sqlContent += `INSERT INTO user_config (id, bike_options, surface_options, page_size_options, rides_column_visibility, routes_column_visibility) VALUES (1, ${bikeOptions}, ${surfaceOptions}, ${pageSizeOptions}, ${ridesColumnVisibility}, ${routesColumnVisibility});\n\n`
-    }
-
-    const fileName = `feats-backup-${new Date().toISOString().split('T')[0]}.sql`
-    const savedWithPicker = await saveBackupFile(sqlContent, fileName)
-    localStorage.setItem('feats_last_backup_at', new Date().toISOString())
-    window.dispatchEvent(new Event('backup-updated'))
-    showToast(savedWithPicker ? 'Backup saved successfully.' : 'Backup download started.')
-  } catch (error) {
-    if (error instanceof DOMException && error.name === 'AbortError') {
-      showToast('Backup cancelled.')
-      return
-    }
-    showToast('Failed to create backup.')
-  } finally {
-    backingUp.value = false
-  }
-}
-
-async function saveBackupFile(content: string, fileName: string): Promise<boolean> {
-  if (typeof window !== 'undefined' && typeof window.showSaveFilePicker === 'function') {
-    const handle = await window.showSaveFilePicker({
-      suggestedName: fileName,
-      types: [
-        {
-          description: 'SQL file',
-          accept: {
-            'application/sql': ['.sql'],
-            'text/plain': ['.sql']
-          }
-        }
-      ]
-    })
-    const writable = await handle.createWritable()
-    await writable.write(content)
-    await writable.close()
-    return true
-  }
-
-  const blob = new Blob([content], { type: 'application/sql' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = fileName
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-  URL.revokeObjectURL(url)
-  return false
-}
-
-function sqlEscape(value: any): string {
-  if (value === null || value === undefined || value === '') {
-    return 'NULL'
-  }
-  return `'${String(value).replace(/'/g, "''")}'`
 }
 
 function showToast(message: string) {

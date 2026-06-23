@@ -1,10 +1,10 @@
 import { app as o, BrowserWindow as y, dialog as S, session as h, Menu as b, shell as v } from "electron";
-import { spawn as R } from "node:child_process";
-import { existsSync as u, readdirSync as N } from "node:fs";
-import { dirname as C, join as i } from "node:path";
+import { spawn as C } from "node:child_process";
+import { existsSync as u, readdirSync as R } from "node:fs";
+import { dirname as N, join as i } from "node:path";
 import { Socket as x } from "node:net";
 import { fileURLToPath as A } from "node:url";
-const D = "1.2.4", T = "18 Jun 2026", _ = A(import.meta.url), E = C(_);
+const D = "1.3.0", T = "23 Jun 2026", _ = A(import.meta.url), E = N(_);
 o.setName("Feats");
 o.commandLine.appendSwitch("no-proxy-server");
 o.commandLine.appendSwitch("proxy-bypass-list", "*");
@@ -50,7 +50,7 @@ function F() {
   const e = p();
   if (process.env.NUXT_SERVER_ENTRY && u(process.env.NUXT_SERVER_ENTRY))
     return process.env.NUXT_SERVER_ENTRY;
-  const n = N(e, { withFileTypes: !0 }).filter((t) => t.isDirectory() && t.name.startsWith("feats_v")).map((t) => t.name).sort();
+  const n = R(e, { withFileTypes: !0 }).filter((t) => t.isDirectory() && t.name.startsWith("feats_v")).map((t) => t.name).sort();
   for (let t = n.length - 1; t >= 0; t--) {
     const s = i(e, n[t], "server", "index.mjs");
     if (u(s)) return s;
@@ -64,7 +64,7 @@ function F() {
     if (u(t)) return t;
   return null;
 }
-function V(e, n, a = 2e4) {
+function M(e, n, a = 2e4) {
   const t = Date.now();
   return new Promise((s, P) => {
     const w = setInterval(() => {
@@ -80,19 +80,19 @@ function V(e, n, a = 2e4) {
     }, 300);
   });
 }
-async function W() {
+async function V() {
   if (process.env.NODE_ENV === "development") return;
   const e = F();
   if (!e)
     throw new Error("Cannot find Nuxt server entry (feats_v*/server/index.mjs)");
   const n = process.execPath, a = { ...process.env, ELECTRON_RUN_AS_NODE: "1" };
-  d = R(n, [e], {
+  d = C(n, [e], {
     cwd: I(),
     env: { ...a, PORT: String(f), HOST: "127.0.0.1", FEATS_USER_DATA: o.getPath("userData") },
     stdio: "pipe"
-  }), d.stdout.on("data", (t) => console.log(`[nuxt] ${t}`)), d.stderr.on("data", (t) => console.error(`[nuxt] ${t}`)), await V("127.0.0.1", f);
+  }), d.stdout.on("data", (t) => console.log(`[nuxt] ${t}`)), d.stderr.on("data", (t) => console.error(`[nuxt] ${t}`)), await M("127.0.0.1", f);
 }
-function $() {
+function W() {
   const e = process.platform === "darwin", n = [
     // App Menu (macOS only)
     ...e ? [{
@@ -122,6 +122,11 @@ function $() {
           label: "Routes",
           accelerator: "CmdOrCtrl+T",
           click: () => r?.webContents.send("menu-routes")
+        },
+        {
+          label: "Manage Data",
+          accelerator: "CmdOrCtrl+M",
+          click: () => r?.webContents.send("menu-manage-data")
         },
         {
           label: "Statistics",
@@ -245,7 +250,7 @@ o.whenReady().then(async () => {
     applicationVersion: `${D} (${T})`,
     version: "",
     iconPath: U()
-  }), await k(), await W(), await new Promise((e) => setTimeout(e, 50)), $(), await g(), o.on("activate", async () => {
+  }), await k(), await V(), await new Promise((e) => setTimeout(e, 50)), W(), await g(), o.on("activate", async () => {
     y.getAllWindows().length === 0 && await g();
   });
 }).catch((e) => {

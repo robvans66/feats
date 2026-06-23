@@ -13,13 +13,13 @@
 
     <h1 class="text-2xl pt-8 font-semibold mb-3">Using Feats</h1>
     <h2 class="text-xl pt-4 mb-3 font-semibold">Overview</h2>
-    <p class="mb-4">Feats is designed to be simple and easy to use. You can add, edit, and delete rides and routes, view statistics, and configure the application to your liking. The application consists of five 'pages': Rides, Routes, Statistics, Settings, and Documentation.</p>
-    <p class="mb-4">The Rides page allows you to keep track of your completed rides, including details such as date, distance, average speed, and notes. The Routes page is for planning future rides, where you can save the route name, distance, and notes. The Statistics page provides insights into your riding habits and achievements. The Settings page allows you to customize the application settings, such as the bikes you ride and other preferences.</p>
+    <p class="mb-4">Feats is designed to be simple and easy to use. You can add, edit, and delete rides and routes, view statistics, and configure the application to your liking. The application consists of six 'pages': <b>Rides</b>, <b>Routes</b>, <b>Manage Data</b>, <b>Statistics</b>, <b>Settings</b>, and <b>Documentation</b>.</p>
+    <p class="mb-4">The Rides page allows you to keep track of your completed rides, including details such as date, distance, average speed, and notes. The Routes page is for planning future rides, where you can save the route name, distance, and notes. On the Manage Data page you can make a backup or import pre-Feats data. The Statistics page provides insights into your riding habits and achievements. The Settings page allows you to customize the application settings, such as the bikes you ride and other preferences.</p>
     <p class="mb-4">
       The application uses a local SQLite database to store your data, so all your rides and routes are stored locally on your device. When you start the application for the first time, it will create a new database and populate it with some sample data. You can then start playing around with Feats by adding, editing, and deleting rides and routes, and exploring the different statistic tables and charts of the application. 
     </p>
 
-    <h2 class="text-xl pt-4 mb-3 font-semibold">Rides page</h2>
+    <h2 class="text-xl pt-4 mb-3 font-semibold">Rides</h2>
     <p class="mb-4">On the Rides page, you can add a new ride by filling out the form and clicking the 'Add' button. You can also edit a single existing ride or delete multiple existing rides.<br><br>
     In the 'Reference' field, you can add an URL to the ride on an external bicycle platform such as RWGPS, Komoot, or Strava. In the 'Link' field, you can add a short text label that will appear as a clickable link to the URL in the reference field.<br><br>
     The 'Search...' field lets you search for a string in any column of the table. If you click the 'Advanced Search' button, search input fields will appear at the top of each column. You can then search in specific columns and even combine searches, such as 'Date' = '2025-05' and 'Distance' = '>100' to show all your rides above 100 km in May 2025.<br><br>
@@ -27,18 +27,21 @@
     
     </p>
 
-    <h2 class="text-xl pt-4 mb-3 font-semibold">Routes page</h2>
+    <h2 class="text-xl pt-4 mb-3 font-semibold">Routes</h2>
     <p class="mb-4">The Routes page is similar to the Rides page, but it is used for planning future rides.</p>
 
-    <h2 class="text-xl pt-4 mb-3 font-semibold">Statistics page</h2>
+    <h2 class="text-xl pt-4 mb-3 font-semibold">Manage Data</h2>
+    <p class="mb-4">On the Manage Data page you can make a full backup of your data or restore a previously made backup. Here you can also import pre-Feats data to bring in records collected before you started using Feats.</p>
+
+    <h2 class="text-xl pt-4 mb-3 font-semibold">Statistics</h2>
     <p class="mb-4">The Statistics page provides insights into your riding habits and achievements. The page consists of two tabs: one with tables and one with charts. </p>
 
-    <h2 class="text-xl pt-4 mb-3 font-semibold">Settings page</h2>
+    <h2 class="text-xl pt-4 mb-3 font-semibold">Settings</h2>
     <p class="mb-4">The Settings page allows you to customize the application settings, such as the bikes you ride and other preferences. You can add, edit, and delete bikes, and you can also choose which columns to display in the Rides and Routes tables.<br><br>
     This page also includes a backup feature that allows you to export your data as a SQL file. This is useful for creating backups of your data or transferring it to another device.
     </p>
     <h1 class="text-2xl pt-8 font-semibold mb-3">Wiki</h1>
-    <p class="mb-4">See the <a href="https://github.com/robvans66/feats/wiki" target="_blank" class="underline">wiki</a> for detailed how-tos and in-depth information about using Feats. The wiki includes a step-by-step guide for importing data, and additional resources to help you get the most out of the app.
+    <p class="mb-4">See the <a href="https://github.com/robvans66/feats/wiki" target="_blank" class="underline">wiki</a> for detailed how-tos and in-depth information about using Feats.
     </p>
   </section>
 </template>

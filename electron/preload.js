@@ -7,5 +7,6 @@ electron_1.contextBridge.exposeInMainWorld('electron', {
     onMenuStatistics: function (cb) { return electron_1.ipcRenderer.on('menu-statistics', cb); },
     onMenuDocumentation: function (cb) { return electron_1.ipcRenderer.on('menu-documentation', cb); },
     onMenuSettings: function (cb) { return electron_1.ipcRenderer.on('menu-settings', cb); },
-    onMenuConfiguration: function (cb) { return electron_1.ipcRenderer.on('menu-settings', cb); }
+    onMenuConfiguration: function (cb) { return electron_1.ipcRenderer.on('menu-settings', cb); },
+    onMenuManageData: function (cb) { return electron_1.ipcRenderer.on('menu-manage-data', cb); }
 });

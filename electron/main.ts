@@ -315,6 +315,11 @@ function createMenu() {
           click: () => mainWindow?.webContents.send('menu-routes')
         },
         {
+          label: 'Manage Data',
+          accelerator: 'CmdOrCtrl+M',
+          click: () => mainWindow?.webContents.send('menu-manage-data')
+        },
+        {
           label: 'Statistics',
           accelerator: 'CmdOrCtrl+S',
           click: () => mainWindow?.webContents.send('menu-statistics')

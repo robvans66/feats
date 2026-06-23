@@ -6,5 +6,6 @@ contextBridge.exposeInMainWorld('electron', {
   onMenuStatistics: (cb: () => void) => ipcRenderer.on('menu-statistics', cb),
   onMenuDocumentation: (cb: () => void) => ipcRenderer.on('menu-documentation', cb),
   onMenuSettings: (cb: () => void) => ipcRenderer.on('menu-settings', cb),
-  onMenuConfiguration: (cb: () => void) => ipcRenderer.on('menu-settings', cb)
+  onMenuConfiguration: (cb: () => void) => ipcRenderer.on('menu-settings', cb),
+  onMenuManageData: (cb: () => void) => ipcRenderer.on('menu-manage-data', cb)
 })
