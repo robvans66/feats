@@ -25,22 +25,29 @@ See the [Support file](https://github.com/robvans66/feats/blob/main/SUPPORT.md) 
 When you start the application for the first time, it will create a new database and populate it with some sample data. If you want more sample data to play with before using the app, you can download and import the CSV file `./sample-data/1000_sample_rides.csv`. See the wiki for more information about adding data to the database.
 
 # Screenhots
-These screenshots are from a demo installation of the app with 1000 randomly generated bike rides.
+These screenshots are from a demo installation of Feats v1.3 with 1000 randomly generated bike rides.
 <p align="center">
-  <img width="95%" alt="feats: rides" src="https://github.com/user-attachments/assets/cc251f01-5699-41d2-853f-b80b9c2af0ef" />
+  <img width="95%" alt="feats: rides" src="https://github.com/user-attachments/assets/cc5f085b-20ba-4c7a-85d7-200056f56de4" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: routes" src="https://github.com/user-attachments/assets/772abd04-de92-48e3-bd29-6f653783b2ad" />
+  <img width="95%" alt="feats: rides advanced search" src="https://github.com/user-attachments/assets/93ef9c5d-f26a-4a0d-80a5-19a0afd085f7" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: statistics: tables" src="https://github.com/user-attachments/assets/95eecc4e-ef07-437e-892f-f1942d4062da" />
+  <img width="95%" alt="feats: routes" src="https://github.com/user-attachments/assets/25109eab-2f52-4895-8eb4-fe5d55726060" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: statistics: charts" src="https://github.com/user-attachments/assets/db5678f3-3e7a-49ba-ad99-6d65fde640f7" />
+  <img width="95%" alt="feats: manage data: tables" src="https://github.com/user-attachments/assets/c23abf20-add3-4707-911d-3f7d1c9d63cc" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: settings" src="https://github.com/user-attachments/assets/de1ec148-7a70-4a0e-a803-330370bc3e81" />
+  <img width="95%" alt="feats: statistics: tables" src="https://github.com/user-attachments/assets/b3f54712-b7c2-4d19-8ac4-ca80b88657b9" />
 </p>
+<p align="center">
+  <img width="95%" alt="feats: statistics: charts" src="https://github.com/user-attachments/assets/7b72dcda-d49c-4fe0-bec1-f3d612f9288e" />
+</p>
+<p align="center">
+  <img width="95%" alt="feats: settings" src="https://github.com/user-attachments/assets/a2c8689e-f99f-432d-b3ad-fc552defc289" />
+</p>
+
 
 # License
 
