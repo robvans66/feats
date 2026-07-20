@@ -41,6 +41,23 @@
       </div>
     </div>
 
+    <!-- Export Data -->
+    <div class="fts-cfg-options mt-3 mb-4">
+      <h2 class="text-lg font-semibold mb-1">Export Data</h2>
+      <p class="text-sm mb-4">Export the Rides and/or Routes table to a CSV file.</p>
+      <button class="fts px-3 py-1" :disabled="exporting" @click="openExportModal">
+        {{ exporting ? 'Exporting…' : 'Export Data…' }}
+      </button>
+    </div>
+
+    <ExportModal
+      :show="showExportModal"
+      v-model:rides="exportRides"
+      v-model:routes="exportRoutes"
+      @confirm="confirmExport"
+      @cancel="cancelExport"
+    />
+
     <!-- Import Data -->
     <div class="fts-cfg-options mt-3 mb-4">
       <h2 class="text-lg font-semibold mb-1">Import Data</h2>
@@ -87,6 +104,10 @@ const pendingFileName = ref('')
 const restoreFileInput = ref<HTMLInputElement | null>(null)
 const restoreError = ref('')
 const restoreErrorFileName = ref('')
+const exporting = ref(false)
+const showExportModal = ref(false)
+const exportRides = ref(false)
+const exportRoutes = ref(false)
 const importing = ref(false)
 const showImportConfirm = ref(false)
 const pendingImportTable = ref('')
@@ -237,6 +258,86 @@ async function saveBackupFile(content: string, fileName: string): Promise<boolea
   document.body.removeChild(link)
   URL.revokeObjectURL(url)
   return false
+}
+
+function openExportModal() {
+  exportRides.value = false
+  exportRoutes.value = false
+  showExportModal.value = true
+}
+
+function cancelExport() {
+  showExportModal.value = false
+}
+
+function csvEscape(value: any): string {
+  if (value === null || value === undefined) return ''
+  const str = String(value)
+  if (/[",\n]/.test(str)) {
+    return `"${str.replace(/"/g, '""')}"`
+  }
+  return str
+}
+
+function buildCsv(headers: string[], rows: any[]): string {
+  const lines = [headers.join(',')]
+  for (const row of rows) {
+    lines.push(headers.map(h => csvEscape(row[h])).join(','))
+  }
+  return lines.join('\n')
+}
+
+async function saveCsvFile(content: string, fileName: string): Promise<boolean> {
+  if (typeof window !== 'undefined' && typeof window.showSaveFilePicker === 'function') {
+    const handle = await window.showSaveFilePicker({
+      suggestedName: fileName,
+      types: [{ description: 'CSV file', accept: { 'text/csv': ['.csv'] } }]
+    })
+    const writable = await handle.createWritable()
+    await writable.write(content)
+    await writable.close()
+    return true
+  }
+
+  const blob = new Blob([content], { type: 'text/csv' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = fileName
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(url)
+  return false
+}
+
+async function confirmExport() {
+  if (!exportRides.value && !exportRoutes.value) return
+  showExportModal.value = false
+  exporting.value = true
+  try {
+    if (exportRides.value) {
+      const ridesRes = await $fetch('/api/rides?pageSize=10000&page=0')
+      const csv = buildCsv(RIDES_HEADERS, ridesRes.rows || [])
+      await saveCsvFile(csv, 'rides_table.csv')
+    }
+    if (exportRoutes.value) {
+      const routesRes = await $fetch('/api/routes?pageSize=10000&page=0')
+      const csv = buildCsv(ROUTES_HEADERS, routesRes.rows || [])
+      await saveCsvFile(csv, 'routes_table.csv')
+    }
+    showToast('Export complete.')
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      showToast('Export cancelled.')
+      return
+    }
+    showToast('Failed to export data.')
+  } finally {
+    exporting.value = false
+    exportRides.value = false
+    exportRoutes.value = false
+  }
 }
 
 function sqlEscape(value: any): string {

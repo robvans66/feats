@@ -31,7 +31,7 @@
     <p class="mb-4">The Routes page is similar to the Rides page, but it is used for planning future rides.</p>
 
     <h2 class="text-xl pt-4 mb-3 font-semibold">Manage Data</h2>
-    <p class="mb-4">On the Manage Data page you can make a full backup of your data or restore a previously made backup. Here you can also import pre-Feats data to bring in records collected before you started using Feats.</p>
+    <p class="mb-4">On the Manage Data page you can make a full backup of your data or restore a previously made backup. Here you can also export the Rides and/or Routes table (e.g. to load it in a spreadsheet or another application), and import pre-Feats data to bring in records collected before you started using Feats.</p>
 
     <h2 class="text-xl pt-4 mb-3 font-semibold">Statistics</h2>
     <p class="mb-4">The Statistics page provides insights into your riding habits and achievements. The page consists of two tabs: one with tables and one with charts. </p>

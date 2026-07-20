@@ -365,7 +365,7 @@ function createMenu() {
     {
       label: 'View',
       submenu: [
-        { role: 'reload' as const },
+        { role: 'reload' as const, accelerator: '' },
         { role: 'forceReload' as const },
         { role: 'toggleDevTools' as const },
         { type: 'separator' as const },
