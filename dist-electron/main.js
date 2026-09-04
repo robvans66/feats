@@ -5,7 +5,7 @@ import { dirname as l, join as u } from "node:path";
 import { Socket as d } from "node:net";
 import { fileURLToPath as f } from "node:url";
 //#region version.ts
-var p = "1.3.1", m = "19 Jul 2026", h = l(f(import.meta.url));
+var p = "1.3.2", m = "04 Sept 2026", h = l(f(import.meta.url));
 n.setName("Feats"), n.commandLine.appendSwitch("no-proxy-server"), n.commandLine.appendSwitch("proxy-bypass-list", "*"), n.commandLine.appendSwitch("host-resolver-rules", "MAP * ~NOTFOUND, EXCLUDE localhost, EXCLUDE 127.0.0.1"), n.commandLine.appendSwitch("disable-features", "AsyncDns,SystemResolverConfigChanged,CertificateNetworkService"), n.commandLine.appendSwitch("disable-net-logging"), n.commandLine.appendSwitch("disable-blink-features", "DnsPrefetch"), process.platform === "win32" && n.setAppUserModelId("com.feats.app");
 var g = Number(process.env.NUXT_PORT || 3e3), _ = `http://127.0.0.1:${g}`, v = null, y = null;
 n.on("session-created", (e) => {

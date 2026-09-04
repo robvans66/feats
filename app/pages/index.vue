@@ -37,7 +37,7 @@
         </div>
         <div class="col-span-3">
           <label class="block">Notes</label>
-          <input v-model="form.notes" type="text" class="border px-2 py-1 w-full" />
+          <ResizableTextarea v-model="form.notes" />
         </div>
         <div class="col-span-1 flex items-end space-x-2">
           <button type="submit" class="fts px-3 py-1" :disabled="loading">{{ isEditing ? 'Update' : 'Add' }}</button>
