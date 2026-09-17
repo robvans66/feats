@@ -6,7 +6,9 @@
       <p class="mb-4 flex-1">Feats is a desktop application for keeping track of completed bicycle rides and planned bicycle routes.<br><br>
       It is not intended to be a full-featured app, but rather a simple and easy-to-use tool. Feats is particularly practical if you use multiple cycling platforms and have a lot of previously unusable legacy data, and want to see all your rides and routes in one place. It's also useful if you don't use any platform at all and simply want to keep track of your rides and routes.<br><br>
       The extensive use of charts and statistics provides insights into your riding habits and achievements.<br><br>
-      Feats is by no means a replacement for existing bicycle platforms. It is not a GPX route planner or a navigation app, but rather a personal diary and statistics tool for your rides and routes. Everything is stored locally on your device.</p>
+      Feats is by no means a replacement for existing bicycle platforms. It is not a GPX route planner or a navigation app, but rather a personal diary and statistics tool for your rides and routes. Everything is stored locally on your device.<br><br>
+      Check the for the <a href="https://featsapp.cc">latest release</a> and <a href="https://github.com/robvans66/feats/discussions">share your feedback</a>.<br><br>
+    </p>
 
       <img src='/feats.png' alt="Feats application logo: an icon with the letters F, T and S with a background of statistic bars representing a desktop app for tracking rides and routes" class="w-32 h-32 shrink-0">
     </div>
@@ -24,7 +26,6 @@
     In the 'Reference' field, you can add an URL to the ride on an external bicycle platform such as RWGPS, Komoot, or Strava. In the 'Link' field, you can add a short text label that will appear as a clickable link to the URL in the reference field.<br><br>
     The 'Search...' field lets you search for a string in any column of the table. If you click the 'Advanced Search' button, search input fields will appear at the top of each column. You can then search in specific columns and even combine searches, such as 'Date' = '2025-05' and 'Distance' = '>100' to show all your rides above 100 km in May 2025.<br><br>
     In the 'Columns' section, you can choose which columns to display in the table, and you can sort the table by clicking on the column headers. 
-    
     </p>
 
     <h2 class="text-xl pt-4 mb-3 font-semibold">Routes</h2>
@@ -37,8 +38,7 @@
     <p class="mb-4">The Statistics page provides insights into your riding habits and achievements. The page consists of two tabs: one with tables and one with charts. </p>
 
     <h2 class="text-xl pt-4 mb-3 font-semibold">Settings</h2>
-    <p class="mb-4">The Settings page allows you to customize the application settings, such as the bikes you ride and other preferences. You can add, edit, and delete bikes, and you can also choose which columns to display in the Rides and Routes tables.<br><br>
-    This page also includes a backup feature that allows you to export your data as a SQL file. This is useful for creating backups of your data or transferring it to another device.
+    <p class="mb-4">The Settings page allows you to customize the application settings, such as the bikes you ride and other preferences. You can add, edit, and delete bikes, and you can also choose which columns to display in the Rides and Routes tables.
     </p>
     <h1 class="text-2xl pt-8 font-semibold mb-3">Wiki</h1>
     <p class="mb-4">See the <a href="https://github.com/robvans66/feats/wiki" target="_blank" class="underline">wiki</a> for detailed how-tos and in-depth information about using Feats.
