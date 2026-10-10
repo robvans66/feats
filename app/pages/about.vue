@@ -7,7 +7,7 @@
       It is not intended to be a full-featured app, but rather a simple and easy-to-use tool. Feats is particularly practical if you use multiple cycling platforms and have a lot of previously unusable legacy data, and want to see all your rides and routes in one place. It's also useful if you don't use any platform at all and simply want to keep track of your rides and routes.<br><br>
       The extensive use of charts and statistics provides insights into your riding habits and achievements.<br><br>
       Feats is by no means a replacement for existing bicycle platforms. It is not a GPX route planner or a navigation app, but rather a personal diary and statistics tool for your rides and routes. Everything is stored locally on your device.<br><br>
-      Check the for the <a href="https://featsapp.cc" target="_blank" class="underline">latest release</a> and <a href="https://github.com/robvans66/feats/discussions" target="_blank" class="underline">share your feedback</a>.<br><br>
+      Check the for the latest release on the <a href="https://featsapp.cc" target="_blank" class="underline">Feats Landing Page</a>.<br><br>
     </p>
 
       <img src='/feats.png' alt="Feats application logo: an icon with the letters F, T and S with a background of statistic bars representing a desktop app for tracking rides and routes" class="w-32 h-32 shrink-0">
