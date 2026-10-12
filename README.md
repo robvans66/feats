@@ -27,25 +27,25 @@ When you start the application for the first time, it will create a new database
 # Screenhots
 These screenshots are from a demo installation of Feats v1.3 with 1000 randomly generated bike rides.
 <p align="center">
-  <img width="95%" alt="feats: rides" src="https://github.com/user-attachments/assets/cc5f085b-20ba-4c7a-85d7-200056f56de4" />
+  <img width="95%" alt="feats: rides" src="https://github.com/user-attachments/assets/a2e12281-059b-4977-ac3a-7ea925aca2e1" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: rides advanced search" src="https://github.com/user-attachments/assets/93ef9c5d-f26a-4a0d-80a5-19a0afd085f7" />
+  <img width="95%" alt="feats: rides advanced search" src="https://github.com/user-attachments/assets/3623e647-aefd-4ab3-b4bb-e682850fa572" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: routes" src="https://github.com/user-attachments/assets/25109eab-2f52-4895-8eb4-fe5d55726060" />
+  <img width="95%" alt="feats: routes" src="https://github.com/user-attachments/assets/bd8897a0-e2e0-4860-a4f8-d638308ce5f2" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: manage data: tables" src="https://github.com/user-attachments/assets/c23abf20-add3-4707-911d-3f7d1c9d63cc" />
+  <img width="95%" alt="feats: manage data: tables" src="https://github.com/user-attachments/assets/eabf0b1d-de88-4abe-b155-dd0a2090f921" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: statistics: tables" src="https://github.com/user-attachments/assets/b3f54712-b7c2-4d19-8ac4-ca80b88657b9" />
+  <img width="95%" alt="feats: statistics: tables" src="https://github.com/user-attachments/assets/cad26194-a7ab-4522-a221-747a5e4e945d" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: statistics: charts" src="https://github.com/user-attachments/assets/7b72dcda-d49c-4fe0-bec1-f3d612f9288e" />
+  <img width="95%" alt="feats: statistics: charts" src="https://github.com/user-attachments/assets/90f47368-2444-40bc-8e93-d4378c4e9090" />
 </p>
 <p align="center">
-  <img width="95%" alt="feats: settings" src="https://github.com/user-attachments/assets/a2c8689e-f99f-432d-b3ad-fc552defc289" />
+  <img width="95%" alt="feats: settings" src="https://github.com/user-attachments/assets/3656c3a6-2a45-49ed-bc3b-32ef30ec7a3a" />
 </p>
 
 
